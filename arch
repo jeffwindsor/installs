@@ -35,12 +35,15 @@ install-aur() {
 clone-if-missing(){
     [[ ! -d $2 ]] && git clone https://github.com/${1}/${2}.git $2
 }
+################################################################################
+header "System: Update Packages" 
+sudo pacman -Syu
 
 ################################################################################
 header "Add arco repositories"
-install wget
 sudo wget https://github.com/arcolinux/arcolinux_repo/raw/master/x86_64/arcolinux-keyring-20230919-6-any.pkg.tar.zst -O /tmp/arcolinux-keyring-20230919-6-any.pkg.tar.zst
 sudo pacman -U --noconfirm --needed /tmp/arcolinux-keyring-20230919-6-any.pkg.tar.zst
+sudo wget https://raw.githubusercontent.com/arcolinux/arcolinux-mirrorlist/master/etc/pacman.d/arcolinux-mirrorlist -O /etc/pacman.d/arcolinux-mirrorlist
 echo '
 #[arcolinux_repo_testing]
 #SigLevel = Required DatabaseOptional
@@ -54,15 +57,12 @@ Include = /etc/pacman.d/arcolinux-mirrorlist
 [arcolinux_repo_xlarge]
 SigLevel = Required DatabaseOptional
 Include = /etc/pacman.d/arcolinux-mirrorlist' | sudo tee --append /etc/pacman.conf
+sudo pacman -Syu
 
 ###################################################################
 header "Generate mirror list with reflector"
 pacman --noconfirm -Sy reflector
 reflector --verbose --country 'United States, Canada' -l 5 -p https --sort rate --save /etc/pacman.d/mirrorlist
-
-################################################################################
-header "System: Update Packages" 
-sudo pacman -Syu
 
 header "System: AUR Helper PARU"
 git clone git clone https://aur.archlinux.org/paru.git
