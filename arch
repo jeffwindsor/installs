@@ -61,10 +61,11 @@ sudo pacman -Syu
 
 ###################################################################
 header "Generate mirror list with reflector"
-pacman --noconfirm -Sy reflector
+install reflector
 reflector --verbose --country 'United States, Canada' -l 5 -p https --sort rate --save /etc/pacman.d/mirrorlist
 
 header "System: AUR Helper PARU"
+install git 
 git clone git clone https://aur.archlinux.org/paru.git
 cd paru
 makepkg -si
