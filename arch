@@ -1,31 +1,33 @@
 #!/usr/bin/env bash
 
+####################################################################################
+# PRE STEPS
+# validate disk is clear, and remove the current partitions
+#   fdisk -l
+#   fdisk /dev/sda1
+
+# connect to internet
+#   iwctl --passphrase $passphrase station wlan0 connect $SSID
+
+####################################################################################
 header(){
-    tput setaf 3
     echo "==> " $@
-    tput sgr0
 }
 
 install() {
 	if pacman -Qi $1 &> /dev/null; then
-		tput setaf 2
-  		echo "==> "$1" is already installed"
-      	echo
-		tput sgr0
+  		header "["$1 "] is already installed"
 	else
-    	header "==> installing package "  $1
+    	header "installing package ["$1"]"
     	sudo pacman -S --noconfirm --needed $1 
     fi
 }
 
 install-aur() {
 	if paru -Qi $1 &> /dev/null; then
-		tput setaf 2
-  		echo "==> "$1" is already installed"
-      	echo
-		tput sgr0
+  		header "["$1 "] is already installed"
 	else
-    	header "==> installing package "  $1
+    	header "installing package ["$1"]"
     	paru -S --noconfirm --needed $1 
     fi
 }
@@ -109,13 +111,13 @@ install tldr
 install starship
 install zsh 
 install zsh-autosuggestions 
-#install zsh-completions
-#install zsh-history-substring-search
+install zsh-completions
+install zsh-history-substring-search
 install zsh-syntax-highlighting
 
-header "Editors: neovim"; install neovim
-# Install Vim Plug
-curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+header "Editors: neovim"
+install neovim
+install-aur vim-plug
 nvim --headless +PlugInstall +qall
 
 header "Programming Languages: Rust"
