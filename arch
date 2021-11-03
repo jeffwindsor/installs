@@ -83,7 +83,7 @@ header "System: Laptop"
 install tlp
 
 header "Desktop Environment: gnome"
-install-aur arcolinux-logout
+install-aur arcolinux-logout-git
 # tiling window extension
 install-aur gnome-shell-extension-pop-shell-git 
 # allows selecting of deivces from taskbar tray
