@@ -6,14 +6,27 @@ function echo-color(){
     printf "\033[0;32m==> $1 \033[0m \n" 
 }
 
-echo-color "Applications"
+echo-color "Extensions"
+gnome-extensions enable pop-shell@system76.com
+gnome-extensions enable sound-output-device-chooser@kgshank.net
+gnome-extensions enable caffeine@patapon.info
+
+echo-color "Desktop Look"
+dconf write "/org/gnome/desktop/interface/gtk-theme" "Adwaita-dark"
+dconf write "/org/gnome/desktop/interface/text-scaling-factor" "1.5"
+dconf write "/org/gnome/desktop/interface/clock-show-weekday" "true"
+dconf write "/org/gnome/desktop/wm/preferences/button-layout" "close:appmenu"
+dconf write "/org/gnome/desktop/peripherals/touchpad/speed" "0.4"
+
+
+echo-color "Keybindings: Applications"
 dconf write '/org/gnome/settings-daemon/plugins/media-keys/terminal' "['<Super>Return']"
 dconf write '/org/gnome/settings-daemon/plugins/media-keys/www' "['<Super><Alt>Return']"
 dconf write '/org/gnome/settings-daemon/plugins/media-keys/home' "['<Super><Alt><Primary>Return']"
 dconf write '/org/gnome/settings-daemon/plugins/media-keys/control-center' "['<Super>comma']"
 dconf write '/org/gnome/settings-daemon/plugins/media-keys/email' '@as []'
 
-echo-color "System"
+echo-color "Keybindings: System"
 dconf write "/org/gnome/shell/desktop/wm/keybindings/close" "['<Super>q']"
 
 # gnome run command dialog
@@ -25,7 +38,7 @@ dconf write "/org/gnome/desktop/wm/keybindings/panel-run-dialog" "['<Super><Alt>
 # like: mission control
 dconf write "/org/gnome/desktop/wm/keybindings/panel-main-menu" "['<Super>Up']"
 
-echo-color "Workspaces"
+echo-color "Keybindings: Workspaces"
 dconf write "/org/gnome/mutter/dynamic-workspaces" "false"
 dconf write "/org/gnome/desktop/wm/preferences/num-workspaces" "9"
 dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-1" "['<Super>1']"
@@ -51,11 +64,11 @@ dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-9" "['<Super><A
 dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-up" "@as []"
 dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-down" "@as []"
 
-echo-color "Monitors"
+echo-color "Keybindings: Monitors"
 dconf write "/org/gnome/desktop/wm/keybindings/move-to-monitor-left" "['<Super><Alt><Shift>Left', '<Super><Alt><Shift>h']"
 dconf write "/org/gnome/desktop/wm/keybindings/move-to-monitor-right" "['<Super><Alt><Shift>Right', '<Super><Alt><Shift>l']"
 
-echo-color "Application Switching"
+echo-color "Keybindings: Application Switching"
 dconf write "/org/gnome/desktop/wm/keybindings/switch-applications-backward" "['<Shift><Super>Tab']"
 dconf write "/org/gnome/desktop/wm/keybindings/switch-applications" "['<Super>Tab']"
 dconf write "/org/gnome/desktop/wm/keybindings/cycle-applications-backward" "['<Shift><Alt><Super>Tab']"
@@ -72,12 +85,12 @@ addCustom(){
 # create custom key entries
 dconf write "$MEDIA_KEYS" "['$MEDIA_KEYS/custom0/','$MEDIA_KEYS/custom1/']"
 
-echo-color "Launch Terminal"
+echo-color "Keybindings: Launch Terminal"
 addCustom "0" "'<Super>Return'" "'alacritty'" "'Terminal'"
-echo-color "Launch Logout Tool"
+echo-color "Keybindings: Launch Logout Tool"
 addCustom "1" "'<Super>x'" "'arcolinux-logout'" "'Logout Tool'"
 
-echo-color "POP SHELL KEYBINDINGS"
+echo-color "Keybindings: Tiling (PopShell)"
 dconf write '/org/gnome/shell/extensions/pop-shell/activate-launcher' "@as []"
 
 dconf write '/org/gnome/shell/extensions/pop-shell/tile-enter' "@as []"
