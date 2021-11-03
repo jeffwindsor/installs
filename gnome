@@ -12,7 +12,7 @@ gnome-extensions enable sound-output-device-chooser@kgshank.net
 gnome-extensions enable caffeine@patapon.info
 
 echo-color "Desktop Look"
-dconf write "/org/gnome/desktop/interface/gtk-theme" "Adwaita-dark"
+#dconf write "/org/gnome/desktop/interface/gtk-theme" "Adwaita-dark"
 dconf write "/org/gnome/desktop/interface/text-scaling-factor" "1.5"
 dconf write "/org/gnome/desktop/interface/clock-show-weekday" "true"
 dconf write "/org/gnome/desktop/wm/preferences/button-layout" "close:appmenu"
