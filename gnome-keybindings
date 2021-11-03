@@ -16,12 +16,15 @@ dconf write '/org/gnome/settings-daemon/plugins/media-keys/email' '@as []'
 
 echo-color "System"
 dconf write "/org/gnome/shell/desktop/wm/keybindings/close" "['<Super>q']"
+
 # gnome run command dialog
+dconf write "/org/gnome/desktop/wm/keybindings/panel-run-dialog" "@as []"
 dconf write "/org/gnome/desktop/wm/keybindings/panel-run-dialog" "['<Super><Alt>space']"
+
 # like: alfred
-dconf write "/org/gnome/shell/keybindings/toggle-application-view" "['<Super>space']"
+
 # like: mission control
-dconf write "/org/gnome/desktop/wm/keybindings/panel-main-menu" "['<Alt>Up']"
+dconf write "/org/gnome/desktop/wm/keybindings/panel-main-menu" "['<Super>Up']"
 
 echo-color "Workspaces"
 dconf write "/org/gnome/mutter/dynamic-workspaces" "false"
@@ -74,3 +77,40 @@ echo-color "Launch Terminal"
 addCustom "0" "'<Super>Return'" "'alacritty'" "'Terminal'"
 echo-color "Launch Logout Tool"
 addCustom "1" "'<Super>x'" "'arcolinux-logout'" "'Logout Tool'"
+
+echo-color "POP SHELL KEYBINDINGS"
+dconf write '/org/gnome/shell/extensions/pop-shell/activate-launcher' "@as []"
+
+dconf write '/org/gnome/shell/extensions/pop-shell/tile-enter' "@as []"
+dconf write '/org/gnome/shell/extensions/pop-shell/tile-enter' "@as ['<Super>m']"
+
+dconf write '/org/gnome/shell/extensions/pop-shell/focus-left' "@as ['h']"
+dconf write '/org/gnome/shell/extensions/pop-shell/focus-up' "@as ['k']"
+dconf write '/org/gnome/shell/extensions/pop-shell/focus-down' "@as ['j']"
+dconf write '/org/gnome/shell/extensions/pop-shell/focus-right' "@as ['l']"
+
+dconf write '/org/gnome/shell/extensions/pop-shell/tile-move-left' "@as ['<Super>h']"
+dconf write '/org/gnome/shell/extensions/pop-shell/tile-move-up' "@as ['<Super>k']"
+dconf write '/org/gnome/shell/extensions/pop-shell/tile-move-down' "@as ['<Super>j']"
+dconf write '/org/gnome/shell/extensions/pop-shell/tile-move-right' "@as ['<Super>l']"
+
+dconf write '/org/gnome/shell/extensions/pop-shell/tile-swap-left' "@as ['<Super><Alt>h']"
+dconf write '/org/gnome/shell/extensions/pop-shell/tile-swap-up' "@as ['<Super><Alt>k']"
+dconf write '/org/gnome/shell/extensions/pop-shell/tile-swap-down' "@as ['<Super><Alt>j']"
+dconf write '/org/gnome/shell/extensions/pop-shell/tile-swap-right' "@as ['<Super><Alt>l']"
+
+dconf write '/org/gnome/shell/extensions/pop-shell/tile-resize-left' "@as ['<Super><Primary><Alt>h']"
+dconf write '/org/gnome/shell/extensions/pop-shell/tile-resize-up' "@as ['<Super><Primary><Alt>k']"
+dconf write '/org/gnome/shell/extensions/pop-shell/tile-resize-down' "@as ['<Super><Primary><Alt>j']"
+dconf write '/org/gnome/shell/extensions/pop-shell/tile-resize-right' "@as ['<Super><Primary><Alt>l']"
+
+# remove these keys
+dconf write '/org/gnome/shell/extensions/pop-shell/pop-monitor-left' "@as []"
+dconf write '/org/gnome/shell/extensions/pop-shell/pop-monitor-right' "@as []"
+dconf write '/org/gnome/shell/extensions/pop-shell/pop-monitor-down' "@as []"
+dconf write '/org/gnome/shell/extensions/pop-shell/pop-monitor-up' "@as []"
+
+dconf write '/org/gnome/shell/extensions/pop-shell/pop-workspace-left' "@as []"
+dconf write '/org/gnome/shell/extensions/pop-shell/pop-workspace-right' "@as []"
+dconf write '/org/gnome/shell/extensions/pop-shell/pop-workspace-down' "@as []"
+dconf write '/org/gnome/shell/extensions/pop-shell/pop-workspace-up' "@as []"
