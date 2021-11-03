@@ -86,13 +86,10 @@ header "Desktop Environment: gnome"
 install-aur arcolinux-logout
 # tiling window extension
 install-aur gnome-shell-extension-pop-shell-git 
-gnome-extensions enable pop-shell@system76.com
 # allows selecting of deivces from taskbar tray
 install-aur gnome-shell-extension-sound-output-device-chooser
-gnome-extensions enable sound-ouput-device-chooser@kgshank.net
 # allows you to block sleep and screensaver 
 install-aur gnome-shell-extension-caffeine-git
-gnome-extensions enable caffeine@patapon.info
 
 header "Desktop: fonts"
 install noto-fonts
@@ -155,8 +152,9 @@ header "Add last pass"
 xdg-open https://lastpass.com/ &
 
 
-
-
+echo "============================"
+echo "now restart"
+echo "============================"
 
 # MacbookPro Retina 15 Wifi: broadcom 14E4:43A0
 #   https://unix.stackexchange.com/questions/175810/how-to-install-broadcom-bcm4360-on-debian-on-macbook-pro

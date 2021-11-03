@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+gnome-extensions enable pop-shell@system76.com
+gnome-extensions enable sound-ouput-device-chooser@kgshank.net
+gnome-extensions enable caffeine@patapon.info
