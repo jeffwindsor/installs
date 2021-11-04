@@ -91,7 +91,7 @@ echo-color "Keybindings: Launch Logout Tool"
 addCustom "1" "'<Super>x'" "'arcolinux-logout'" "'Logout Tool'"
 
 echo-color "Keybindings: Tiling (PopShell)"
-dconf write '/org/gnome/shell/extensions/pop-shell/activate-launcher' "@as []"
+dconf write '/org/gnome/shell/extensions/pop-shell/activate-launcher' "@as ['<Super>space']"
 
 dconf write '/org/gnome/shell/extensions/pop-shell/tile-enter' "@as []"
 dconf write '/org/gnome/shell/extensions/pop-shell/tile-enter' "@as ['<Super>m']"
