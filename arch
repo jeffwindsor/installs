@@ -39,34 +39,10 @@ clone-if-missing(){
 header "System: Update Packages" 
 sudo pacman -Syu
 
-################################################################################
-header "Add arco repositories"
-# get the key rings, needed to validate sigs
-sudo wget https://github.com/arcolinux/arcolinux_repo/raw/master/x86_64/arcolinux-keyring-20230919-6-any.pkg.tar.zst -O /tmp/arcolinux-keyring-20230919-6-any.pkg.tar.zst
-sudo pacman -U --noconfirm --needed /tmp/arcolinux-keyring-20230919-6-any.pkg.tar.zst
-# get arco mirrors needed for packages and updates to pacman database
-sudo wget https://raw.githubusercontent.com/arcolinux/arcolinux-mirrorlist/master/etc/pacman.d/arcolinux-mirrorlist -O /etc/pacman.d/arcolinux-mirrorlist
-# add the arco repos to the pacman config (dont do this twice)
-echo '
-#[arcolinux_repo_testing]
-#SigLevel = Required DatabaseOptional
-#Include = /etc/pacman.d/arcolinux-mirrorlist
-[arcolinux_repo]
-SigLevel = Required DatabaseOptional
-Include = /etc/pacman.d/arcolinux-mirrorlist
-[arcolinux_repo_3party]
-SigLevel = Required DatabaseOptional
-Include = /etc/pacman.d/arcolinux-mirrorlist
-[arcolinux_repo_xlarge]
-SigLevel = Required DatabaseOptional
-Include = /etc/pacman.d/arcolinux-mirrorlist' | sudo tee --append /etc/pacman.conf
-# update the pacman databases based on new config
-sudo pacman -Syu
-
 ###################################################################
 header "Package Manager: et 5 fastest mirrors in North America"
 install reflector
-reflector --verbose --country 'United States, Canada' -l 5 -p https --sort rate --save /etc/pacman.d/mirrorlist
+sudo reflector --verbose --country 'United States, Canada' -l 5 -p https --sort rate --save /etc/pacman.d/mirrorlist
 
 header "Package Manager: Arch User Repository Helper"
 install git 
@@ -84,7 +60,6 @@ install tlp
 
 header "Desktop Environment: gnome"
 install gnome-extra
-install-aur arcolinux-logout-git
 # tiling window extension
 install-aur gnome-shell-extension-pop-shell-git 
 # allows selecting of deivces from taskbar tray
@@ -98,7 +73,6 @@ install-aur nerd-fonts-complete
 
 header "Desktop: applications"
 install firefox
-install brave-browser
 
 header "Terminal: applications"
 install alacritty
@@ -145,6 +119,31 @@ ssh-keygen -t ed25519 -C "jeff.windsor@gmail.com"
 eval $(ssh-agent)
 ssh-add ~/.ssh/id_ed25519
 xdg-open https://github.com/settings/keys/
+
+################################################################################
+#header "Add arco repositories"
+## get the key rings, needed to validate sigs
+#sudo wget https://github.com/arcolinux/arcolinux_repo/raw/master/x86_64/arcolinux-keyring-20230919-6-any.pkg.tar.zst -O /tmp/arcolinux-keyring-20230919-6-any.pkg.tar.zst
+#sudo pacman -U --noconfirm --needed /tmp/arcolinux-keyring-20230919-6-any.pkg.tar.zst
+## get arco mirrors needed for packages and updates to pacman database
+#sudo wget https://raw.githubusercontent.com/arcolinux/arcolinux-mirrorlist/master/etc/pacman.d/arcolinux-mirrorlist -O /etc/pacman.d/arcolinux-mirrorlist
+## add the arco repos to the pacman config (dont do this twice)
+#echo '
+##[arcolinux_repo_testing]
+##SigLevel = Required DatabaseOptional
+##Include = /etc/pacman.d/arcolinux-mirrorlist
+#[arcolinux_repo]
+#SigLevel = Required DatabaseOptional
+#Include = /etc/pacman.d/arcolinux-mirrorlist
+#[arcolinux_repo_3party]
+#SigLevel = Required DatabaseOptional
+#Include = /etc/pacman.d/arcolinux-mirrorlist
+#[arcolinux_repo_xlarge]
+#SigLevel = Required DatabaseOptional
+#Include = /etc/pacman.d/arcolinux-mirrorlist' | sudo tee --append /etc/pacman.conf
+## update the pacman databases based on new config
+#sudo pacman -Syu
+#install-aur arcolinux-logout-git
 
 ################################################################################
 header "Add mega sync sync"
