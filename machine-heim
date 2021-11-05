@@ -25,16 +25,6 @@ clone-if-missing(){
 }
 
 ##########################################################
-read -r -p "Create SSH key? [y/n] " response
-response=${response,,}    # tolower
-if [[ "$response" =~ ^(yes|y)$ ]]
-then            
-    ssh-keygen -t ed25519 -C "jeff.windsor@gmail.com"
-    eval "$(ssh-agent -s)"
-    ssh-add ~/.ssh/id_ed25519
-fi 
-
-##########################################################
 read -r -p "Set zsh as default? [y/n] " response
 response=${response,,}    # tolower
 if [[ "$response" =~ ^(yes|y)$ ]]

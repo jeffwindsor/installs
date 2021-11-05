@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+function clone-if-missing { 
+    [[ ! -d "$2" ]] &&
+}
+
+# repos
+mkdir -p ${HOME}/src/github.com/
+mkdir -p ${HOME}/src/gitlab.com/
+
+cd $HOME/src/github.com/
+git clone https://github.com/jeffwindsor/dwm
+git clone https://github.com/jeffwindsor/dwmblocks
+git clone https://github.com/jeffwindsor/dmenu
+git clone https://github.com/jeffwindsor/nord-startpage
+git clone https://github.com/jeffwindsor/learn
+cd 
+

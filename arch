@@ -114,15 +114,6 @@ header "System: Set ZSH as DEFAULT"
 chsh -s "$(which zsh)"
 
 ################################################################################
-if [[ ! -f $HOME/.ssh/id_ed25519 ]]; then
-    header "Generate SSH key and add to Github"
-    ssh-keygen -t ed25519 -C "jeff.windsor@gmail.com"
-    eval $(ssh-agent)
-    ssh-add ~/.ssh/id_ed25519
-    xdg-open https://github.com/settings/keys/
-fi
-
-################################################################################
 #header "Add arco repositories"
 ## get the key rings, needed to validate sigs
 #sudo wget https://github.com/arcolinux/arcolinux_repo/raw/master/x86_64/arcolinux-keyring-20230919-6-any.pkg.tar.zst -O /tmp/arcolinux-keyring-20230919-6-any.pkg.tar.zst
