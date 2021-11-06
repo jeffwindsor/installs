@@ -8,3 +8,5 @@ if [[ ! -f $HOME/.ssh/id_ed25519 ]]; then
     xdg-open https://github.com/settings/keys/
 fi
 
+# add new key to github
+xdg-open https://github.com/settings/keys

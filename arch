@@ -27,8 +27,7 @@ install-aur() {
 	if paru -Qi $1 &> /dev/null; then
   		header "["$1 "] is already installed"
 	else
-    	header "installing package ["$1"]"
-    	paru -S --noconfirm --needed $1 
+    	header "installing package ["$1"]d $1 
     fi
 }
 
