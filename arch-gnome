@@ -31,6 +31,21 @@ install-aur() {
     fi
 }
 
+header "System"
+# Bluetooth
+install bluez
+install bluez-libs
+install bluez-utils
+# Laptop Power
+install tlp
+install-aur auto-cpufreq 
+sudo systemctl enable auto-cpufreq
+# Printing
+install cups
+# compositor
+install picom
+
+header "Gnome"
 install gnome
 install gnome-tweaks
 install gnome-extra

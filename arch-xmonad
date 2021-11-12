@@ -29,7 +29,20 @@ install-aur() {
     fi
 }
 
-# system
+header "System"
+# Bluetooth
+install bluez
+install bluez-libs
+install bluez-utils
+# Laptop Power
+install tlp
+install-aur auto-cpufreq 
+sudo systemctl enable auto-cpufreq
+# Printing
+install cups
+# compositor
+install picom
+# xorg
 install xorg-server
 install xorg-xkill
 install xorg-xmessage
@@ -40,7 +53,7 @@ install xorg-xsetroot
 install lxappearance
 isntall lxsession
 
-#xmonad
+header "Xmonad"
 install xmonad
 install xmonad-contrib
 install xmobar
