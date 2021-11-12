@@ -1,22 +1,13 @@
 #!/usr/bin/env bash
 
 #   
-#    █████╗ ██████╗  ██████╗██╗  ██╗
-#   ██╔══██╗██╔══██╗██╔════╝██║  ██║
-#   ███████║██████╔╝██║     ███████║
-#   ██╔══██║██╔══██╗██║     ██╔══██║
-#   ██║  ██║██║  ██║╚██████╗██║  ██║
-#   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝
-#                                   
-
-####################################################################################
-# PRE STEPS
-# validate disk is clear, and remove the current partitions
-#   fdisk -l
-#   fdisk /dev/sda1
-# connect to internet
-#   iwctl --passphrase $passphrase station wlan0 connect $SSID
-####################################################################################
+#    █████╗ ██████╗  ██████╗██╗  ██╗               ██████╗ ███╗   ██╗ ██████╗ ███╗   ███╗███████╗
+#   ██╔══██╗██╔══██╗██╔════╝██║  ██║              ██╔════╝ ████╗  ██║██╔═══██╗████╗ ████║██╔════╝
+#   ███████║██████╔╝██║     ███████║    █████╗    ██║  ███╗██╔██╗ ██║██║   ██║██╔████╔██║█████╗  
+#   ██╔══██║██╔══██╗██║     ██╔══██║    ╚════╝    ██║   ██║██║╚██╗██║██║   ██║██║╚██╔╝██║██╔══╝  
+#   ██║  ██║██║  ██║╚██████╗██║  ██║              ╚██████╔╝██║ ╚████║╚██████╔╝██║ ╚═╝ ██║███████╗
+#   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝               ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝
+#                                                                                                
 
 header(){
     echo "==> " $@
@@ -35,137 +26,19 @@ install-aur() {
 	if paru -Qi $1 &> /dev/null; then
   		header "["$1 "] is already installed"
 	else
-    	header "installing package ["$1"]" $1 
+    	header "installing package ["$1"]" 
+        paru -S --noconfirm "$1" 
     fi
 }
 
-clone-if-missing(){
-    [[ ! -d $2 ]] && git clone https://github.com/${1}/${2}.git $2
-}
-################################################################################
-header "System: Update Packages" 
-sudo pacman -Syu
-
-###################################################################
-header "Package Manager: et 5 fastest mirrors in North America"
-install reflector
-sudo reflector --verbose --country 'United States, Canada' -l 5 -p https --sort rate --save /etc/pacman.d/mirrorlist
-
-header "Package Manager: Arch User Repository Helper"
-install git 
-git clone https://aur.archlinux.org/paru.git
-cd paru
-makepkg -si
-cd
-rm -rf paru
-
-header "System: Bluetooth"
-install bluez-utils
-
-header "System: Laptop"
-install tlp
-
-header "Desktop Environment: gnome"
+install gnome
+install gnome-tweaks
 install gnome-extra
+
 # tiling window extension
 install-aur gnome-shell-extension-pop-shell-git 
-# allows selecting of deivces from taskbar tray
+# allows selecting of devices from taskbar tray
 install-aur gnome-shell-extension-sound-output-device-chooser
-# allows you to block sleep and screensaver 
+# allows you to block sleep and screen saver 
 install-aur gnome-shell-extension-caffeine-git
-
-header "Desktop: fonts"
-install noto-fonts
-install-aur nerd-fonts-complete
-
-header "Desktop: applications"
-install firefox
-
-header "Terminal: applications"
-install alacritty
-install bat
-install exa
-install fd
-install fzf
-install git
-install keychain
-install ripgrep
-install stow
-install tldr
-install starship
-install zsh 
-install zsh-autosuggestions 
-install zsh-completions
-install zsh-history-substring-search
-install zsh-syntax-highlighting
-
-header "Editors: neovim"
-install neovim
-install-aur vim-plug
-nvim --headless +PlugInstall +qall
-
-#header "Programming Languages: Rust"
-#curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -- -y
-
-#header "Programming Languages: Go Lang"
-#install go
-
-################################################################################
-header "Git stuff, get it"
-mkdir -p ${HOME}/src/github.com
-git clone https://github.com/jeffwindsor/dotfiles.git $HOME/.dotfiles
-git clone https://github.com/jeffwindsor/setups.git $HOME/.setups
-
-################################################################################
-header "System: Set ZSH as DEFAULT"
-chsh -s "$(which zsh)"
-
-################################################################################
-#header "Add arco repositories"
-## get the key rings, needed to validate sigs
-#sudo wget https://github.com/arcolinux/arcolinux_repo/raw/master/x86_64/arcolinux-keyring-20230919-6-any.pkg.tar.zst -O /tmp/arcolinux-keyring-20230919-6-any.pkg.tar.zst
-#sudo pacman -U --noconfirm --needed /tmp/arcolinux-keyring-20230919-6-any.pkg.tar.zst
-## get arco mirrors needed for packages and updates to pacman database
-#sudo wget https://raw.githubusercontent.com/arcolinux/arcolinux-mirrorlist/master/etc/pacman.d/arcolinux-mirrorlist -O /etc/pacman.d/arcolinux-mirrorlist
-## add the arco repos to the pacman config (dont do this twice)
-#echo '
-##[arcolinux_repo_testing]
-##SigLevel = Required DatabaseOptional
-##Include = /etc/pacman.d/arcolinux-mirrorlist
-#[arcolinux_repo]
-#SigLevel = Required DatabaseOptional
-#Include = /etc/pacman.d/arcolinux-mirrorlist
-#[arcolinux_repo_3party]
-#SigLevel = Required DatabaseOptional
-#Include = /etc/pacman.d/arcolinux-mirrorlist
-#[arcolinux_repo_xlarge]
-#SigLevel = Required DatabaseOptional
-#Include = /etc/pacman.d/arcolinux-mirrorlist' | sudo tee --append /etc/pacman.conf
-## update the pacman databases based on new config
-#sudo pacman -Syu
-#install-aur arcolinux-logout-git
-
-################################################################################
-header "Add mega sync sync"
-xdg-open https://mega.nz/sync/ &
-header "Add last pass"
-xdg-open https://lastpass.com/ &
-
-
-echo "============================"
-echo "now restart"
-echo "============================"
-
-# MacbookPro Retina 15 Wifi: broadcom 14E4:43A0
-#   https://unix.stackexchange.com/questions/175810/how-to-install-broadcom-bcm4360-on-debian-on-macbook-pro
-#install broadcom-sta-dkms
-#sudo modprobe -r b44 b43 b43legacy ssb brcmsmac
-#sudo modprobe wl
-
-# Laptop Power Management
-#sysdl='/etc/systemd/logind.conf'
-#cat $sysdl \
-#    | sed -r 's/\#?HandleLidSwitchExternalPower=.*/HandleLidSwitchExternalPower=ignore/g' \
-#    | sed -r 's/\#?HandleLidSwitch=.*/HandleLidSwitch=poweroff/g' \
-#    | sudo tee $sysdl
 

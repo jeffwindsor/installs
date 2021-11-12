@@ -1,0 +1,123 @@
+#!/usr/bin/env bash
+
+#   
+#    █████╗ ██████╗  ██████╗██╗  ██╗
+#   ██╔══██╗██╔══██╗██╔════╝██║  ██║
+#   ███████║██████╔╝██║     ███████║
+#   ██╔══██║██╔══██╗██║     ██╔══██║
+#   ██║  ██║██║  ██║╚██████╗██║  ██║
+#   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝
+#                                   
+
+####################################################################################
+# PRE STEPS
+# validate disk is clear, and remove the current partitions
+#   fdisk -l
+#   fdisk /dev/sda1
+# connect to internet
+#   iwctl --passphrase $passphrase station wlan0 connect $SSID
+#
+# run archinstaller
+####################################################################################
+
+header(){ echo "==> " "$@"; }
+
+install() {
+	if pacman -Qi $1 &> /dev/null; then
+  		header "["$1 "] is already installed"
+	else
+    	header "installing package ["$1"]"
+    	sudo pacman -S --noconfirm --needed $1 
+    fi
+}
+
+install-aur() {
+	if paru -Qi $1 &> /dev/null; then
+  		header "["$1 "] is already installed"
+	else
+    	header "installing ["$1"]" 
+        paru -S --noconfirm "$1" 
+    fi
+}
+
+header "System: Update Packages"
+sudo pacman -Syu
+
+header "Package Manager: get 5 fastest mirrors in North America"
+install reflector
+sudo reflector --verbose --country 'United States, Canada' -l 5 -p https --sort rate --save /etc/pacman.d/mirrorlist
+
+header "Package Manager: Arch User Repository Helper"
+install git
+git clone https://aur.archlinux.org/paru.git
+cd paru
+makepkg -si --noconfirm
+cd ..
+rm -rf paru
+
+header "System"
+# Bluetooth
+install bluez
+install bluez-libs
+install bluez-utils
+# Laptop Power
+install tlp
+install-aur auto-cpufreq 
+sudo systemctl enable auto-cpufreq
+# Printing
+install cups
+# compositor
+install picom
+
+header "User"
+install alacritty
+install bat
+install exa
+install fd
+install firefox
+install fzf
+install git
+install keychain
+install neovim
+install-aur nerd-fonts-complete
+install noto-fonts
+install ripgrep
+install shellcheck
+install starship
+install stow
+install tldr
+install zsh 
+install zsh-autosuggestions 
+install zsh-completions
+install zsh-history-substring-search
+install zsh-syntax-highlighting
+
+header "User: Experimental"
+install mpv
+install opendoas
+
+
+header "Set up Vim Plugins"
+install-aur vim-plug
+nvim --headless +PlugInstall +qall
+
+header "Set ZSH as DEFAULT"
+chsh -s "$(which zsh)"
+
+header "manual steps"
+xdg-open https://mega.nz/sync/ &
+xdg-open https://lastpass.com/ &
+
+# MacbookPro Retina 15 Wifi: broadcom 14E4:43A0
+#   https://unix.stackexchange.com/questions/175810/how-to-install-broadcom-bcm4360-on-debian-on-macbook-pro
+#install broadcom-sta-dkms
+#sudo modprobe -r b44 b43 b43legacy ssb brcmsmac
+#sudo modprobe wl
+
+# Laptop Power Management
+#sysdl='/etc/systemd/logind.conf'
+#cat $sysdl \
+#    | sed -r 's/\#?HandleLidSwitchExternalPower=.*/HandleLidSwitchExternalPower=ignore/g' \
+#    | sed -r 's/\#?HandleLidSwitch=.*/HandleLidSwitch=poweroff/g' \
+#    | sudo tee $sysdl
+
