@@ -14,11 +14,10 @@
 # validate disk is clear, and remove the current partitions
 #   fdisk -l
 #   fdisk /dev/sda1
-
 # connect to internet
 #   iwctl --passphrase $passphrase station wlan0 connect $SSID
-
 ####################################################################################
+
 header(){
     echo "==> " $@
 }
