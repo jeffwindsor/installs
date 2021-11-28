@@ -1,0 +1,45 @@
+#!/bin/bash
+
+#   
+#    █████╗ ██████╗  ██████╗██╗  ██╗              ██╗  ██╗██████╗ ███████╗
+#   ██╔══██╗██╔══██╗██╔════╝██║  ██║              ██║ ██╔╝██╔══██╗██╔════╝
+#   ███████║██████╔╝██║     ███████║    █████╗    █████╔╝ ██║  ██║█████╗  
+#   ██╔══██║██╔══██╗██║     ██╔══██║    ╚════╝    ██╔═██╗ ██║  ██║██╔══╝  
+#   ██║  ██║██║  ██║╚██████╗██║  ██║              ██║  ██╗██████╔╝███████╗
+#   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝              ╚═╝  ╚═╝╚═════╝ ╚══════╝
+#                                                                      
+header(){
+    echo "==> " $@
+}
+
+install() {
+	if pacman -Qi $1 &> /dev/null; then
+  		header "["$1 "] is already installed"
+	else
+    	header "installing package ["$1"]"
+    	sudo pacman -S --noconfirm --needed $1 
+    fi
+}
+
+install-aur() {
+	if paru -Qi $1 &> /dev/null; then
+  		header "["$1 "] is already installed"
+	else
+    	header "installing package ["$1"]" 
+        paru -S --noconfirm "$1" 
+    fi
+}
+
+# dynamic tiling windowing - newer krohnkite
+install-aur kwin-bismuth
+
+# themes
+
+# https://store.kde.org/p/1327093
+install-aur nordic-kde-git
+
+
+# undecideds
+xdg-open https://store.kde.org/p/1325243
+xdg-open https://store.kde.org/p/1615770
+xdg-open https://store.kde.org/p/1400424
