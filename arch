@@ -40,6 +40,10 @@ install-aur() {
     fi
 }
 
+read -r -p "Gnome? [y/N] " GNOME; echo;
+read -r -p "KDE? [y/N] " KDE; echo;
+read -r -p "Add Broadcom Wifi? [y/N] " ADD_BROADCOM; echo;
+
 header "System: Update Packages"
 sudo pacman -Syu
 
@@ -101,6 +105,40 @@ nvim --headless +PlugInstall +qall
 
 header "Set ZSH as DEFAULT"
 chsh -s "$(which zsh)"
+
+
+if [[ ! $GNOME =~ ^[Yy]$ ]]; then
+    install gnome
+    install gnome-tweaks
+    install gnome-extra
+
+    # tiling window extension
+    install-aur gnome-shell-extension-pop-shell-git 
+    # allows selecting of devices from taskbar tray
+    install-aur gnome-shell-extension-sound-output-device-chooser
+    # allows you to block sleep and screen saver 
+    install-aur gnome-shell-extension-caffeine-git
+fi
+
+if [[ ! $KDE =~ ^[Yy]$ ]]; then
+    # dynamic tiling windowing - newer krohnkite
+    install-aur kwin-bismuth
+    # https://store.kde.org/p/1327093
+    install-aur nordic-kde-git
+    # undecideds
+    xdg-open https://store.kde.org/p/1325243 &
+    xdg-open https://store.kde.org/p/1615770 &
+    xdg-open https://store.kde.org/p/1400424 &
+fi
+
+if [[ ! $ADD_BROADCOM =~ ^[Yy]$ ]]; then
+    # MacbookPro Retina 15 Wifi: broadcom 14E4:43A0
+    #   https://unix.stackexchange.com/questions/175810/how-to-install-broadcom-bcm4360-on-debian-on-macbook-pro
+    install broadcom-sta-dkms
+    sudo modprobe -r b44 b43 b43legacy ssb brcmsmac
+    sudo modprobe wl
+fi
+
 
 header "manual steps"
 xdg-open https://mega.nz/sync/ &
