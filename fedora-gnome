@@ -24,7 +24,7 @@ sudo dnf -y install neovim
 sudo dnf -y install gnome-tweaks
 sudo dnf -y install gnome-shell-extension-pop-shell 
 sudo dnf -y install gnome-shell-extension-sound-output-device-chooser
-sudo dnf -y install gnome-shell-extension-caffeine-git
+sudo dnf -y install gnome-shell-extension-caffeine
 sudo dnf -y install gnome-shell-extension-launch-new-instance
 
 # make zsh my default
