@@ -11,38 +11,25 @@
 
 cd "$(dirname "${0}")"
 
-alias install='sudo dnf -y install'
-
 # package manager update
 sudo dnf -y upgrade
 
-# non-free repos, do not need to do this after fedora 35
-install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+# packages
+sudo dnf -y install tlp
+sudo dnf -y install alacritty 
+sudo dnf -y install bat exa fd-find fzf ripgrep stow tldr 
+sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting starship
+sudo dnf -y install neovim
 
-# laptop power
-install tlp
-
-# terminal
-install alacritty 
-install bat exa fd-find fzf ripgrep stow tldr 
-install zsh zsh-autosuggestions zsh-syntax-highlighting starship
-
-install neovim
-
-# need chsh to set default shell
-install util-linux-user
-
-# for extra settings
-install gnome-tweaks
-
-install gnome-shell-extension-pop-shell 
-install gnome-shell-extension-sound-output-device-chooser
-install gnome-shell-extension-caffeine-git
-install gnome-shell-extension-launch-new-instance
+sudo dnf -y install gnome-tweaks
+sudo dnf -y install gnome-shell-extension-pop-shell 
+sudo dnf -y install gnome-shell-extension-sound-output-device-chooser
+sudo dnf -y install gnome-shell-extension-caffeine-git
+sudo dnf -y install gnome-shell-extension-launch-new-instance
 
 # make zsh my default
+sudo dnf -y install util-linux-user
 chsh -s "$(which zsh)"
 
 # manual
-xdg-open https://mega.nz/sync
+xdg-open https://mega.nz/sync &
