@@ -16,10 +16,10 @@ function echo-color(){
     printf "\033[0;32m==> $1 \033[0m \n" 
 }
 
-echo-color "Extensions"
-gnome-extensions enable pop-shell@system76.com
-gnome-extensions enable sound-output-device-chooser@kgshank.net
-gnome-extensions enable caffeine@patapon.info
+#echo-color "Extensions"
+#gnome-extensions enable pop-shell@system76.com
+#gnome-extensions enable sound-output-device-chooser@kgshank.net
+#gnome-extensions enable caffeine@patapon.info
 
 echo-color "Desktop Look"
 #dconf write "/org/gnome/desktop/interface/gtk-theme" "Adwaita-dark"
@@ -85,20 +85,20 @@ dconf write "/org/gnome/desktop/wm/keybindings/cycle-applications-backward" "['<
 dconf write "/org/gnome/desktop/wm/keybindings/cycle-applications" "['<Alt><Super>Tab']"
 
 
-MEDIA_KEYS='/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings' 
-addCustom(){
-    dconf write "$MEDIA_KEYS/custom$1/binding" "$2"
-    dconf write "$MEDIA_KEYS/custom$1/command" "$3"
-    dconf write "$MEDIA_KEYS/custom$1/name" "$4"
-}
-
-# create custom key entries
-dconf write "$MEDIA_KEYS" "['$MEDIA_KEYS/custom0/','$MEDIA_KEYS/custom1/']"
-
-echo-color "Keybindings: Launch Terminal"
-addCustom "0" "'<Super>Return'" "'alacritty'" "'Terminal'"
-echo-color "Keybindings: Launch Logout Tool"
-addCustom "1" "'<Super>x'" "'arcolinux-logout'" "'Logout Tool'"
+#MEDIA_KEYS='/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings' 
+#addCustom(){
+#    dconf write "$MEDIA_KEYS/custom$1/binding" "$2"
+#    dconf write "$MEDIA_KEYS/custom$1/command" "$3"
+#    dconf write "$MEDIA_KEYS/custom$1/name" "$4"
+#}
+#
+## create custom key entries
+#dconf write "$MEDIA_KEYS" "['$MEDIA_KEYS/custom0/','$MEDIA_KEYS/custom1/']"
+#
+#echo-color "Keybindings: Launch Terminal"
+#addCustom "0" "'<Super>Return'" "'alacritty'" "'Terminal'"
+#echo-color "Keybindings: Launch Logout Tool"
+#addCustom "1" "'<Super>x'" "'arcolinux-logout'" "'Logout Tool'"
 
 echo-color "Keybindings: Tiling (PopShell)"
 dconf write '/org/gnome/shell/extensions/pop-shell/activate-launcher' "@as ['<Super>space']"
