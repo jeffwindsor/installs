@@ -11,7 +11,6 @@
 
 cd "$(dirname "${0}")"
 
-read -r -p "Gnome? [y/N] " GNOME; echo;
 read -r -p "KDE? [y/N] " KDE; echo;
 
 # package manager update
@@ -28,15 +27,13 @@ sudo dnf -y install bat exa fd-find fzf ripgrep stow tldr
 sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting starship
 sudo dnf -y install neovim
 
-if [[ ! $GNOME =~ ^[Yy]$ ]]; then
-    sudo dnf -y install gnome-tweaks
-    sudo dnf -y install gnome-shell-extension-pop-shell 
-    sudo dnf -y install gnome-shell-extension-sound-output-device-chooser
-    sudo dnf -y install gnome-shell-extension-caffeine
-    sudo dnf -y install gnome-shell-extension-launch-new-instance
-fi
+sudo dnf -y install gnome-tweaks
+sudo dnf -y install gnome-shell-extension-pop-shell 
+sudo dnf -y install gnome-shell-extension-sound-output-device-chooser
+sudo dnf -y install gnome-shell-extension-caffeine
+sudo dnf -y install gnome-shell-extension-launch-new-instance
 
-if [[ ! $KDE =~ ^[Yy]$ ]]; then
+if [[ $KDE =~ ^[Yy]$ ]]; then
     git clone git@github.com:Bismuth-Forge/bismuth.git ~/src/github.com/Bismuth-Forge/bismuth
     cd ~/src/github.com/Bismuth-Forge/bismuth
     npm install # Installs dependencies for building
