@@ -11,8 +11,6 @@
 
 cd "$(dirname "${0}")"
 
-read -r -p "KDE? [y/N] " KDE; echo;
-
 # package manager update
 sudo dnf -y upgrade
 
@@ -27,28 +25,25 @@ sudo dnf -y install bat exa fd-find fzf ripgrep stow tldr
 sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting starship
 sudo dnf -y install neovim
 
+# gnome
 sudo dnf -y install gnome-tweaks
+sudo dnf -y install gnome-shell-extension-appindicator
+sudo dnf -y install gnome-shell-extension-caffeine
+sudo dnf -y install gnome-shell-extension-just-perfection
+sudo dnf -y install gnome-shell-extension-launch-new-instance
 sudo dnf -y install gnome-shell-extension-pop-shell 
 sudo dnf -y install gnome-shell-extension-sound-output-device-chooser
-sudo dnf -y install gnome-shell-extension-caffeine
-sudo dnf -y install gnome-shell-extension-launch-new-instance
+#  remove unwanted
+sudo dnf -y remove gnome-shell-extension-apps-menu
 
-if [[ $KDE =~ ^[Yy]$ ]]; then
-    git clone git@github.com:Bismuth-Forge/bismuth.git ~/src/github.com/Bismuth-Forge/bismuth
-    cd ~/src/github.com/Bismuth-Forge/bismuth
-    npm install # Installs dependencies for building
-    npm run sysdep-install # Install system dependencies for building
-    npm run bi-install # Installs all Bismuth components
-fi
+#echo "==> NVIM PLUGINS"
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+nvim --headless +PlugInstall +qall
 
 # make zsh my default
 sudo dnf -y install util-linux-user
 chsh -s "$(which zsh)"
 
-# dnf config
-sudo echo "fastestmirror=True" >> /etc/dnf/dnf.conf
-sudo echo "max_parallel_downloads=10" >> /etc/dnf/dnf.conf
-sudo echo "defaultyes=True" >> /etc/dnf/dnf.conf
-
-# manual
+# manual installs
+xdg-open https://extensions.gnome.org/extension/3193/blur-my-shell/ &
 xdg-open https://mega.nz/sync &
