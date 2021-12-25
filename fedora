@@ -25,6 +25,7 @@ sudo dnf -y install bat exa fd-find fzf ripgrep stow tldr
 sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting starship
 sudo dnf -y install neovim
 sudo dnf -y install gnome-tweaks
+sudo dnf -y install papirus-icon-theme
 
 # extensions
 sudo dnf -y install gnome-shell-extension-appindicator
