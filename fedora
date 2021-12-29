@@ -27,15 +27,33 @@ sudo dnf -y install neovim
 sudo dnf -y install gnome-tweaks
 sudo dnf -y install papirus-icon-theme
 
-# extensions
-sudo dnf -y install gnome-shell-extension-appindicator
-sudo dnf -y install gnome-shell-extension-caffeine
-sudo dnf -y install gnome-shell-extension-just-perfection
-sudo dnf -y install gnome-shell-extension-launch-new-instance
-sudo dnf -y install gnome-shell-extension-openweather
+# extensions                     
+xdg-open https://extensions.gnome.org/extension/615/appindicator-support/ &
+#sudo dnf -y install gnome-shell-extension-appindicator
+
+xdg-open https://extensions.gnome.org/extension/3193/blur-my-shell/ &
+
+xdg-open https://extensions.gnome.org/extension/517/caffeine/ &
+#sudo dnf -y install gnome-shell-extension-caffeine   
+
+xdg-open https://extensions.gnome.org/extension/3956/gnome-fuzzy-app-search/ &
+
+xdg-open https://extensions.gnome.org/extension/3843/just-perfection/ &
+#sudo dnf -y install gnome-shell-extension-just-perfection
+
+xdg-open https://extensions.gnome.org/extension/600/launch-new-instance/ &
+#sudo dnf -y install gnome-shell-extension-launch-new-instance
+
+# not on gnome extensions
 sudo dnf -y install gnome-shell-extension-pop-shell 
-sudo dnf -y install gnome-shell-extension-sound-output-device-chooser
-sudo dnf -y install gnome-shell-extension-workspace-indicator
+
+xdg-open https://extensions.gnome.org/extension/4472/spotify-tray/ &
+
+xdg-open https://extensions.gnome.org/extension/906/sound-output-device-chooser/ &
+#sudo dnf -y install gnome-shell-extension-sound-output-device-chooser
+
+xdg-open https://extensions.gnome.org/extension/21/workspace-indicator/ &
+#sudo dnf -y install gnome-shell-extension-workspace-indicator
 
 # remove unwanted defaults
 sudo dnf -y remove gnome-shell-extension-apps-menu
