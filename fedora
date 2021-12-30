@@ -44,6 +44,8 @@ xdg-open https://extensions.gnome.org/extension/3843/just-perfection/ &
 xdg-open https://extensions.gnome.org/extension/600/launch-new-instance/ &
 #sudo dnf -y install gnome-shell-extension-launch-new-instance
 
+xdg-open https://extensions.gnome.org/extension/1401/bluetooth-quick-connect/
+
 # not on gnome extensions
 sudo dnf -y install gnome-shell-extension-pop-shell 
 
