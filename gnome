@@ -99,15 +99,15 @@ dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cu
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command" "'gnome-session-quit --reboot --no-prompt'"
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name" "'Reboot'"
 
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding" "'<Primary><Super>Delete'"
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command" "'gnome-session-quit --power-off --no-prompt'"
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name" "'Power-Off'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/binding" "'<Primary><Super>Delete'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command" "'gnome-session-quit --power-off --no-prompt'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/name" "'Power-Off'"
 
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/binding" "'<Primary><Super>Escape'"
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command" "'gnome-session-quit --logout --no-prompt'"
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/name" "'Logout'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/binding" "'<Primary><Super>Escape'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/command" "'gnome-session-quit --logout --no-prompt'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/name" "'Logout'"
 
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/binding" "'<Super>t'"
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/command" "'gnome-terminal'"
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/name" "'Terminal'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/binding" "'<Super>t'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/command" "'gnome-terminal'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/name" "'Terminal'"
 
