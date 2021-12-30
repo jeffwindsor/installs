@@ -41,7 +41,10 @@ dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-last" "@as []
 dconf write "/org/gnome/mutter/keybindings/toggle-tiled-left" "@as []"
 dconf write "/org/gnome/mutter/keybindings/toggle-tiled-right" "@as []"
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/area-screenshot-clip" "@as []"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/logout" "@as []"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/magnifier" "@as []"
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/screencast" "@as []"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/screenreader" "@as []"
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/screenshot-clip" "@as []"
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/window-screenshot-clip" "@as []"
 dconf write "/org/gnome/shell/extensions/pop-shell/activate-launcher" "@as []"
@@ -56,8 +59,6 @@ dconf write "/org/gnome/shell/extensions/pop-shell/toggle-stacking" "@as []"
 dconf write "/org/gnome/shell/extensions/pop-shell/toggle-stacking-global" "@as []"
 dconf write "/org/gnome/shell/extensions/pop-shell/toggle-tiling" "@as []"
 dconf write "/org/gnome/shell/keybindings/focus-active-notification" "@as []"
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/screenreader" "@as []"
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/magnifier" "@as []"
 
 # keyboard bindings : set
 dconf write "/org/gnome/desktop/wm/keybindings/close" "['<Super>q']"
@@ -86,25 +87,27 @@ dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-9" "['<Super>
 dconf write "/org/gnome/desktop/wm/keybindings/toggle-fullscreen" "['<Primary><Super>m']"
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/area-screenshot" "['<Primary><Super>BackSpace']"
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/control-center" "['<Super>comma']"
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/logout" "['<Primary><Alt><Super>Delete']"
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/next" "['AudioForward']"
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/previous" "['AudioRewind']"
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/window-screenshot" "['<Super>BackSpace']"
 dconf write "/org/gnome/shell/keybindings/toggle-message-tray" "['<Super>n']"
 
 # keyboard bindings : custom
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings" "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/']"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings" "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/']"
 
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding" "'<Primary><Alt>Delete'"
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command" "'gnome-session-quit --reboot'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding" "'<Primary>Delete'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command" "'gnome-session-quit --reboot --no-prompt'"
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name" "'Reboot'"
 
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/binding" "'<Primary><Super>Delete'"
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command" "'gnome-session-quit --logout'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding" "'<Primary><Super>Delete'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command" "'gnome-session-quit --power-off --no-prompt'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name" "'Power-Off'"
+
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/binding" "'<Primary><Super>Escape'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command" "'gnome-session-quit --logout --no-prompt'"
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/name" "'Logout'"
 
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/binding" "'<Super>t'"
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/command" "'alacritty'"
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/name" "'Alacritty'"
-
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/command" "'gnome-terminal'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/name" "'Terminal'"
 
