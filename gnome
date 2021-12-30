@@ -96,11 +96,11 @@ dconf write "/org/gnome/shell/keybindings/toggle-message-tray" "['<Super>n']"
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings" "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/']"
 
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding" "'<Primary>Delete'"
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command" "'gnome-session-quit --reboot --no-prompt'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command" "'shutdown -r now'"
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name" "'Reboot'"
 
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/binding" "'<Primary><Super>Delete'"
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command" "'gnome-session-quit --power-off --no-prompt'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command" "'shutdown -h now'"
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/name" "'Power-Off'"
 
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/binding" "'<Primary><Super>Escape'"
