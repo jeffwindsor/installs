@@ -11,63 +11,91 @@
 
 cd "$(dirname "${0}")"
 
-# package update
-sudo dnf -y upgrade
+ask(){
+	echo "1 : Upgrade Packages and OS"
+	echo "2 : Install Packages and Configurations"
+	echo -n "> "
+	read selection
+	case $selection in
 
-# extra repositories
-sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+		1 )
+			echo "==> Upgrading Packages and OS"
+			upgrade_packages
+			;;
 
-# packages
-sudo dnf -y install tlp
-sudo dnf -y install alacritty 
-sudo dnf -y install bat exa fd-find fzf ripgrep stow tldr 
-sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting starship
-sudo dnf -y install neovim
-sudo dnf -y install gnome-tweaks
-sudo dnf -y install papirus-icon-theme
+		2 )
+			echo "==> Installing Packages and Configurations"
+			install_packages
+			;;
 
-# extensions                     
-sudo dnf -y install gnome-shell-extension-pop-shell 
-xdg-open https://extensions.gnome.org/extension/1401/bluetooth-quick-connect/ &
-#xdg-open https://extensions.gnome.org/extension/21/workspace-indicator/ &
-xdg-open https://extensions.gnome.org/extension/3193/blur-my-shell/ &
-xdg-open https://extensions.gnome.org/extension/3843/just-perfection/ &
-xdg-open https://extensions.gnome.org/extension/3956/gnome-fuzzy-app-search/ &
-xdg-open https://extensions.gnome.org/extension/4472/spotify-tray/ &
-xdg-open https://extensions.gnome.org/extension/517/caffeine/ &
-xdg-open https://extensions.gnome.org/extension/600/launch-new-instance/ &
-#xdg-open https://extensions.gnome.org/extension/615/appindicator-support/ &
-xdg-open https://extensions.gnome.org/extension/906/sound-output-device-chooser/ &
+		*) echo "Invalid input"
+		    ;;
+	esac
+}
 
-# remove unwanted defaults
-sudo dnf -y remove gnome-shell-extension-apps-menu
+upgrade_packages(){
+	# package update
+	sudo dnf -y upgrade
 
-# nvim plugins
-curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-nvim --headless +PlugInstall +qall
+	# extra repositories
+	sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+	sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-# ssh key gen
-if [[ ! -f $HOME/.ssh/id_ed25519 ]]; then
-    ssh-keygen -t ed25519 -C "jeff.windsor@gmail.com"
-    xdg-open https://github.com/settings/keys/
-fi
+	reboot
+}
 
-# git clones
-mkdir -p ${HOME}/src/github.com/
-mkdir -p ${HOME}/src/gitlab.com/
-git clone git@github.com:jeffwindsor/dotfiles $HOME/.dotfiles
-git clone git@github.com:jeffwindsor/installs $HOME/.installs
-git clone git@github.com:jeffwindsor/startpage $HOME/src/github.com/jeffwindsor/startpage
+install_packages(){
+	# packages
+	sudo dnf -y install tlp
+	sudo dnf -y install alacritty 
+	sudo dnf -y install bat exa fd-find fzf ripgrep stow tldr 
+	sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting starship
+	sudo dnf -y install neovim
+	sudo dnf -y install gnome-tweaks
 
-# make zsh my default
-sudo dnf -y install util-linux-user
-chsh -s "$(which zsh)"
+	# extensions                     
+	sudo dnf -y install gnome-shell-extension-pop-shell
+	xdg-open https://extensions.gnome.org/extension/1401/bluetooth-quick-connect/ &
+	#xdg-open https://extensions.gnome.org/extension/21/workspace-indicator/ &
+	xdg-open https://extensions.gnome.org/extension/3193/blur-my-shell/ &
+	xdg-open https://extensions.gnome.org/extension/3843/just-perfection/ &
+	xdg-open https://extensions.gnome.org/extension/3956/gnome-fuzzy-app-search/ &
+	xdg-open https://extensions.gnome.org/extension/4472/spotify-tray/ &
+	xdg-open https://extensions.gnome.org/extension/517/caffeine/ &
+	xdg-open https://extensions.gnome.org/extension/600/launch-new-instance/ &
+	#xdg-open https://extensions.gnome.org/extension/615/appindicator-support/ &
+	xdg-open https://extensions.gnome.org/extension/906/sound-output-device-chooser/ &
 
-# manual installs
-xdg-open https://github.com/VSCodium/vscodium/releases &
+	# remove unwanted defaults
+	sudo dnf -y remove gnome-shell-extension-apps-menu
 
-# add appropriate folders to local from MEGA 
-#  if not added to one of the standard folder, add it to gnome search (such as books from mega) : Settings > Search > Search Locations > Other
-xdg-open https://mega.nz/sync &
+	# nvim plugins
+	curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	nvim --headless +PlugInstall +qall
 
+	# ssh key gen
+	if [[ ! -f $HOME/.ssh/id_ed25519 ]]; then
+	    ssh-keygen -t ed25519 -C "jeff.windsor@gmail.com"
+	    xdg-open https://github.com/settings/keys/
+	fi
+
+	# git clones
+	mkdir -p ${HOME}/src/github.com/
+	mkdir -p ${HOME}/src/gitlab.com/
+	git clone git@github.com:jeffwindsor/dotfiles $HOME/.dotfiles
+	git clone git@github.com:jeffwindsor/installs $HOME/.installs
+	git clone git@github.com:jeffwindsor/startpage $HOME/src/github.com/jeffwindsor/startpage
+
+	# make zsh my default
+	sudo dnf -y install util-linux-user
+	chsh -s "$(which zsh)"
+
+	# manual installs
+	xdg-open https://github.com/VSCodium/vscodium/releases &
+
+	# add appropriate folders to local from MEGA 
+	#  if not added to one of the standard folder, add it to gnome search (such as books from mega) : Settings > Search > Search Locations > Other
+	xdg-open https://mega.nz/sync &
+}
+
+ask
