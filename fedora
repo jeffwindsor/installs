@@ -54,6 +54,7 @@ install_packages(){
 	sudo dnf -y install neovim
 	sudo dnf -y install gnome-tweaks
     sudo flatpak install -y flathub com.spotify.Client
+    sudo flatpak install -y flathub com.vscodium.codium
     #sudo flatpak install -y flathub com.valvesoftware.Steam
 
 	# extensions                     
@@ -93,12 +94,12 @@ install_packages(){
 	sudo dnf -y install util-linux-user
 	chsh -s "$(which zsh)"
 
-	# manual installs
-	xdg-open https://github.com/VSCodium/vscodium/releases &
-
 	# add appropriate folders to local from MEGA 
 	#  if not added to one of the standard folder, add it to gnome search (such as books from mega) : Settings > Search > Search Locations > Other
-	xdg-open https://mega.nz/sync &
+	xdg-open https://mega.nz/sync/ &
+
+    xdg-open https://mayccoll.github.io/Gogh/ &
+    # 12 13 06 59 72 136 141 195 201 
 }
 
 ask
