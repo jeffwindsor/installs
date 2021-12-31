@@ -48,11 +48,12 @@ upgrade_packages(){
 install_packages(){
 	# packages
 	sudo dnf -y install tlp
-	sudo dnf -y install alacritty 
+	#sudo dnf -y install alacritty 
 	sudo dnf -y install bat exa fd-find fzf ripgrep stow tldr 
 	sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting starship
 	sudo dnf -y install neovim
-	sudo dnf -y install gnome-tweaks
+	
+    sudo dnf -y install gnome-tweaks
     sudo flatpak install -y flathub com.spotify.Client
     sudo flatpak install -y flathub com.vscodium.codium
     #sudo flatpak install -y flathub com.valvesoftware.Steam
