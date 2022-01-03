@@ -61,7 +61,10 @@ install_base_packages(){
 
     # terminal programs
 	sudo dnf -y install bat exa fd-find fzf ripgrep stow tldr 
-	
+    
+    # image formats
+    sudo dnf -y install webp-pixbuf-loader
+
     # zsh
     sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting starship
 	
