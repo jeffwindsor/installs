@@ -13,8 +13,8 @@ cd "$(dirname "${0}")"
 
 ask(){
 	echo "1 : Upgrade Packages and OS"
-	echo "2 : Gnome"
-    echo "3 : Gnome (Config Only)"
+	echo "2 : Gnome Packages and Config"
+    echo "3 : Gnome Config Only"
 	echo -n "> "
 	read selection
 	case $selection in
@@ -24,7 +24,7 @@ ask(){
 			;;
 
 		2 )
-			install_packages
+			install_base_packages
             install_gnome
             config_gnome
 			;;
@@ -40,6 +40,9 @@ ask(){
 
 upgrade_packages(){
 	echo "==> Upgrading Packages and OS"
+    # remove unwanted packages and groups
+    sudo dnf -y group remove LibreOffice
+    
 	# package update
 	sudo dnf -y upgrade
 
@@ -51,36 +54,41 @@ upgrade_packages(){
     reboot
 }
 
-install_packages(){
+install_base_packages(){
 	echo "==> Installing Packages and Configurations"
-	# packages
+    # laptop power
 	sudo dnf -y install tlp
+
+    # terminal programs
 	sudo dnf -y install bat exa fd-find fzf ripgrep stow tldr 
-	sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting starship
-	sudo dnf -y install neovim
 	
+    # zsh
+    sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting starship
+	
+    # neovim with plugin manager
+    sudo dnf -y install neovim
+	curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	nvim --headless +PlugInstall +qall
+
+    # applications
     sudo flatpak install -y flathub com.spotify.Client
     sudo flatpak install -y flathub com.vscodium.codium
     sudo flatpak install -y flathub com.valvesoftware.Steam
 
-	# neovim plugins
-	curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	nvim --headless +PlugInstall +qall
-
-	# ssh key gen
+	# gen ssh key
 	if [[ ! -f $HOME/.ssh/id_ed25519 ]]; then
 	    ssh-keygen -t ed25519 -C "jeff.windsor@gmail.com"
 	    xdg-open https://github.com/settings/keys/
 	fi
 
-	# git clones
+	# git repositories
 	mkdir -p ${HOME}/src/github.com/
 	mkdir -p ${HOME}/src/gitlab.com/
 	git clone git@github.com:jeffwindsor/dotfiles $HOME/.dotfiles
 	git clone git@github.com:jeffwindsor/installs $HOME/.installs
 	git clone git@github.com:jeffwindsor/startpage $HOME/src/github.com/jeffwindsor/startpage
 
-	# make zsh my default
+	# set zsh as default shell
 	sudo dnf -y install util-linux-user
 	chsh -s "$(which zsh)"
 
@@ -88,8 +96,9 @@ install_packages(){
 	#  if not added to one of the standard folder, add it to gnome search (such as books from mega) : Settings > Search > Search Locations > Other
 	xdg-open https://mega.nz/sync/ &
 
+    # terminal color schemes
     xdg-open https://mayccoll.github.io/Gogh/ &
-    # 12 13 06 59 72 136 141 195 201
+    # favorites: 12 13 06 59 72 136 141 195 201
 }
 
 install_gnome(){
@@ -110,7 +119,7 @@ install_gnome(){
 	xdg-open https://extensions.gnome.org/extension/906/sound-output-device-chooser/ &
 
 	# remove unwanted defaults
-	sudo dnf -y remove gnome-shell-extension-apps-menu
+	# sudo dnf -y remove gnome-shell-extension-apps-menu
 }
 
 config_gnome(){
