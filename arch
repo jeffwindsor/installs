@@ -1,0 +1,104 @@
+#!/usr/bin/env bash
+
+#   
+#    █████╗ ██████╗  ██████╗██╗  ██╗
+#   ██╔══██╗██╔══██╗██╔════╝██║  ██║
+#   ███████║██████╔╝██║     ███████║
+#   ██╔══██║██╔══██╗██║     ██╔══██║
+#   ██║  ██║██║  ██║╚██████╗██║  ██║
+#   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝
+#                                   
+
+####################################################################################
+# PRE STEPS
+# validate disk is clear, and remove the current partitions
+#   fdisk -l
+#   fdisk /dev/sda1
+# connect to internet
+#   iwctl --passphrase $passphrase station wlan0 connect $SSID
+#
+# run archinstaller
+####################################################################################
+
+install(){ sudo pacman -S --noconfirm --needed "$1"; }
+aur{ paru -S --noconfirm "$1"; }
+
+ask(){
+	echo "1 : Upgrade"
+	echo "2 : Install Packages and GNOME Config"
+	echo -n "> "
+	read selection
+	case $selection in
+
+		1 )
+			upgrade_packages
+            install_aur_helper
+			;;
+
+		2 )
+			install_base_packages
+            install_gnome
+            config_gnome
+			;;
+
+		*) echo "Invalid input"
+		    ;;
+	esac
+}
+
+install_aur_helper(){
+    echo "==> Installing Arch User Repository Helper"
+
+    install git
+    git clone https://aur.archlinux.org/paru.git
+    cd paru
+    makepkg -si --noconfirm
+    cd ..
+    rm -rf paru
+}
+
+upgrade_packages(){
+	echo "==> Upgrading Packages and OS"
+    sudo pacman -Syu
+
+    #Package Manager: get 5 fastest mirrors in North America"
+    #install reflector
+    #sudo reflector --verbose --country 'United States, Canada' -l 5 -p https --sort rate --save /etc/pacman.d/mirrorlist
+}
+
+
+install_base_packages(){
+	echo "==> Installing Packages and Configurations"
+
+    # z shell
+    install zsh zsh-autosuggestions zsh-completions zsh-history-substring-search zsh-syntax-highlighting
+    install starship
+    chsh -s "$(which zsh)"          #Set ZSH as DEFAULT"
+    
+    # neovim
+    install neovim
+    aur vim-plug
+    nvim --headless +PlugInstall +qall
+
+    # apps 
+    install bat exa fd fzf ripgrep stow tldr
+    install shellcheck
+    install firefox
+    install keychain
+    aur nerd-fonts-complete
+
+    #manual steps"
+    xdg-open https://mega.nz/sync/ &
+    xdg-open https://lastpass.com/ &
+}
+
+install_gnome(){
+	echo "==> Gnome"
+    install gnome-tweaks
+    install gnome-extra
+    aur gnome-shell-extension-pop-shell-git 
+
+    source ./gnome
+}
+
+ask

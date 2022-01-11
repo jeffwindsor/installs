@@ -12,8 +12,8 @@
 cd "$(dirname "${0}")"
 
 ask(){
-	echo "1 : Upgrade Packages and OS"
-	echo "2 : Gnome Packages and Config"
+	echo "1 : Upgrade"
+	echo "2 : Install Packages and GNOME Config"
 	echo -n "> "
 	read selection
 	case $selection in
@@ -25,11 +25,6 @@ ask(){
 		2 )
 			install_base_packages
             install_gnome
-            config_gnome
-			;;
-
-		3 )
-            config_gnome
 			;;
 
 		*) echo "Invalid input"
@@ -41,7 +36,7 @@ upgrade_packages(){
 	echo "==> Upgrading Packages and OS"
     # remove unwanted packages and groups
     sudo dnf -y group remove LibreOffice
-    
+     
 	# package update
 	sudo dnf -y upgrade
 
@@ -109,9 +104,7 @@ install_gnome(){
     sudo dnf -y install gnome-shell-extension-pop-shell
 	# remove unwanted defaults
 	# sudo dnf -y remove gnome-shell-extension-apps-menu
-}
-
-config_gnome(){
+    
     source ./gnome
 }
 
