@@ -20,8 +20,8 @@
 # run archinstaller
 ####################################################################################
 
-install(){ sudo pacman -S --noconfirm --needed "$1"; }
-aur{ paru -S --noconfirm "$1"; }
+install(){ sudo pacman -S --noconfirm --needed "$@"; }
+aur{ paru -S --noconfirm "$@"; }
 
 ask(){
 	echo "1 : Upgrade"
@@ -38,7 +38,6 @@ ask(){
 		2 )
 			install_base_packages
             install_gnome
-            config_gnome
 			;;
 
 		*) echo "Invalid input"
@@ -69,6 +68,17 @@ upgrade_packages(){
 
 install_base_packages(){
 	echo "==> Installing Packages and Configurations"
+
+    # bluetooth
+    install bluez bluez-libs bluez-utils
+    sudo systemctl enable bloothooth.service
+    #frame laptop 1 device is bluetooth
+    rfkill unblock 1
+
+    # laptop power
+    install tlp
+    install-aur auto-cpufreq 
+    sudo systemctl enable auto-cpufreq
 
     # z shell
     install zsh zsh-autosuggestions zsh-completions zsh-history-substring-search zsh-syntax-highlighting
