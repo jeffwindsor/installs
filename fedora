@@ -54,7 +54,11 @@ install_base_packages(){
 	sudo dnf -y install tlp
 
     # terminal programs
-	sudo dnf -y install bat exa fd-find fzf ripgrep stow tldr 
+	sudo dnf -y install bat exa fd-find fzf ripgrep stow tldr
+
+    # allow wheel to use doas and persist password for 5 minutes
+    sudo dnf -y install doas
+    sudo sed -i "s/permit :wheel/permit persist :wheel/g" /etc/doas.conf
     
     # image formats
     sudo dnf -y install webp-pixbuf-loader
