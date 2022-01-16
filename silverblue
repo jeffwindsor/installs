@@ -49,8 +49,7 @@ create_layer(){
 	echo "==> Creating Pesonalization Layer"
     rpm-ostree install bat exa fd-find fzf ripgrep stow tldr \
         webp-pixbuf-loader \
-        zsh zsh-autosuggestions zsh-syntax-highlighting \
-        starship neovim \
+        zsh zsh-autosuggestions zsh-syntax-highlighting starship \
         gnome-tweaks gnome-shell-extension-pop-shell
 }
 
