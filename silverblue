@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+cd "$(dirname "${0}")"
 
 #_____/\\\\\\\\\\\__________/\\\\\\________________________________________________/\\\_________/\\\\\\_________________________________        
 # ___/\\\/////////\\\_______\////\\\_______________________________________________\/\\\________\////\\\_________________________________       
@@ -11,12 +12,10 @@
 #        ___\///////////_____\///__\/////////______\///________\//////////__\///__________\/////////___\/////////___\/////////_____\//////////__
 #
 
-
-cd "$(dirname "${0}")"
-
 ask(){
 	echo "1 : Upgrade"
-	echo "2 : Install Packages and GNOME Config"
+	echo "2 : Add personlization layer"
+	echo "3 : Add non-layered personlization"
 	echo -n "> "
 	read selection
 	case $selection in
@@ -49,41 +48,41 @@ update(){
 create_layer(){
 	echo "==> Creating Pesonalization Layer"
     rpm-ostree install bat exa fd-find fzf ripgrep stow tldr \
-        util-linux-user webp-pixbuf-loader \
+        webp-pixbuf-loader \
         zsh zsh-autosuggestions zsh-syntax-highlighting \
         starship neovim \
         gnome-tweaks gnome-shell-extension-pop-shell
 }
 
 user_space(){
-    # vim plug (for neovim)
-    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-	nvim --headless +PlugInstall +qall
+    # applications (flathub)
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-    # applications
     sudo flatpak install -y flathub com.spotify.Client
     sudo flatpak install -y flathub com.vscodium.codium
     sudo flatpak install -y flathub com.valvesoftware.Steam
+    sudo flatpak install -y flathub nz.mega.MEGAsync
+    sudo flatpak install -y flathub io.neovim.nvim
 
-	# gen ssh key
-	if [[ ! -f $HOME/.ssh/id_ed25519 ]]; then
-	    ssh-keygen -t ed25519 -C "jeff.windsor@gmail.com"
-	    xdg-open https://github.com/settings/keys/
-	fi
+    # vim plug (for neovim)
+    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    nvim --headless +PlugInstall +qall
 
-	# git repositories
-	mkdir -p ${HOME}/src/github.com/
-	mkdir -p ${HOME}/src/gitlab.com/
-	git clone git@github.com:jeffwindsor/dotfiles $HOME/.dotfiles
-	git clone git@github.com:jeffwindsor/installs $HOME/.installs
-	git clone git@github.com:jeffwindsor/startpage $HOME/src/github.com/jeffwindsor/startpage
-
-	# set zsh as default shell
-	chsh -s "$(which zsh)"
-
-	# add appropriate folders to local from MEGA 
-	#  if not added to one of the standard folder, add it to gnome search (such as books from mega) : Settings > Search > Search Locations > Other
-	xdg-open https://mega.nz/sync/ &
+    # gen ssh key
+    if [[ ! -f $HOME/.ssh/id_ed25519 ]]; then
+        ssh-keygen -t ed25519 -C "jeff.windsor@gmail.com"
+        xdg-open https://github.com/settings/keys/
+    fi
+    
+    # git repositories
+    mkdir -p ${HOME}/src/github.com/
+    mkdir -p ${HOME}/src/gitlab.com/
+    git clone https://github.com/jeffwindsor/dotfiles $HOME/.dotfiles
+    git clone https://github.com/jeffwindsor/installs $HOME/.installs
+    git clone https://github.com/jeffwindsor/startpage $HOME/src/github.com/jeffwindsor/startpage
+    
+    # set zsh as default shell
+    lchsh -s "$(which zsh)"
 
     # terminal color schemes
     xdg-open https://mayccoll.github.io/Gogh/ &
