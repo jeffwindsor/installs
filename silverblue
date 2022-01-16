@@ -59,7 +59,6 @@ user_space(){
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
     sudo flatpak install -y flathub com.spotify.Client
-    sudo flatpak install -y flathub com.vscodium.codium
     sudo flatpak install -y flathub com.valvesoftware.Steam
     sudo flatpak install -y flathub nz.mega.MEGAsync
     sudo flatpak install -y flathub io.neovim.nvim
