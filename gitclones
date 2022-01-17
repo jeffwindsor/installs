@@ -1,0 +1,26 @@
+#! /usr/bin/env bash
+cd "$(dirname "${0}")"
+
+#                                                                                                                 
+#     /$$$$$$  /$$$$$$ /$$$$$$$$
+#    /$$__  $$|_  $$_/|__  $$__/
+#   | $$  \__/  | $$     | $$   
+#   | $$ /$$$$  | $$     | $$   
+#   | $$|_  $$  | $$     | $$   
+#   | $$  \ $$  | $$     | $$   
+#   |  $$$$$$/ /$$$$$$   | $$   
+#    \______/ |______/   |__/   
+#                               
+
+# git repositories
+git clone git@github.com:jeffwindsor/dotfiles $HOME/.dotfiles
+git clone git@github.com:jeffwindsor/installs $HOME/.installs
+
+mkdir -p $HOME/src/github.com/
+git clone git@github.com:jeffwindsor/startpage $HOME/src/github.com/jeffwindsor/startpage
+git clone https://github.com/Mayccoll/Gogh $HOME/src/github.com/Mayccoll/Gogh
+
+mkdir -p $HOME/src/gitlab.gnome.org/
+git clone git@gitlab.gnome.org:jeffwindsor/gnome-shell-extensions.git $HOME/src/gitlab.gnome.org/jeffwindsor/gnome-shell-extensions
+
+mkdir -p $HOME/src/gitlab.com/

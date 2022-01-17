@@ -1,27 +1,27 @@
 #!/usr/bin/env bash
 cd "$(dirname "${0}")"
 
-#_____/\\\\\\\\\\\__________/\\\\\\________________________________________________/\\\_________/\\\\\\_________________________________        
-# ___/\\\/////////\\\_______\////\\\_______________________________________________\/\\\________\////\\\_________________________________       
-#  __\//\\\______\///___/\\\____\/\\\_______________________________________________\/\\\___________\/\\\_________________________________      
-#   ___\////\\\_________\///_____\/\\\_____/\\\____/\\\_____/\\\\\\\\___/\\/\\\\\\\__\/\\\___________\/\\\_____/\\\____/\\\_____/\\\\\\\\__     
-#    ______\////\\\_______/\\\____\/\\\____\//\\\__/\\\____/\\\/////\\\_\/\\\/////\\\_\/\\\\\\\\\_____\/\\\____\/\\\___\/\\\___/\\\/////\\\_    
-#     _________\////\\\___\/\\\____\/\\\_____\//\\\/\\\____/\\\\\\\\\\\__\/\\\___\///__\/\\\////\\\____\/\\\____\/\\\___\/\\\__/\\\\\\\\\\\__   
-#      __/\\\______\//\\\__\/\\\____\/\\\______\//\\\\\____\//\\///////___\/\\\_________\/\\\__\/\\\____\/\\\____\/\\\___\/\\\_\//\\///////___  
-#       _\///\\\\\\\\\\\/___\/\\\__/\\\\\\\\\____\//\\\______\//\\\\\\\\\\_\/\\\_________\/\\\\\\\\\___/\\\\\\\\\_\//\\\\\\\\\___\//\\\\\\\\\\_ 
-#        ___\///////////_____\///__\/////////______\///________\//////////__\///__________\/////////___\/////////___\/////////_____\//////////__
 #
+#     /$$$$$$  /$$ /$$                               /$$       /$$                    
+#    /$$__  $$|__/| $$                              | $$      | $$                    
+#   | $$  \__/ /$$| $$ /$$    /$$ /$$$$$$   /$$$$$$ | $$$$$$$ | $$ /$$   /$$  /$$$$$$ 
+#   |  $$$$$$ | $$| $$|  $$  /$$//$$__  $$ /$$__  $$| $$__  $$| $$| $$  | $$ /$$__  $$
+#    \____  $$| $$| $$ \  $$/$$/| $$$$$$$$| $$  \__/| $$  \ $$| $$| $$  | $$| $$$$$$$$
+#    /$$  \ $$| $$| $$  \  $$$/ | $$_____/| $$      | $$  | $$| $$| $$  | $$| $$_____/
+#   |  $$$$$$/| $$| $$   \  $/  |  $$$$$$$| $$      | $$$$$$$/| $$|  $$$$$$/|  $$$$$$$
+#    \______/ |__/|__/    \_/    \_______/|__/      |_______/ |__/ \______/  \_______/
+#                                                                                     
 
 ask(){
 	echo "1 : Upgrade"
-	echo "2 : Add personlization layer"
-	echo "3 : Add non-layered personlization"
+	echo "2 : Add Personal Layer"
+	echo "3 : Install Packages"
 	echo -n "> "
 	read selection
 	case $selection in
 
 		1 )
-			update
+            rpm-ostree upgrade
             restart
 			;;
 
@@ -31,8 +31,10 @@ ask(){
 			;;
 
         3 ) 
-            user_space
-            gnome
+            install_base_packages
+            source ./sshkeys
+            source ./gitclones
+            source ./gnome
             ;;
 
 		*) echo "Invalid input"
@@ -40,21 +42,19 @@ ask(){
 	esac
 }
 
-update(){
-	echo "==> Updating"
-    rpm-ostree upgrade
-}
 
 create_layer(){
-	echo "==> Creating Pesonalization Layer"
-    rpm-ostree install bat exa fd-find fzf ripgrep stow tldr \
+    rpm-ostree install \
+        bat exa fd-find fzf ripgrep stow tldr \
         webp-pixbuf-loader \
-        zsh zsh-autosuggestions zsh-syntax-highlighting starship \
-        gnome-tweaks gnome-shell-extension-pop-shell
+        zsh zsh-autosuggestions zsh-syntax-highlighting \
+        starship \
+        gnome-tweaks \
+        gnome-shell-extension-pop-shell
 }
 
-user_space(){
-    # applications (flathub)
+install_base_packages(){
+    # add flathub repo
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
     sudo flatpak install -y flathub com.spotify.Client
@@ -66,28 +66,8 @@ user_space(){
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     nvim --headless +PlugInstall +qall
 
-    # gen ssh key
-    if [[ ! -f $HOME/.ssh/id_ed25519 ]]; then
-        ssh-keygen -t ed25519 -C "jeff.windsor@gmail.com"
-        xdg-open https://github.com/settings/keys/
-    fi
-    
-    # git repositories
-    mkdir -p ${HOME}/src/github.com/
-    mkdir -p ${HOME}/src/gitlab.com/
-    git clone https://github.com/jeffwindsor/dotfiles $HOME/.dotfiles
-    git clone https://github.com/jeffwindsor/installs $HOME/.installs
-    git clone https://github.com/jeffwindsor/startpage $HOME/src/github.com/jeffwindsor/startpage
-    git clone https://github.com/Mayccoll/Gogh $HOME/src/github.com/Mayccoll/Gogh
-    
     # set zsh as default shell
     lchsh -s "$(which zsh)"
-
-    # terminal color schemes
-    # favorites: 12 13 06 59 72 136 141 195 201
-    
-    # update gnome preferences
-    source ./gnome
 }
 
 ask

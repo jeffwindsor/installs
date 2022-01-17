@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
-
-#   
-#   ███████╗███████╗██████╗  ██████╗ ██████╗  █████╗    
-#   ██╔════╝██╔════╝██╔══██╗██╔═══██╗██╔══██╗██╔══██╗  
-#   █████╗  █████╗  ██║  ██║██║   ██║██████╔╝███████║ 
-#   ██╔══╝  ██╔══╝  ██║  ██║██║   ██║██╔══██╗██╔══██║   
-#   ██║     ███████╗██████╔╝╚██████╔╝██║  ██║██║  ██║ 
-#   ╚═╝     ╚══════╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
-#                                                                                                                 
-
 cd "$(dirname "${0}")"
+#   
+#    /$$$$$$$$              /$$                                 
+#   | $$_____/             | $$                             
+#   | $$     /$$$$$$   /$$$$$$$  /$$$$$$   /$$$$$$  /$$$$$$ 
+#   | $$$$$ /$$__  $$ /$$__  $$ /$$__  $$ /$$__  $$|____  $$
+#   | $$__/| $$$$$$$$| $$  | $$| $$  \ $$| $$  \__/ /$$$$$$$
+#   | $$   | $$_____/| $$  | $$| $$  | $$| $$      /$$__  $$
+#   | $$   |  $$$$$$$|  $$$$$$$|  $$$$$$/| $$     |  $$$$$$$
+#   |__/    \_______/ \_______/ \______/ |__/      \_______/
+#                                                           
 
 ask(){
 	echo "1 : Upgrade"
-	echo "2 : Install Packages and GNOME Config"
+	echo "2 : Install Packages"
 	echo -n "> "
 	read selection
 	case $selection in
@@ -24,7 +24,9 @@ ask(){
 
 		2 )
 			install_base_packages
-            install_gnome
+            source ./sshkeys
+            source ./gitclones
+            source ./gnome
 			;;
 
 		*) echo "Invalid input"
@@ -56,10 +58,6 @@ install_base_packages(){
     # terminal programs
 	sudo dnf -y install bat exa fd-find fzf ripgrep stow tldr
 
-    # allow wheel to use doas and persist password for 5 minutes
-    sudo dnf -y install doas
-    sudo sed -i "s/permit :wheel/permit persist :wheel/g" /etc/doas.conf
-    
     # image formats
     sudo dnf -y install webp-pixbuf-loader
 
@@ -71,50 +69,24 @@ install_base_packages(){
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 	nvim --headless +PlugInstall +qall
 
-    # applications
-    sudo flatpak install -y flathub com.spotify.Client
-    sudo flatpak install -y flathub com.vscodium.codium
-    sudo flatpak install -y flathub com.valvesoftware.Steam
-
-	# gen ssh key
-	if [[ ! -f $HOME/.ssh/github.com ]]; then
-	    ssh-keygen -t ed25519 -f $HOME/.ssh/github.com -C "jeff.windsor@gmail.com"
-	    xdg-open https://github.com/settings/keys/
-	fi
-
-	if [[ ! -f $HOME/.ssh/gitlab.gnome.org ]]; then
-        ssh-keygen -t ed25519 -f $HOME/.ssh/gitlab.gnome.org -C "jeff.windsor+gnome@gmail.com"
-        xdg-open https://gitlab.gnome.org/-/profile/keys
-    fi
-
-	# git repositories
-	mkdir -p ${HOME}/src/github.com/
-	mkdir -p ${HOME}/src/gitlab.com/
-	git clone git@github.com:jeffwindsor/dotfiles $HOME/.dotfiles
-	git clone git@github.com:jeffwindsor/installs $HOME/.installs
-	git clone git@github.com:jeffwindsor/startpage $HOME/src/github.com/jeffwindsor/startpage
-
-	# set zsh as default shell
-	sudo dnf -y install util-linux-user
-	chsh -s "$(which zsh)"
-
-	# add appropriate folders to local from MEGA 
-	#  if not added to one of the standard folder, add it to gnome search (such as books from mega) : Settings > Search > Search Locations > Other
-	xdg-open https://mega.nz/sync/ &
-
-    # terminal color schemes
-    xdg-open https://mayccoll.github.io/Gogh/ &
-    # favorites: 12 13 06 59 72 136 141 195 201
-}
-
-install_gnome(){
-	echo "==> Gnome"
+	# Gnome
     sudo dnf -y install gnome-tweaks
     sudo dnf -y install gnome-shell-extension-pop-shell
 	# remove unwanted defaults
 	# sudo dnf -y remove gnome-shell-extension-apps-menu
     
-    source ./gnome
+    # applications
+    sudo flatpak install -y flathub com.spotify.Client
+    sudo flatpak install -y flathub com.valvesoftware.Steam
+    sudo flatpak install -y flathub nz.mega.MEGAsync
+    sudo flatpak install -y flathub com.vscodium.codium
+
+	# set zsh as default shell
+	lchsh -s "$(which zsh)"
+
+	# add appropriate folders to local from MEGA 
+	#  if not added to one of the standard folder, add it to gnome search (such as books from mega) : Settings > Search > Search Locations > Other
+	xdg-open https://mega.nz/sync/ &
 }
 
 ask
