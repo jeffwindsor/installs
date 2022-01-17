@@ -32,9 +32,9 @@ ask(){
 
         3 ) 
             install_base_packages
-            source ./sshkeys
-            source ./gitclones
-            source ./gnome
+            source ./shared/sshkeys
+            source ./shared/gitclones
+            source ./shared/gnome
             ;;
 
 		*) echo "Invalid input"

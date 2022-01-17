@@ -76,6 +76,9 @@ install fd
 install fzf
 install git
 install neovim
+#vimplug - neovim
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+nvim --headless +PlugInstall +qall
 install ripgrep
 install starship
 install tldr
@@ -86,8 +89,26 @@ install zsh-completions
 install zsh-history-substring-search
 install zsh-syntax-highlighting
 
+brew tap InstantClientTap/instantclient
+#install parquet-tools
+install aws-cdk
+install awscli
+install awscli@1
+install cassandra
+install clojure
+install kafka
+install koekeishiya/formulae/skhd  && brew services start skhd
+install maven
+install maven-completion
+install selenium-server-standalone
+
+install_cask instantclient-basic
+install_cask instantclient-sqlplus
+install_cask intellij-idea
+install_cask keybase
 install_cask alacritty
 install_cask alfred
+install_cask Amethyst
 install_cask firefox
 install_cask font-fira-code-nerd-font
 install_cask font-hack-nerd-font
@@ -103,43 +124,8 @@ curl -s "https://get.sdkman.io" | bash
 echo "==> initial source SDKMAN"
 source "$HOME/.sdkman/bin/sdkman-init.sh"
 sdk install java
-sdk install kotlin
 skd install scala
 
-##########################################################
-install golang
-install idris
-install nodejs
-
-###############################################################
-echo "==> HASKELL"
-install ghc
-curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
-install hlint
-install haskell-stack
-
-###############################################################
-echo "==> RUST LANG"
-curl --proto '=https' --tlsv1.2 -sSfo rustup-init.sh https://sh.rustup.rs
-chmod +x rustup-init.sh
-./rustup-init.sh -y
-rm -f rustup-init.sh
-source $HOME/.cargo/env
-install cargo-completions
-cargo install cargo-update
-
 ################################################################
-echo "==> NVIM PLUGINS"
-curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-nvim --headless +PlugInstall +qall
-
-################################################################
-echo "==> GIT REPOS INTO HOME ${HOME}/SRC"
-mkdir -p ${HOME}/src/github.com
-
-cd $HOME/src
-clone-if-missing jeffwindsor startpage
-clone-if-missing jeffwindsor learn
-
-git clone git@github.com:jeffwindsor/dotfiles.git $HOME/.dotfiles
-git clone git@github.com:jeffwindsor/installs.git $HOME/.installs
+source ./shared/sshkeys
+source ./shared/gitclones
