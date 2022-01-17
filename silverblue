@@ -78,12 +78,12 @@ user_space(){
     git clone https://github.com/jeffwindsor/dotfiles $HOME/.dotfiles
     git clone https://github.com/jeffwindsor/installs $HOME/.installs
     git clone https://github.com/jeffwindsor/startpage $HOME/src/github.com/jeffwindsor/startpage
+    git clone https://github.com/Mayccoll/Gogh $HOME/src/github.com/Mayccoll/Gogh
     
     # set zsh as default shell
     lchsh -s "$(which zsh)"
 
     # terminal color schemes
-    xdg-open https://mayccoll.github.io/Gogh/ &
     # favorites: 12 13 06 59 72 136 141 195 201
     
     # update gnome preferences
