@@ -67,7 +67,8 @@ install_base_packages(){
     nvim --headless +PlugInstall +qall
 
     # set zsh as default shell
-    lchsh -s "$(which zsh)"
+    sudo usermod -s $(which zsh) $USERNAME
+    echo "logout to get shell change"
 }
 
 ask

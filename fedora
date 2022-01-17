@@ -81,8 +81,9 @@ install_base_packages(){
     sudo flatpak install -y flathub nz.mega.MEGAsync
     sudo flatpak install -y flathub com.vscodium.codium
 
-	# set zsh as default shell
-	lchsh -s "$(which zsh)"
+    # set zsh as default shell
+    sudo usermod -s $(which zsh) $USERNAME
+    echo "logout to get shell change"
 
 	# add appropriate folders to local from MEGA 
 	#  if not added to one of the standard folder, add it to gnome search (such as books from mega) : Settings > Search > Search Locations > Other
