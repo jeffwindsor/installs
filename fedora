@@ -19,7 +19,9 @@ ask(){
 	case $selection in
 
 		1 )
+            add_repositories
 			upgrade_packages
+            reboot
 			;;
 
 		2 )
@@ -35,23 +37,21 @@ ask(){
 }
 
 upgrade_packages(){
-	echo "==> Upgrading Packages and OS"
-    # remove unwanted packages and groups
-    sudo dnf -y group remove LibreOffice
-     
 	# package update
 	sudo dnf -y upgrade
+}
 
+add_repositories(){
 	# extra repositories
 	sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
 	sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-	
-    reboot
 }
 
 install_base_packages(){
-	echo "==> Installing Packages and Configurations"
+    # remove unwanted packages and groups
+    sudo dnf -y group remove LibreOffice
+     
     # laptop power
 	sudo dnf -y install tlp
 
@@ -71,9 +71,6 @@ install_base_packages(){
 
 	# Gnome
     sudo dnf -y install gnome-tweaks
-    sudo dnf -y install gnome-shell-extension-pop-shell
-	# remove unwanted defaults
-	# sudo dnf -y remove gnome-shell-extension-apps-menu
     
     # applications
     sudo flatpak install -y flathub com.spotify.Client
@@ -81,10 +78,8 @@ install_base_packages(){
     sudo flatpak install -y flathub nz.mega.MEGAsync
     #sudo flatpak install -y flathub com.vscodium.codium
 
-    # set zsh as default shell
-    sudo usermod -s $(which zsh) $USERNAME
-    echo "logout to get shell change"
-
+    # set zsh as default shell - logout to get shell change"
+    sudo lchsh -s $(which zsh)
 }
 
 ask
