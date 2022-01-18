@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+cd "$(dirname "${0}")"
+#   
+#    /$$$$$$$                      /$$$$$$   /$$$$$$  /$$
+#   | $$__  $$                    /$$__  $$ /$$__  $$| $$
+#   | $$  \ $$ /$$$$$$   /$$$$$$ | $$  \ $$| $$  \__/| $$
+#   | $$$$$$$//$$__  $$ /$$__  $$| $$  | $$|  $$$$$$ | $$
+#   | $$____/| $$  \ $$| $$  \ $$| $$  | $$ \____  $$|__/
+#   | $$     | $$  | $$| $$  | $$| $$  | $$ /$$  \ $$    
+#   | $$     |  $$$$$$/| $$$$$$$/|  $$$$$$/|  $$$$$$/ /$$
+#   |__/      \______/ | $$____/  \______/  \______/ |__/
+#                      | $$                              
+#                      | $$                              
+#                      |__/                              
+#   
+
+ask(){
+	echo "1 : Upgrade"
+	echo "2 : Install Packages"
+	echo -n "> "
+	read selection
+	case $selection in
+
+		1 )
+			upgrade_packages
+			;;
+
+		2 )
+			install_base_packages
+            source ./shared/sshkeys
+            source ./shared/gitclones
+            source ./shared/gnome
+			;;
+
+		*) echo "Invalid input"
+		    ;;
+	esac
+}
+
+upgrade_packages(){
+    sudo apt update 
+    sudo apt upgrade
+    sudo apt autoremove
+    
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+    reboot
+}
+
+install_base_packages(){
+    # shell
+    sudo apt-get -y install zsh zsh-autosuggestions zsh-syntax-highlighting
+    curl -fsSL https://starship.rs/install.sh | bash -s -- --yes
+    chsh -s "$(which zsh)"
+    
+    # terminal
+    sudo apt-get -y install bat exa fd-find fzf ripgrep stow tldr
+    sudo cp /usr/bin/fdfind /usr/bin/fd
+
+    # neovim
+    sudo apt-get -y install neovim
+    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    nvim --headless +PlugInstall +qall
+    
+    # Gnome
+    sudo apt-get -y install gnome-tweaks
+    
+    # applications
+    sudo flatpak install -y flathub com.spotify.Client
+    #sudo flatpak install -y flathub com.valvesoftware.Steam
+    sudo flatpak install -y flathub nz.mega.MEGAsync
+    #sudo flatpak install -y flathub com.vscodium.codium
+}
+
+ask
