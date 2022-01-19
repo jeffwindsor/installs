@@ -4,9 +4,20 @@ cd "$(dirname "${0}")"
 # add flathub repo
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-sudo flatpak install -y flathub com.spotify.Client
-sudo flatpak install -y flathub com.valvesoftware.Steam
-sudo flatpak install -y flathub nz.mega.MEGAsync
-sudo flatpak install -y flathub com.github.Eloston.UngoogledChromium
-sudo flatpak install -y flathub com.jetbrains.IntelliJ-IDEA-Community
-sudo flatpak install -y com.github.geigi.cozy
+flatpaks=(
+    "com.belmoussaoui.Obfuscate"
+    "com.github.Eloston.UngoogledChromium"
+    "com.github.geigi.cozy"
+    "com.github.tchx84.Flatseal"
+    "com.jetbrains.IntelliJ-IDEA-Community"
+    "com.spotify.Client"
+    "com.valvesoftware.Steam"
+    "com.vscodium.codium"
+    "de.haeckerfelix.Shortwave"
+    "nz.mega.MEGAsync"
+    "org.gabmus.gfeed"
+)
+
+for fp in ${flatpaks[@]}; do
+    flatpak install -y flathub $fp
+done
