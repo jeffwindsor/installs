@@ -29,6 +29,7 @@ ask(){
             source ./shared/sshkeys
             source ./shared/gitclones
             source ./shared/gnome
+            source ./shared/flathub
 			;;
 
 		*) echo "Invalid input"
@@ -72,12 +73,6 @@ install_base_packages(){
 	# Gnome
     sudo dnf -y install gnome-tweaks
     
-    # applications
-    sudo flatpak install -y flathub com.spotify.Client
-    #sudo flatpak install -y flathub com.valvesoftware.Steam
-    sudo flatpak install -y flathub nz.mega.MEGAsync
-    #sudo flatpak install -y flathub com.vscodium.codium
-
     # set zsh as default shell - logout to get shell change"
     sudo lchsh -s $(which zsh)
 }

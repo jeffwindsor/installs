@@ -20,13 +20,12 @@ ask(){
 	read selection
 	case $selection in
 
-		1 )
+	1 )
             rpm-ostree upgrade
             restart
 			;;
-
-		2 )
-			create_layer
+        2 )
+	    create_layer
             restart
 			;;
 
@@ -35,6 +34,7 @@ ask(){
             source ./shared/sshkeys
             source ./shared/gitclones
             source ./shared/gnome
+            source ./shared/flathub
             ;;
 
 		*) echo "Invalid input"
@@ -42,57 +42,37 @@ ask(){
 	esac
 }
 
-dnf_install_rpmfusion(){
-	sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-	sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+install_rpmfusion(){
+    sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+    sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 }
 
-dnf_install_zsh(){
+install_zsh(){
     sudo dnf install -y zsh zsh-autosuggestions zsh-syntax-highlighting
 }
 
-dnf_install_neovim(){
+install_neovim(){
     sudo dnf install -y neovim
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     nvim --headless +PlugInstall +qall
 }
 
-create_scala_dev_toolbox(){
-    toolbox create scala-dev
-    toolbox enter scala-dev
-
-    dnf_install_rpmfusion
-    dnf_install_zsh
-    dnf_install_neovim    
-
-    #xdg-open https://www.jetbrains.com/edu-products/download/download-thanks.html?platform=linux
-
-    #sdk    
+install_sdkman(){
     curl -s "https://get.sdkman.io" | bash
     source "/var/home/dev/.sdkman/bin/sdkman-init.sh"
-    sdk install java
-    sdk install scala
-    sdk install sbt
 }
 
 create_layer(){
     rpm-ostree install \
         bat exa fd-find fzf ripgrep stow tldr \
         webp-pixbuf-loader \
-        zsh zsh-autosuggestions zsh-syntax-highlighting \
-        starship \
+        zsh zsh-autosuggestions zsh-syntax-highlighting starship \
+        neovim \
         gnome-tweaks \
         gnome-shell-extension-pop-shell
 }
 
 install_base_packages(){
-    # add flathub repo
-    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-
-    sudo flatpak install -y flathub com.spotify.Client
-    sudo flatpak install -y flathub com.valvesoftware.Steam
-    sudo flatpak install -y flathub nz.mega.MEGAsync
-
     # set zsh as default shell
     sudo usermod -s $(which zsh) $USERNAME
     echo "logout to get shell change"
