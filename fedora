@@ -71,7 +71,7 @@ install_base_packages(){
 	nvim --headless +PlugInstall +qall
 
 	# Gnome
-    sudo dnf -y install gnome-tweaks
+    sudo dnf -y install gnome-tweaks xprop
     
     # set zsh as default shell - logout to get shell change"
     sudo lchsh -s $(which zsh)

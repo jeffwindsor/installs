@@ -69,7 +69,7 @@ create_layer(){
         zsh zsh-autosuggestions zsh-syntax-highlighting starship \
         neovim \
         gnome-tweaks \
-        gnome-shell-extension-pop-shell
+        gnome-shell-extension-pop-shell xprop
 }
 
 install_base_packages(){

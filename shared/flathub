@@ -16,8 +16,16 @@ flatpaks=(
     "de.haeckerfelix.Shortwave"
     "nz.mega.MEGAsync"
     "org.gabmus.gfeed"
+    "com.github.alainm23.planner"
+    "org.gnome.gitlab.somas.Apostrophe"
 )
 
 for fp in ${flatpaks[@]}; do
     flatpak install -y flathub $fp
 done
+
+######
+# SNAPS
+
+# sudo dnf install snap
+# sudo snap install infiniti-clips --edge
