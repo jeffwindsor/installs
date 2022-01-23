@@ -6,7 +6,7 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 
 flatpaks=(
     "com.belmoussaoui.Obfuscate"
-    "com.github.Eloston.UngoogledChromium"
+    "com.github.alainm23.planner"
     "com.github.geigi.cozy"
     "com.github.tchx84.Flatseal"
     "com.jetbrains.IntelliJ-IDEA-Community"
@@ -14,10 +14,14 @@ flatpaks=(
     "com.valvesoftware.Steam"
     "com.vscodium.codium"
     "de.haeckerfelix.Shortwave"
+    "md.obsidian.Obsidian"
+    "net.openra.OpenRA"
     "nz.mega.MEGAsync"
+    "org.chromium.Chromium"
     "org.gabmus.gfeed"
-    "com.github.alainm23.planner"
+    "org.gnome.Aisleriot"
     "org.gnome.gitlab.somas.Apostrophe"
+    "org.openmw.OpenMW"
 )
 
 for fp in ${flatpaks[@]}; do
