@@ -12,24 +12,25 @@ cd "$(dirname "${0}")"
 #                                                           
 
 ask(){
-	echo "1 : Upgrade"
-	echo "2 : Install Packages"
+	echo "1 : One Time Setup"
+	echo "2 : Install and Config Machine"
 	echo -n "> "
 	read selection
 	case $selection in
 
 		1 )
             add_repositories
+            update_dnf_config
 			upgrade_packages
             reboot
 			;;
 
 		2 )
-			install_base_packages
+			install_packages
+            source ./shared/flathub
             source ./shared/sshkeys
             source ./shared/gitclones
             source ./shared/gnome
-            source ./shared/flathub
 			;;
 
 		*) echo "Invalid input"
@@ -49,7 +50,11 @@ add_repositories(){
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 }
 
-install_base_packages(){
+update_dnf_config(){
+    echo "max_parallel_downloads=10\ndefaultyes=True" | sudo tee -a /etc/dnf/dnf.conf
+}
+
+install_packages(){
     # remove unwanted packages and groups
     sudo dnf -y group remove LibreOffice
      
@@ -64,7 +69,7 @@ install_base_packages(){
 
     # zsh
     sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting starship
-	
+
     # neovim with plugin manager
     sudo dnf -y install neovim
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
