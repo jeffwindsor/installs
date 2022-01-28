@@ -23,6 +23,7 @@ ask(){
 
 		1 )
 			upgrade_packages
+            reboot
 			;;
 
 		2 )
@@ -43,10 +44,6 @@ upgrade_packages(){
     sudo apt update 
     sudo apt upgrade
     sudo apt autoremove
-    
-    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-
-    reboot
 }
 
 install_base_packages(){
