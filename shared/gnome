@@ -25,7 +25,7 @@ xdg-open https://extensions.gnome.org/extension/570/todotxt/ &
 xdg-open https://extensions.gnome.org/extension/21/workspace-indicator/ &
 
 xdg-open https://extensions.gnome.org/extension/1401/bluetooth-quick-connect/ &
-xdg-open https://extensions.gnome.org/extension/905/sound-output-device-chooser/ &
+xdg-open https://extensions.gnome.org/extension/906/sound-output-device-chooser/ &
 
 # pop shell highlight color
 dconf write "/org/gnome/shell/extensions/pop-shell/hint-color-rgba" "'rgb(115,206,244)'"
