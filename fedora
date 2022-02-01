@@ -69,6 +69,7 @@ install_packages(){
 
     # zsh
     sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting starship
+    # set zsh as default shell - logout to get shell change"
     sudo usermod -s $(which zsh) $USER
 
     # neovim with plugin manager
@@ -78,9 +79,6 @@ install_packages(){
 
     # Gnome
     sudo dnf -y install gnome-tweaks gnome-extensions-app gnome-shell-extension-pop-shell xprop
-    
-    # set zsh as default shell - logout to get shell change"
-    sudo lchsh -s $(which zsh)
 }
 
 ask
