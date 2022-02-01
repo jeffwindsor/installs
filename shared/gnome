@@ -11,9 +11,6 @@
 
 cd "$(dirname "${0}")"
 
-# load gnome terminal profiles
-dconf load /org/gnome/terminal/legacy/profiles:/ < gnome-terminal-profiles.dconf
-
 # extensions
 xdg-open https://extensions.gnome.org/extension/3193/blur-my-shell/ &
 xdg-open https://extensions.gnome.org/extension/4481/forge/ &
@@ -29,6 +26,12 @@ xdg-open https://extensions.gnome.org/extension/21/workspace-indicator/ &
 
 xdg-open https://extensions.gnome.org/extension/1401/bluetooth-quick-connect/ &
 xdg-open https://extensions.gnome.org/extension/905/sound-output-device-chooser/ &
+
+# pop shell highlight color
+dconf write "/org/gnome/shell/extensions/pop-shell/hint-color-rgba" "'rgb(115,206,244)'"
+
+# load gnome terminal profiles
+dconf load /org/gnome/terminal/legacy/profiles:/ < gnome-terminal-profiles.dconf
 
 # interface preferences
 dconf write "/org/gnome/desktop/interface/clock-format" "'12h'"

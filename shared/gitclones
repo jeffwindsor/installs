@@ -18,7 +18,6 @@ git clone git@github.com:jeffwindsor/installs $HOME/.installs
 
 mkdir -p $HOME/src/github.com/
 git clone git@github.com:jeffwindsor/startpage $HOME/src/github.com/jeffwindsor/startpage
-git clone https://github.com/Mayccoll/Gogh $HOME/src/github.com/Mayccoll/Gogh
 
 mkdir -p $HOME/src/gitlab.gnome.org/
 git clone git@gitlab.gnome.org:jeffwindsor/gnome-shell-extensions.git $HOME/src/gitlab.gnome.org/jeffwindsor/gnome-shell-extensions
