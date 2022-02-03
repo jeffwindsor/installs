@@ -51,7 +51,9 @@ add_repositories(){
 }
 
 update_dnf_config(){
-    echo "max_parallel_downloads=10\ndefaultyes=True" | sudo tee -a /etc/dnf/dnf.conf
+    echo "max_parallel_downloads=10" | sudo tee -a /etc/dnf/dnf.conf
+    echo "defaultyes=True" | sudo tee -a /etc/dnf/dnf.conf
+    echo "fastestmirror=True" | sudo tee -a /etc/dnf/dnf.conf
 }
 
 install_packages(){
