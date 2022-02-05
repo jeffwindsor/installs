@@ -8,12 +8,15 @@ flatpaks=(
     "com.belmoussaoui.Obfuscate"
     "com.github.alainm23.planner"
     "com.github.geigi.cozy"
+    "com.github.johnfactotum.Foliate"
+    "com.calibre_ebook.calibre"
     "com.github.tchx84.Flatseal"
     "com.jetbrains.IntelliJ-IDEA-Community"
     "com.spotify.Client"
     "com.valvesoftware.Steam"
     "com.vscodium.codium"
     "de.haeckerfelix.Shortwave"
+    "io.mpv.Mpv"
     "md.obsidian.Obsidian"
     "net.openra.OpenRA"
     "nz.mega.MEGAsync"
@@ -22,7 +25,6 @@ flatpaks=(
     "org.gnome.Aisleriot"
     "org.gnome.gitlab.somas.Apostrophe"
     "org.openmw.OpenMW"
-    "io.mpv.Mpv"
 )
 
 for fp in ${flatpaks[@]}; do
