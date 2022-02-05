@@ -22,6 +22,7 @@ flatpaks=(
     "org.gnome.Aisleriot"
     "org.gnome.gitlab.somas.Apostrophe"
     "org.openmw.OpenMW"
+    "io.mpv.Mpv"
 )
 
 for fp in ${flatpaks[@]}; do
