@@ -81,6 +81,9 @@ install_packages(){
 
     # Gnome
     sudo dnf -y install gnome-tweaks gnome-extensions-app gnome-shell-extension-pop-shell xprop
+
+    # Mega
+    sudo dnf -y install megasync
 }
 
 ask

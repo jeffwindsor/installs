@@ -18,7 +18,6 @@ flatpaks=(
     "io.mpv.Mpv"
     "md.obsidian.Obsidian"
     "net.openra.OpenRA"
-    "nz.mega.MEGAsync"
     "org.chromium.Chromium"
     "org.gabmus.gfeed"
     "org.gnome.Aisleriot"
