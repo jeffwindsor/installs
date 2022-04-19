@@ -23,15 +23,13 @@ ask(){
 	case $selection in
 
 		1 )
-            add_repositories
-            update_dnf_config
-			upgrade_packages
-            reboot
+            flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+	        sudo zypper upgrade
 			;;
 
 		2 )
 			install_packages
-            source ./shared/flathub
+            #source ./shared/flathub
             source ./shared/sshkeys
             source ./shared/gitclones
             source ./shared/gnome
@@ -42,47 +40,21 @@ ask(){
 	esac
 }
 
-upgrade_packages(){
-	# package update
-	sudo zypper -y upgrade
-}
-
-add_repositories(){
-    # extra repositories
-    sudo zypper -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-    sudo zypper -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-}
-
-update_dnf_config(){
-    echo "max_parallel_downloads=10" | sudo tee -a /etc/dnf/dnf.conf
-    echo "defaultyes=True" | sudo tee -a /etc/dnf/dnf.conf
-    echo "fastestmirror=True" | sudo tee -a /etc/dnf/dnf.conf
-}
-
 install_packages(){
-    # terminal programs
-    sudo zypper -y install bat stow 
-    sudo zypper -y install exa exa-zsh-completion
-    sudo zypper -y install ripgrep ripgrep-zsh-completion
-    sudo zypper -y install fd fd-zsh-completion
-    sudo zypper -y install fzf fzf-zsh-completion
+    sudo zypper install -y gnome-tweaks gnome-shell-extension-pop-shell
+    sudo zypper install -y bat stow exa ripgrep fd fzf vim
 
-    # zsh
-    sudo zypper -y install zsh zsh-autosuggestions zsh-syntax-highlighting starship
-    # set zsh as default shell - logout to get shell change"
-    #sudo usermod -s $(which zsh) $USER
+    sudo zypper install -y zsh 
+    sudo zypper install -y exa-zsh-completion ripgrep-zsh-completion fd-zsh-completion fzf-zsh-completion
 
-    # neovim with plugin manager
-    sudo zypper -y install neovim
-    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    nvim --headless +PlugInstall +qall
+    sudo zypper install -y fish
+    sudo zypper install -y exa-fish-completion ripgrep-fish-completion fd-fish-completion fzf-fish-completion
 
-    # Gnome
-    sudo zypper -y install gnome-tweaks gnome-shell-extension-pop-shell
+    #vim-plug
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-    # Mega
-    #sudo zypper -y install megasync
+    #starship prompt
+    curl -sS https://starship.rs/install.sh | sh
 }
 
 ask
