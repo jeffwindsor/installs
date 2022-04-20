@@ -104,8 +104,7 @@ install_base_packages(){
 
 install_gnome(){
 	echo "==> Gnome"
-    install gnome-tweaks
-    install gnome-extra
+    install gnome-tweaks gnome-extra
     aur gnome-shell-extension-pop-shell-git 
 
     source ./gnome
