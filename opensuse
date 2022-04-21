@@ -23,7 +23,7 @@ ask(){
 	case $selection in
 
 		1 )
-            flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+            sudo zypper addrepo -f http://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_Tumbleweed/ packman
 	        sudo zypper upgrade
 			;;
 

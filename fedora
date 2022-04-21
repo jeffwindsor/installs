@@ -19,9 +19,10 @@ ask(){
 	case $selection in
 
 		1 )
-            add_repositories
+            sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+            sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
             update_dnf_config
-			upgrade_packages
+            sudo dnf -y upgrade
             reboot
 			;;
 
@@ -36,18 +37,6 @@ ask(){
 		*) echo "Invalid input"
 		    ;;
 	esac
-}
-
-upgrade_packages(){
-	# package update
-	sudo dnf -y upgrade
-}
-
-add_repositories(){
-    # extra repositories
-    sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-    sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 }
 
 update_dnf_config(){
