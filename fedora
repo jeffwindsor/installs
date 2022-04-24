@@ -19,9 +19,9 @@ ask(){
 	case $selection in
 
 		1 )
+            update_dnf_config
             sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
             sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-            update_dnf_config
             sudo dnf -y upgrade
             reboot
 			;;
@@ -45,40 +45,22 @@ update_dnf_config(){
     echo "fastestmirror=True" | sudo tee -a /etc/dnf/dnf.conf
 }
 
-install_brave(){
+install_packages(){
+    sudo dnf -y install gnome-tweaks gnome-extensions-app gnome-shell-extension-pop-shell xprop
+    sudo dnf -y install bat exa fd-find fzf ripgrep stow tldr vim
+    sudo dnf -y install webp-pixbuf-loader mega-sync
+
+    sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting 
+    sudo dnf -y install fsh
+    sudo dnf -y install starship
+
+    #vim-plug
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    
+    #brave-browser
     sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
     sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
     sudo dnf install brave-browser
-}
-
-install_packages(){
-    # remove unwanted packages and groups
-    sudo dnf -y group remove LibreOffice
-     
-    # laptop power
-    sudo dnf -y install tlp
-
-    # terminal programs
-    sudo dnf -y install bat exa fd-find fzf ripgrep stow tldr
-
-    # image formats
-    sudo dnf -y install webp-pixbuf-loader
-
-    # zsh
-    sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting starship
-    # set zsh as default shell - logout to get shell change"
-    sudo usermod -s $(which zsh) $USER
-
-    # neovim with plugin manager
-    sudo dnf -y install neovim
-    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    nvim --headless +PlugInstall +qall
-
-    # Gnome
-    sudo dnf -y install gnome-tweaks gnome-extensions-app gnome-shell-extension-pop-shell xprop
-
-    # Mega
-    sudo dnf -y install megasync
 }
 
 ask

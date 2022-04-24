@@ -31,13 +31,15 @@ ask(){
 	case $selection in
 
 		1 )
-			upgrade_packages
+			sudo pacman -Syu
             install_aur_helper
 			;;
 
 		2 )
-			install_base_packages
-            install_gnome
+			install_packages
+            source ./shared/sshkeys
+            source ./shared/gitclones
+            source ./shared/gnome
 			;;
 
 		*) echo "Invalid input"
@@ -46,8 +48,6 @@ ask(){
 }
 
 install_aur_helper(){
-    echo "==> Installing Arch User Repository Helper"
-
     install git
     git clone https://aur.archlinux.org/paru.git
     cd paru
@@ -56,19 +56,7 @@ install_aur_helper(){
     rm -rf paru
 }
 
-upgrade_packages(){
-	echo "==> Upgrading Packages and OS"
-    sudo pacman -Syu
-
-    #Package Manager: get 5 fastest mirrors in North America"
-    #install reflector
-    #sudo reflector --verbose --country 'United States, Canada' -l 5 -p https --sort rate --save /etc/pacman.d/mirrorlist
-}
-
-
-install_base_packages(){
-	echo "==> Installing Packages and Configurations"
-
+install_packages(){
     # bluetooth
     install bluez bluez-libs bluez-utils
     sudo systemctl enable bloothooth.service
@@ -86,7 +74,7 @@ install_base_packages(){
     chsh -s "$(which zsh)"          #Set ZSH as DEFAULT"
     
     # neovim
-    install neovim
+    install vim
     aur vim-plug
     nvim --headless +PlugInstall +qall
 
@@ -100,14 +88,9 @@ install_base_packages(){
     #manual steps"
     xdg-open https://mega.nz/sync/ &
     xdg-open https://lastpass.com/ &
-}
 
-install_gnome(){
-	echo "==> Gnome"
     install gnome-tweaks gnome-extra
     aur gnome-shell-extension-pop-shell-git 
-
-    source ./gnome
 }
 
 ask
