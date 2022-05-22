@@ -14,18 +14,25 @@ cd "$(dirname "${0}")"
 
 ask(){
 	echo "1 : Upgrade"
-	echo "2 : Add Personal Layer"
+	echo "2 : Add Personal RO Layer"
 	echo "3 : Install Packages"
 	echo -n "> "
 	read selection
 	case $selection in
 
-	1 )
+        1 )
             rpm-ostree upgrade
             restart
 			;;
         2 )
-	    create_layer
+            rpm-ostree install \
+                bat exa fd-find fzf ripgrep stow tldr \
+                webp-pixbuf-loader \
+                zsh zsh-autosuggestions zsh-syntax-highlighting starship \
+                neovim \
+                gnome-tweaks \
+                gnome-shell-extension-pop-shell xprop
+                create_layer
             restart
 			;;
 
@@ -40,36 +47,6 @@ ask(){
 		*) echo "Invalid input"
 		    ;;
 	esac
-}
-
-install_rpmfusion(){
-    sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-    sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-}
-
-install_zsh(){
-    sudo dnf install -y zsh zsh-autosuggestions zsh-syntax-highlighting
-}
-
-install_neovim(){
-    sudo dnf install -y neovim
-    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    nvim --headless +PlugInstall +qall
-}
-
-install_sdkman(){
-    curl -s "https://get.sdkman.io" | bash
-    source "/var/home/dev/.sdkman/bin/sdkman-init.sh"
-}
-
-create_layer(){
-    rpm-ostree install \
-        bat exa fd-find fzf ripgrep stow tldr \
-        webp-pixbuf-loader \
-        zsh zsh-autosuggestions zsh-syntax-highlighting starship \
-        neovim \
-        gnome-tweaks \
-        gnome-shell-extension-pop-shell xprop
 }
 
 install_base_packages(){

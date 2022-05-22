@@ -5,32 +5,16 @@ cd "$(dirname "${0}")"
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 flatpaks=(
-    "com.belmoussaoui.Obfuscate"
-    "com.github.alainm23.planner"
-    "com.github.geigi.cozy"
-    "com.calibre_ebook.calibre"
     "com.github.tchx84.Flatseal"
     "com.jetbrains.IntelliJ-IDEA-Community"
+    "com.mattjakeman.ExtensionManager"
     "com.spotify.Client"
     "com.valvesoftware.Steam"
     "com.vscodium.codium"
-    "de.haeckerfelix.Shortwave"
-    "io.mpv.Mpv"
     "md.obsidian.Obsidian"
-    "net.openra.OpenRA"
-    "org.chromium.Chromium"
-    "org.gabmus.gfeed"
-    "org.gnome.Aisleriot"
-    "org.gnome.gitlab.somas.Apostrophe"
-    "org.openmw.OpenMW"
 )
 
 for fp in ${flatpaks[@]}; do
     flatpak install -y flathub $fp
 done
 
-######
-# SNAPS
-
-# sudo dnf install snap
-# sudo snap install infiniti-clips --edge
