@@ -29,10 +29,9 @@ ask(){
                 bat exa fd-find fzf ripgrep stow tldr \
                 webp-pixbuf-loader \
                 zsh zsh-autosuggestions zsh-syntax-highlighting starship \
-                neovim \
+                vim \
                 gnome-tweaks \
                 gnome-shell-extension-pop-shell xprop
-                create_layer
             restart
 			;;
 
