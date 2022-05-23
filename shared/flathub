@@ -17,6 +17,7 @@ flatpaks=(
     "com.spotify.Client"
     "com.valvesoftware.Steam"
     "com.vscodium.codium"
+    "org.gnome.Geary"
 )
 
 for fp in ${flatpaks[@]}; do
