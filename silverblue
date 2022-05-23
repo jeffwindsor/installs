@@ -27,9 +27,8 @@ ask(){
         2 )
             rpm-ostree install \
                 bat exa fd-find fzf ripgrep stow tldr \
-                webp-pixbuf-loader \
                 zsh zsh-autosuggestions zsh-syntax-highlighting starship \
-                vim \
+                neovim \
                 gnome-tweaks \
                 gnome-shell-extension-pop-shell xprop
             restart

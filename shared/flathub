@@ -4,17 +4,23 @@ cd "$(dirname "${0}")"
 # add flathub repo
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
+# Under review
+#
+#   "com.jetbrains.IntelliJ-IDEA-Community"
+#   "md.obsidian.Obsidian"
+
+# Install
+#
 flatpaks=(
     "com.github.tchx84.Flatseal"
-    "com.jetbrains.IntelliJ-IDEA-Community"
     "com.mattjakeman.ExtensionManager"
     "com.spotify.Client"
     "com.valvesoftware.Steam"
     "com.vscodium.codium"
-    "md.obsidian.Obsidian"
 )
 
 for fp in ${flatpaks[@]}; do
     flatpak install -y flathub $fp
 done
 
+# vscode helper: https://github.com/owtaylor/toolbox-vscode
