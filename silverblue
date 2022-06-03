@@ -13,8 +13,8 @@ cd "$(dirname "${0}")"
 #                                                                                     
 
 ask(){
-	echo "1 : Upgrade"
-	echo "2 : Personal / Home Config"
+	echo "1 : Upgrade Base"
+	echo "2 : Toolbox Install"
 	echo -n "> "
 	read selection
 	case $selection in
@@ -29,6 +29,7 @@ ask(){
       source ./shared/gitclones
       source ./shared/gnome
       source ./shared/flathub
+			create_base_toolbox
       ;;
 
 		*) 
@@ -38,20 +39,28 @@ ask(){
 }
 
 create_base_toolbox(){
+	toolbox create
 	toolbox enter
+	
+	# get latest for container
+	sudo dnf upgrade
 
-	# command line
+	# add fusion repositories
+	sudo dnf -y install \
+		https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+		https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+	# install command line
+  sudo dnf -y install neovim
   sudo dnf -y install bat exa fd-find fzf ripgrep starship stow tldr
 	sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting
-  sudo dnf -y install neovim
 
-	#gui
-  #sudo dnf -y install gnome-tweaks gnome-extensions-app gnome-shell-extension-pop-shell xprop
-  #sudo dnf -y install webp-pixbuf-loader mega-sync
+	# install gui
+  sudo dnf -y install gnome-tweaks gnome-extensions-app gnome-shell-extension-pop-shell xprop
+  sudo dnf -y install webp-pixbuf-loader mega-sync
 
   # set zsh as default shell
   sudo usermod -s $(which zsh) $USERNAME
-  echo "logout to get shell change"
 }
 
 ask

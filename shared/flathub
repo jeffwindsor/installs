@@ -9,7 +9,6 @@ flatpaks=(
     "com.github.tchx84.Flatseal"
     "com.mattjakeman.ExtensionManager"
     "com.spotify.Client"
-    "com.vscodium.codium"
 )
 for fp in ${flatpaks[@]}; do
     flatpak install -y $fp
@@ -20,5 +19,6 @@ done
 #   "com.jetbrains.IntelliJ-IDEA-Community"
 #   "md.obsidian.Obsidian"
 #   "org.gnome.Geary"
+#   "com.vscodium.codium"
 
 # vscode helper: https://github.com/owtaylor/toolbox-vscode
