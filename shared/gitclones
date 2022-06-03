@@ -12,7 +12,8 @@ cd "$(dirname "${0}")"
 #    \______/ |______/   |__/   
 #                               
 
-# git repositories
+git clone git@github.com:AstroNvim/AstroNvim.git $HOME/.config/nvim
+
 git clone git@github.com:jeffwindsor/dotfiles $HOME/.dotfiles
 git clone git@github.com:jeffwindsor/installs $HOME/.installs
 
