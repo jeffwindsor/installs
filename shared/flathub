@@ -1,27 +1,24 @@
 #!/usr/bin/env bash
 cd "$(dirname "${0}")"
 
-# add flathub repo
+# ADD FLATHUB REPO
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-# Under review
-#
-#   "com.jetbrains.IntelliJ-IDEA-Community"
-#   "md.obsidian.Obsidian"
-
-# Install
-#
+# FLATPAKS
 flatpaks=(
     "com.github.tchx84.Flatseal"
     "com.mattjakeman.ExtensionManager"
     "com.spotify.Client"
-    "com.valvesoftware.Steam"
     "com.vscodium.codium"
-    "org.gnome.Geary"
 )
-
 for fp in ${flatpaks[@]}; do
-    flatpak install -y flathub $fp
+    flatpak install -y $fp
 done
+
+# UNDER REVIEW
+#   "com.valvesoftware.Steam"
+#   "com.jetbrains.IntelliJ-IDEA-Community"
+#   "md.obsidian.Obsidian"
+#   "org.gnome.Geary"
 
 # vscode helper: https://github.com/owtaylor/toolbox-vscode
