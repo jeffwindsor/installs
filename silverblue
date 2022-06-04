@@ -13,54 +13,34 @@ cd "$(dirname "${0}")"
 #                                                                                     
 
 ask(){
-	echo "1 : Upgrade Base"
-	echo "2 : Toolbox Install"
-	echo -n "> "
-	read selection
-	case $selection in
+  echo "1 : Upgrade Base"
+  echo "2 : Toolbox Install"
+  echo -n "> "
+  read selection
+  case $selection in
 
     1 )
       rpm-ostree upgrade
       restart
-			;;
+      ;;
 
     2 )
       source ./shared/sshkeys
       source ./shared/gitclones
       source ./shared/gnome
       source ./shared/flathub
-			create_base_toolbox
+      
+      for file in ./toolboxes/*.
+      do
+        ./"$file"
+      done
+      
       ;;
 
-		*) 
-			echo "Invalid input"
-		  ;;
-	esac
-}
-
-create_base_toolbox(){
-	toolbox create
-	toolbox enter
-	
-	# get latest for container
-	sudo dnf upgrade
-
-	# add fusion repositories
-	sudo dnf -y install \
-		https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
-		https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-
-	# install command line
-  sudo dnf -y install neovim
-  sudo dnf -y install bat exa fd-find fzf ripgrep starship stow tldr
-	sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting
-
-	# install gui
-  sudo dnf -y install gnome-tweaks gnome-extensions-app gnome-shell-extension-pop-shell xprop
-  sudo dnf -y install webp-pixbuf-loader mega-sync
-
-  # set zsh as default shell
-  sudo usermod -s $(which zsh) $USERNAME
+    *) 
+      echo "Invalid input"
+      ;;
+  esac
 }
 
 ask
