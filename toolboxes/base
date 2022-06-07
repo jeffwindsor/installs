@@ -18,8 +18,9 @@ sudo dnf -y install bat exa fd-find fzf ripgrep starship stow tldr
 sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting
 
 # install gui
-sudo dnf -y install gnome-tweaks gnome-extensions-app gnome-shell-extension-pop-shell xprop
-sudo dnf -y install webp-pixbuf-loader mega-sync
+sudo dnf -y install gnome-tweaks gnome-extensions-app 
+# gnome-shell-extension-pop-shell xprop
+# sudo dnf -y install webp-pixbuf-loader mega-sync
 
 # set zsh as default shell
 sudo usermod -s $(which zsh) $USERNAME
