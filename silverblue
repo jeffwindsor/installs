@@ -20,8 +20,8 @@ ask(){
   case $selection in
 
     1 )
-      rpm-ostree upgrade
-      restart
+      sudo rpm-ostree upgrade
+      systemctl restart
       ;;
 
     2 )

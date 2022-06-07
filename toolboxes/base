@@ -2,7 +2,7 @@
 cd "$(dirname "${0}")"
 
 toolbox create
-toolbox run sh -exec '\ 
+toolbox run sh -exec ' 
 
 # get latest for container
 sudo dnf upgrade
