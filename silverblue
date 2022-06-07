@@ -13,8 +13,9 @@ cd "$(dirname "${0}")"
 #                                                                                     
 
 ask(){
-  echo "1 : Upgrade Base"
-  echo "2 : Toolbox Install"
+  echo "1 : OsTree Upgrade"
+  echo "2 : OsTree PopShell Layer"
+  echo "3 : User Space and Toolbox"
   echo -n "> "
   read selection
   case $selection in
@@ -25,16 +26,18 @@ ask(){
       ;;
 
     2 )
+      sudo rpm-ostree install gnome-shell-extension-pop-shell
+      systemctl restart
+      ;;
+
+    3)
       source ./shared/sshkeys
       source ./shared/gitclones
       source ./shared/gnome
       source ./shared/flathub
       
-      for file in ./toolboxes/*.
-      do
-        ./"$file"
-      done
-      
+      source ./toolboxes/base
+      source ./shared/gnome-extensions
       ;;
 
     *) 
