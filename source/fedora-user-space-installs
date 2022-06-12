@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 # clis
 sudo dnf -y install bat exa fd-find fzf ripgrep starship stow tldr
 

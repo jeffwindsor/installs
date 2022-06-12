@@ -1,15 +1,63 @@
-#! /usr/bin/env bash
-
-#   
-#    ██████╗ ███╗   ██╗ ██████╗ ███╗   ███╗███████╗
-#   ██╔════╝ ████╗  ██║██╔═══██╗████╗ ████║██╔════╝
-#   ██║  ███╗██╔██╗ ██║██║   ██║██╔████╔██║█████╗  
-#   ██║   ██║██║╚██╗██║██║   ██║██║╚██╔╝██║██╔══╝  
-#   ╚██████╔╝██║ ╚████║╚██████╔╝██║ ╚═╝ ██║███████╗
-#    ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝
-#                                                  
-
+#!/usr/bin/env bash
 cd "$(dirname "${0}")"
+# 
+#   /$$$$$$  /$$ /$$                               /$$       /$$                          
+#  /$$__  $$|__/| $$                              | $$      | $$                          
+# | $$  \__/ /$$| $$ /$$    /$$ /$$$$$$   /$$$$$$ | $$$$$$$ | $$ /$$   /$$  /$$$$$$       
+# |  $$$$$$ | $$| $$|  $$  /$$//$$__  $$ /$$__  $$| $$__  $$| $$| $$  | $$ /$$__  $$      
+#  \____  $$| $$| $$ \  $$/$$/| $$$$$$$$| $$  \__/| $$  \ $$| $$| $$  | $$| $$$$$$$$      
+#  /$$  \ $$| $$| $$  \  $$$/ | $$_____/| $$      | $$  | $$| $$| $$  | $$| $$_____/      
+# |  $$$$$$/| $$| $$   \  $/  |  $$$$$$$| $$      | $$$$$$$/| $$|  $$$$$$/|  $$$$$$$      
+#  \______/ |__/|__/    \_/    \_______/|__/      |_______/ |__/ \______/  \_______/      
+#                                                                                         
+#=====================================================================================                                                                                                                 
+# rmp-ostree
+#=====================================================================================                                                                                                                 
+
+sudo rpm-ostree upgrade
+sudo rpm-ostree install gnome-shell-extension-pop-shell
+
+#=====================================================================================                                                                                                                 
+# flatpak
+#=====================================================================================                                                                                                                 
+
+# ADD FLATHUB REPO
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+# FLATPAKS
+flatpaks=(
+    "com.github.tchx84.Flatseal"
+    "com.mattjakeman.ExtensionManager"
+    "com.spotify.Client"
+)
+for fp in ${flatpaks[@]}; do
+    flatpak install -y $fp
+done
+
+# UNDER REVIEW
+#   "com.valvesoftware.Steam"
+#   "com.jetbrains.IntelliJ-IDEA-Community"
+#   "md.obsidian.Obsidian"
+#   "org.gnome.Geary"
+#   "com.vscodium.codium"
+
+# vscode helper: https://github.com/owtaylor/toolbox-vscode
+
+#=====================================================================================                                                                                                                 
+# ssh keygen
+#=====================================================================================                                                                                                                 
+if [[ ! -f $HOME/.ssh/github.com ]]; then
+    ssh-keygen -t ed25519 -f $HOME/.ssh/github.com -C "jeff.windsor@gmail.com"
+    xdg-open https://github.com/settings/keys/ &
+fi
+
+if [[ ! -f $HOME/.ssh/gitlab.gnome.org ]]; then
+    ssh-keygen -t ed25519 -f $HOME/.ssh/gitlab.gnome.org -C "jeff.windsor+gnome@gmail.com"
+    xdg-open https://gitlab.gnome.org/-/profile/keys/ &
+fi
+#=====================================================================================                                                                                                                 
+# gnome settings
+#=====================================================================================                                                                                                                 
 
 # pop shell highlight color
 dconf write "/org/gnome/shell/extensions/pop-shell/hint-color-rgba" "'rgb(115,206,244)'"
@@ -129,3 +177,38 @@ dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cu
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'gnome-terminal'"
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'Terminal'"
 
+#=====================================================
+# base toolbox
+#=====================================================
+toolbox create
+toolbox run sh -exec '
+# update dnf config
+echo "max_parallel_downloads=10" | sudo tee -a /etc/dnf/dnf.conf
+echo "defaultyes=True" | sudo tee -a /etc/dnf/dnf.conf
+echo "fastestmirror=True" | sudo tee -a /etc/dnf/dnf.conf
+
+# add rpm fusion repositories
+sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+# upgrade packages
+sudo dnf -y upgrade
+
+# clis
+sudo dnf -y install bat exa fd-find fzf ripgrep starship stow tldr
+
+# neovim
+sudo dnf -y install neovim
+git clone git@github.com:AstroNvim/AstroNvim.git $HOME/.config/nvim
+sudo dnf -y install gcc "gcc-c++"
+
+# install gui
+sudo dnf -y install gnome-tweaks gnome-extensions-app 
+
+# zsh as default shell
+sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting
+sudo usermod -s $(which zsh) $USERNAME
+
+'
+
+systemctl reboot

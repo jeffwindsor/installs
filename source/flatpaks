@@ -1,5 +1,6 @@
-#!/usr/bin/env bash
-cd "$(dirname "${0}")"
+#=====================================================================================                                                                                                                 
+# flatpak
+#=====================================================================================                                                                                                                 
 
 # ADD FLATHUB REPO
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -22,3 +23,4 @@ done
 #   "com.vscodium.codium"
 
 # vscode helper: https://github.com/owtaylor/toolbox-vscode
+
