@@ -1,0 +1,62 @@
+
+# https://github.com/aferrero2707/gimp-appimage/releases
+# https://github.com/KRTirtho/spotube/releases
+#=====================================================================================                                                                                                                 
+# flatpak
+#=====================================================================================                                                                                                                 
+
+# ADD FLATHUB REPO
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+# FLATPAKS
+flatpaks=(
+    "com.github.tchx84.Flatseal"
+    "com.mattjakeman.ExtensionManager"
+    "com.spotify.Client"
+)
+for fp in ${flatpaks[@]}; do
+    flatpak install -y $fp
+done
+
+# UNDER REVIEW
+#   "com.valvesoftware.Steam"
+#   "com.jetbrains.IntelliJ-IDEA-Community"
+#   "md.obsidian.Obsidian"
+#   "org.gnome.Geary"
+#   "com.vscodium.codium"
+
+# vscode helper: https://github.com/owtaylor/toolbox-vscode
+
+#=====================================================================================                                                                                                                 
+# git clones
+#=====================================================================================                                                                                                                 
+
+git clone git@github.com:jeffwindsor/dotfiles $HOME/.dotfiles
+git clone git@github.com:jeffwindsor/installs $HOME/.installs
+
+mkdir -p $HOME/src/github.com/
+git clone git@github.com:jeffwindsor/startpage $HOME/src/github.com/jeffwindsor/startpage
+
+mkdir -p $HOME/src/gitlab.gnome.org/
+git clone git@gitlab.gnome.org:jeffwindsor/gnome-shell-extensions.git $HOME/src/gitlab.gnome.org/jeffwindsor/gnome-shell-extensions
+
+mkdir -p $HOME/src/gitlab.com/
+
+#=====================================================================================                                                                                                                 
+# git extensions
+#=====================================================================================                                                                                                                 
+xdg-open https://extensions.gnome.org/extension/3193/blur-my-shell/ &
+#xdg-open https://extensions.gnome.org/extension/4481/forge/ &
+xdg-open https://extensions.gnome.org/extension/3843/just-perfection/ &
+xdg-open https://extensions.gnome.org/extension/600/launch-new-instance/ &
+
+#xdg-open https://extensions.gnome.org/extension/615/appindicator-support/ &
+#xdg-open https://extensions.gnome.org/extension/3396/color-picker/
+xdg-open https://extensions.gnome.org/extension/4135/espresso/ &
+xdg-open https://extensions.gnome.org/extension/3956/gnome-fuzzy-app-search/ &
+xdg-open https://extensions.gnome.org/extension/4472/spotify-tray/ &
+# xdg-open https://extensions.gnome.org/extension/570/todotxt/ &
+xdg-open https://extensions.gnome.org/extension/21/workspace-indicator/ &
+
+xdg-open https://extensions.gnome.org/extension/1401/bluetooth-quick-connect/ &
+xdg-open https://extensions.gnome.org/extension/906/sound-output-device-chooser/ &

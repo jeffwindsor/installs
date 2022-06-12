@@ -38,32 +38,6 @@ sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting
 sudo usermod -s $(which zsh) $USERNAME
 
 #=====================================================================================                                                                                                                 
-# flatpak
-#=====================================================================================                                                                                                                 
-
-# ADD FLATHUB REPO
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-
-# FLATPAKS
-flatpaks=(
-    "com.github.tchx84.Flatseal"
-    "com.mattjakeman.ExtensionManager"
-    "com.spotify.Client"
-)
-for fp in ${flatpaks[@]}; do
-    flatpak install -y $fp
-done
-
-# UNDER REVIEW
-#   "com.valvesoftware.Steam"
-#   "com.jetbrains.IntelliJ-IDEA-Community"
-#   "md.obsidian.Obsidian"
-#   "org.gnome.Geary"
-#   "com.vscodium.codium"
-
-# vscode helper: https://github.com/owtaylor/toolbox-vscode
-
-#=====================================================================================                                                                                                                 
 # ssh keygen
 #=====================================================================================                                                                                                                 
 if [[ ! -f $HOME/.ssh/github.com ]]; then
