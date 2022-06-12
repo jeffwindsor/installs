@@ -10,6 +10,18 @@ cd "$(dirname "${0}")"
 # | $$   |  $$$$$$$|  $$$$$$$|  $$$$$$/| $$     |  $$$$$$$      
 # |__/    \_______/ \_______/ \______/ |__/      \_______/      
 # 
+#=====================================================================================                                                                                                                 
+# ssh keygen
+#=====================================================================================                                                                                                                 
+if [[ ! -f $HOME/.ssh/github.com ]]; then
+    ssh-keygen -t ed25519 -f $HOME/.ssh/github.com -C "jeff.windsor@gmail.com"
+    xdg-open https://github.com/settings/keys/ &
+fi
+
+if [[ ! -f $HOME/.ssh/gitlab.gnome.org ]]; then
+    ssh-keygen -t ed25519 -f $HOME/.ssh/gitlab.gnome.org -C "jeff.windsor+gnome@gmail.com"
+    xdg-open https://gitlab.gnome.org/-/profile/keys/ &
+fi
 # update dnf config
 echo "max_parallel_downloads=10" | sudo tee -a /etc/dnf/dnf.conf
 echo "defaultyes=True" | sudo tee -a /etc/dnf/dnf.conf
@@ -38,17 +50,20 @@ sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting
 sudo usermod -s $(which zsh) $USERNAME
 
 #=====================================================================================                                                                                                                 
-# ssh keygen
+# git clones
 #=====================================================================================                                                                                                                 
-if [[ ! -f $HOME/.ssh/github.com ]]; then
-    ssh-keygen -t ed25519 -f $HOME/.ssh/github.com -C "jeff.windsor@gmail.com"
-    xdg-open https://github.com/settings/keys/ &
-fi
 
-if [[ ! -f $HOME/.ssh/gitlab.gnome.org ]]; then
-    ssh-keygen -t ed25519 -f $HOME/.ssh/gitlab.gnome.org -C "jeff.windsor+gnome@gmail.com"
-    xdg-open https://gitlab.gnome.org/-/profile/keys/ &
-fi
+git clone http://github.com/jeffwindsor/dotfiles $HOME/.dotfiles
+git clone http://github.com/jeffwindsor/installs $HOME/.installs
+
+mkdir -p $HOME/src/github.com/
+git clone http://github.com/jeffwindsor/startpage $HOME/src/github.com/jeffwindsor/startpage
+
+mkdir -p $HOME/src/gitlab.gnome.org/
+git clone http://gitlab.gnome.org/jeffwindsor/gnome-shell-extensions.git $HOME/src/gitlab.gnome.org/jeffwindsor/gnome-shell-extensions
+
+mkdir -p $HOME/src/gitlab.com/
+
 #=====================================================================================                                                                                                                 
 # gnome settings
 #=====================================================================================                                                                                                                 
@@ -57,7 +72,7 @@ fi
 dconf write "/org/gnome/shell/extensions/pop-shell/hint-color-rgba" "'rgb(115,206,244)'"
 
 # load gnome terminal profiles
-dconf load /org/gnome/terminal/legacy/profiles:/ < gnome-terminal-profiles.dconf
+dconf load /org/gnome/terminal/legacy/profiles:/ < $HOME/.installs/shared/gnome-terminal-profiles.dconf
 
 # interface preferences
 dconf write "/org/gnome/desktop/interface/clock-format" "'12h'"
@@ -171,3 +186,4 @@ dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cu
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'gnome-terminal'"
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'Terminal'"
 
+systemctl reboot

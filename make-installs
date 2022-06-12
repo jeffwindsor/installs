@@ -14,32 +14,38 @@ cd "$(dirname "${0}")"
  
 #=====================================================
 # FEDORA
+target=fedora
+
 cat \
   ./shared/header \
   ./shared/fedora-logo \
+  ./shared/sshkeys \
   ./shared/fedora-dnf-config \
   ./shared/fedora-user-space-installs \
-  ./shared/sshkeys \
+  ./shared/gitclones \
   ./shared/gnome \
-  > fedora
+  > $target
 
-cat << EOF >> silverblue
+cat << EOF >> $target
 systemctl reboot
 EOF
 
-chmod +x fedora
+chmod +x $target
 
 #=====================================================
 # SILVERBLUE
+target=silverblue
+
 cat \
   ./shared/header \
   ./shared/silverblue-logo \
-  ./shared/rpm-ostree \
   ./shared/sshkeys \
+  ./shared/rpm-ostree \
+  ./shared/gitclones \
   ./shared/gnome \
-  > silverblue
+  > $target
 
-cat << EOF >> silverblue
+cat << EOF >> $target
 #=====================================================
 # base toolbox
 #=====================================================
@@ -50,25 +56,26 @@ EOF
 cat \
   ./shared/fedora-dnf-config \
   ./shared/fedora-user-space-installs \
-  >> silverblue
+  >> $target
 
-cat << EOF >> silverblue
+cat << EOF >> $target
 '
 
 systemctl reboot
 EOF
 
-chmod +x silverblue
+chmod +x $target
 
 
 #=====================================================
 # Linux Post Script
+target=linux-user-space
+
 cat \
   ./shared/appimages \
   ./shared/flatpaks \
-  ./shared/gitclones \
   ./shared/gnome-extensions \
-  > linux-user-space
+  > $target 
 
-chmod +x linux-user-space
+chmod +x $target
 

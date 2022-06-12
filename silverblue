@@ -11,13 +11,6 @@ cd "$(dirname "${0}")"
 #  \______/ |__/|__/    \_/    \_______/|__/      |_______/ |__/ \______/  \_______/      
 #                                                                                         
 #=====================================================================================                                                                                                                 
-# rmp-ostree
-#=====================================================================================                                                                                                                 
-
-sudo rpm-ostree upgrade
-sudo rpm-ostree install gnome-shell-extension-pop-shell
-
-#=====================================================================================                                                                                                                 
 # ssh keygen
 #=====================================================================================                                                                                                                 
 if [[ ! -f $HOME/.ssh/github.com ]]; then
@@ -30,6 +23,28 @@ if [[ ! -f $HOME/.ssh/gitlab.gnome.org ]]; then
     xdg-open https://gitlab.gnome.org/-/profile/keys/ &
 fi
 #=====================================================================================                                                                                                                 
+# rmp-ostree
+#=====================================================================================                                                                                                                 
+
+sudo rpm-ostree upgrade
+sudo rpm-ostree install gnome-shell-extension-pop-shell
+
+#=====================================================================================                                                                                                                 
+# git clones
+#=====================================================================================                                                                                                                 
+
+git clone http://github.com/jeffwindsor/dotfiles $HOME/.dotfiles
+git clone http://github.com/jeffwindsor/installs $HOME/.installs
+
+mkdir -p $HOME/src/github.com/
+git clone http://github.com/jeffwindsor/startpage $HOME/src/github.com/jeffwindsor/startpage
+
+mkdir -p $HOME/src/gitlab.gnome.org/
+git clone http://gitlab.gnome.org/jeffwindsor/gnome-shell-extensions.git $HOME/src/gitlab.gnome.org/jeffwindsor/gnome-shell-extensions
+
+mkdir -p $HOME/src/gitlab.com/
+
+#=====================================================================================                                                                                                                 
 # gnome settings
 #=====================================================================================                                                                                                                 
 
@@ -37,7 +52,7 @@ fi
 dconf write "/org/gnome/shell/extensions/pop-shell/hint-color-rgba" "'rgb(115,206,244)'"
 
 # load gnome terminal profiles
-dconf load /org/gnome/terminal/legacy/profiles:/ < gnome-terminal-profiles.dconf
+dconf load /org/gnome/terminal/legacy/profiles:/ < $HOME/.installs/shared/gnome-terminal-profiles.dconf
 
 # interface preferences
 dconf write "/org/gnome/desktop/interface/clock-format" "'12h'"
