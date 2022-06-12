@@ -14,13 +14,13 @@ cd "$(dirname "${0}")"
  
 # FEDORA
 cat \
-  ./source/header \
-  ./source/fedora-logo \
-  ./source/fedora-dnf-config \
-  ./source/fedora-user-space-installs \
-  ./source/flatpaks \
-  ./source/sshkeys \
-  ./source/gnome \
+  ./shared/header \
+  ./shared/fedora-logo \
+  ./shared/fedora-dnf-config \
+  ./shared/fedora-user-space-installs \
+  ./shared/flatpaks \
+  ./shared/sshkeys \
+  ./shared/gnome \
   > fedora
 
 cat << EOF >> silverblue
@@ -31,12 +31,12 @@ chmod +x fedora
 
 # SILVERBLUE
 cat \
-  ./source/header \
-  ./source/silverblue-logo \
-  ./source/rpm-ostree \
-  ./source/flatpaks \
-  ./source/sshkeys \
-  ./source/gnome \
+  ./shared/header \
+  ./shared/silverblue-logo \
+  ./shared/rpm-ostree \
+  ./shared/flatpaks \
+  ./shared/sshkeys \
+  ./shared/gnome \
   > silverblue
 
 cat << EOF >> silverblue
@@ -48,8 +48,8 @@ toolbox run sh -exec '
 EOF
 
 cat \
-  ./source/fedora-dnf-config \
-  ./source/fedora-user-space-installs \
+  ./shared/fedora-dnf-config \
+  ./shared/fedora-user-space-installs \
   >> silverblue
 
 cat << EOF >> silverblue
