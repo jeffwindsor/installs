@@ -12,55 +12,54 @@ cd "$(dirname "${0}")"
 #                                                           
 
 ask(){
-	echo "1 : One Time Setup"
-	echo "2 : Install and Config Machine"
+  echo "1 : Silverblue - Initialize (rpm-ostree)"
+  echo "2 : Silverblue - User Space Install and Config"
+	echo "3 : Fedora     - Initialize (dnf)"
+	echo "4 : Fedora     - User Space Install and Config"
 	echo -n "> "
 	read selection
 	case $selection in
 
-		1 )
-            update_dnf_config
-            sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-            sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-            sudo dnf -y upgrade
-            reboot
-			;;
+    1 )
+      sudo rpm-ostree upgrade
+      sudo rpm-ostree install gnome-shell-extension-pop-shell
+      systemctl restart
+      ;;
 
-		2 )
-			install_packages
-            source ./shared/flathub
-            source ./shared/sshkeys
-            source ./shared/gitclones
-            source ./shared/gnome
+    2)
+      source ./shared/flathub
+      source ./shared/sshkeys
+      source ./shared/gitclones
+      source ./shared/gnome
+
+      toolbox create
+      toolbox run sh -exec '
+        source ./shared/fedora-dnf-config
+        source ./shared/fedora-user-space-installs
+      '        
+
+      source ./shared/gnome-extensions
+      ;;
+
+		3 )
+      source fedora-dnf-config
+      systemctl restart
+		  ;;
+
+		4)
+    	sudo dnf -y install gnome-shell-extension-pop-shell xprop
+      source ./shared/flathub
+      source ./shared/fedora-user-space-installs
+
+      source ./shared/sshkey
+      source ./shared/gitclones
+      source ./shared/gnome
+      source ./shared/gnome-extensions
 			;;
 
 		*) echo "Invalid input"
 		    ;;
 	esac
-}
-
-update_dnf_config(){
-    echo "max_parallel_downloads=10" | sudo tee -a /etc/dnf/dnf.conf
-    echo "defaultyes=True" | sudo tee -a /etc/dnf/dnf.conf
-    echo "fastestmirror=True" | sudo tee -a /etc/dnf/dnf.conf
-}
-
-install_packages(){
-    sudo dnf -y install gnome-tweaks gnome-extensions-app gnome-shell-extension-pop-shell xprop
-    sudo dnf -y install bat exa fd-find fzf ripgrep stow tldr vim
-    sudo dnf -y install webp-pixbuf-loader mega-sync
-
-    sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting 
-    sudo dnf -y install fsh
-    sudo dnf -y install starship
-
-    #vim-plug
-    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    
-    #brave-browser
-    sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
-    sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-    sudo dnf install brave-browser
 }
 
 ask
