@@ -202,6 +202,16 @@ sudo dnf -y install gnome-tweaks gnome-extensions-app
 sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting
 sudo usermod -s $(which zsh) $USERNAME
 
+#===============================================================
+# rust
+#===============================================================
+
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+#===============================================================
+# go lang
+#===============================================================
+
+sudo dnf -y install golang
 '
 
 systemctl reboot
