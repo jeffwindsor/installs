@@ -13,7 +13,9 @@ sudo dnf -y install lazygit
 # install gui
 sudo dnf -y install gnome-tweaks gnome-extensions-app 
 
-# zsh as default shell
+# zsh 
+mkdir -p $HOME/.cache/zsh/
 sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting
-sudo usermod -s $(which zsh) $USERNAME
 
+# set default shell
+sudo usermod -s $(which zsh) $USERNAME
