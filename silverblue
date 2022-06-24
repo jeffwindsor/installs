@@ -33,11 +33,11 @@ sudo rpm-ostree install gnome-shell-extension-pop-shell
 # git clones
 #=====================================================================================                                                                                                                 
 
-git clone http://github.com/jeffwindsor/dotfiles $HOME/.dotfiles
-git clone http://github.com/jeffwindsor/installs $HOME/.installs
-
 mkdir -p $HOME/src/github.com/
 git clone http://github.com/jeffwindsor/startpage $HOME/src/github.com/jeffwindsor/startpage
+git clone http://github.com/jeffwindsor/dotfiles $HOME/src/github.com/jeffwindsor/dotfiles
+git clone http://github.com/jeffwindsor/installs $HOME/src/github.com/jeffwindsor/installs
+git clone http://github.com/jeffwindsor/hledger-data $HOME/src/github.com/jeffwindsor/hledger-data
 
 mkdir -p $HOME/src/gitlab.gnome.org/
 git clone http://gitlab.gnome.org/jeffwindsor/gnome-shell-extensions.git $HOME/src/gitlab.gnome.org/jeffwindsor/gnome-shell-extensions
@@ -198,10 +198,12 @@ sudo dnf -y install lazygit
 # install gui
 sudo dnf -y install gnome-tweaks gnome-extensions-app 
 
-# zsh as default shell
+# zsh 
+mkdir -p $HOME/.cache/zsh/
 sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting
-sudo usermod -s $(which zsh) $USERNAME
 
+# set default shell
+sudo usermod -s $(which zsh) $USERNAME
 #===============================================================
 # rust
 #===============================================================
