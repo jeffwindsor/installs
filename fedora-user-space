@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+cd "$(dirname "${0}")"
 
 # https://github.com/aferrero2707/gimp-appimage/releases
 # https://github.com/KRTirtho/spotube/releases

@@ -42,6 +42,7 @@ chmod +x $target
 target='../silverblue-user-space'
 
 cat \
+  header \
   gitclones \
   appimages \
   flatpaks \
@@ -58,6 +59,7 @@ toolbox run sh -exec '
 EOF
 
 cat \
+  header \
   fedora/dnf-config \
   fedora/user-space-installs \
   fedora/dev-rust \
@@ -97,6 +99,7 @@ chmod +x $target
 target='../fedora-user-space'
 
 cat \
+  header \
   appimages \
   flatpaks \
   gnome-extensions \

@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+cd "$(dirname "${0}")"
 #=====================================================================================                                                                                                                 
 # git clones
 #=====================================================================================                                                                                                                 
@@ -190,6 +192,8 @@ dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cu
 #=====================================================
 toolbox create
 toolbox run sh -exec '
+#!/usr/bin/env bash
+cd "$(dirname "${0}")"
 # update dnf config
 echo "max_parallel_downloads=10" | sudo tee -a /etc/dnf/dnf.conf
 echo "defaultyes=True" | sudo tee -a /etc/dnf/dnf.conf
