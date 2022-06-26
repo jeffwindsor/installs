@@ -1,6 +1,5 @@
-#=====================================================================================                                                                                                                 
 # git extensions
-#=====================================================================================                                                                                                                 
+#====================================================================================# 
 xdg-open https://extensions.gnome.org/extension/3193/blur-my-shell/ &
 #xdg-open https://extensions.gnome.org/extension/4481/forge/ &
 xdg-open https://extensions.gnome.org/extension/3843/just-perfection/ &
@@ -16,3 +15,4 @@ xdg-open https://extensions.gnome.org/extension/21/workspace-indicator/ &
 
 xdg-open https://extensions.gnome.org/extension/1401/bluetooth-quick-connect/ &
 xdg-open https://extensions.gnome.org/extension/906/sound-output-device-chooser/ &
+#====================================================================================# 

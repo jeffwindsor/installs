@@ -64,6 +64,8 @@ cat \
   fedora/dev-go \
   >> $target
 
+echo "'" >> $target
+
 chmod +x $target
 
 

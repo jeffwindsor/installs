@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
+
 cd "$(dirname "${0}")"
+#====================================================================================# 
 # 
 #  /$$$$$$$$              /$$                                   
 # | $$_____/             | $$                                   
@@ -10,9 +12,8 @@ cd "$(dirname "${0}")"
 # | $$   |  $$$$$$$|  $$$$$$$|  $$$$$$/| $$     |  $$$$$$$      
 # |__/    \_______/ \_______/ \______/ |__/      \_______/      
 # 
-#=====================================================================================                                                                                                                 
 # ssh keygen
-#=====================================================================================                                                                                                                 
+#====================================================================================# 
 if [[ ! -f $HOME/.ssh/github.com ]]; then
     ssh-keygen -t ed25519 -f $HOME/.ssh/github.com -C "jeff.windsor@gmail.com"
     xdg-open https://github.com/settings/keys/ &
@@ -22,6 +23,9 @@ if [[ ! -f $HOME/.ssh/gitlab.gnome.org ]]; then
     ssh-keygen -t ed25519 -f $HOME/.ssh/gitlab.gnome.org -C "jeff.windsor+gnome@gmail.com"
     xdg-open https://gitlab.gnome.org/-/profile/keys/ &
 fi
+#====================================================================================# 
+# fedora dnf 
+#====================================================================================# 
 # update dnf config
 echo "max_parallel_downloads=10" | sudo tee -a /etc/dnf/dnf.conf
 echo "defaultyes=True" | sudo tee -a /etc/dnf/dnf.conf
@@ -33,11 +37,9 @@ sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfr
 
 # upgrade packages
 sudo dnf -y upgrade
-
-#==========================================================================
+#====================================================================================# 
 # user space installs
-#==========================================================================
-
+#====================================================================================# 
 # clis
 sudo dnf -y install bat exa fd-find fzf ripgrep rmlint starship stow tldr
 
@@ -46,7 +48,8 @@ sudo dnf -y install neovim
 sudo dnf -y install gcc "gcc-c++"
 
 # astrovim (neovim config)
-git clone --depth 1 git@github.com:AstroNvim/AstroNvim.git $HOME/.config/nvim
+git clone --depth 1 git@github.com:AstroNvim/AstroNvim.git $XDG_CONFIG_HOME/nvim
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
 # helix
 sudo dnf copr enable varlad/helix -y
@@ -59,9 +62,11 @@ sudo dnf -y install lazygit
 # h ledger
 sudo dnf -y install hledger
 
+#====================================================================================# 
 # gnome extras
 sudo dnf -y install gnome-tweaks gnome-extensions-app 
 
+#====================================================================================# 
 # zsh 
 mkdir -p $HOME/.cache/zsh/
 sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting
@@ -71,11 +76,9 @@ sudo dnf -y install fish
 
 # set default shell
 sudo usermod -s $(which fish) $USERNAME
-
-#=====================================================================================                                                                                                                 
+#====================================================================================# 
 # git clones
-#=====================================================================================                                                                                                                 
-
+#====================================================================================# 
 # mkdir -p $HOME/src/gitlab.gnome.org/
 # git clone http://gitlab.gnome.org/jeffwindsor/gnome-shell-extensions.git $HOME/src/gitlab.gnome.org/jeffwindsor/gnome-shell-extensions
 
@@ -86,11 +89,9 @@ git clone git@github.com:jeffwindsor/startpage.git $HOME/src/github.com/jeffwind
 git clone git@github.com:jeffwindsor/dotfiles.git $HOME/src/github.com/jeffwindsor/dotfiles
 git clone git@github.com:jeffwindsor/installs.git $HOME/src/github.com/jeffwindsor/installs
 git clone git@github.com:jeffwindsor/hledger-data.git $HOME/src/github.com/jeffwindsor/hledger-data
-
-#=====================================================================================                                                                                                                 
+#====================================================================================# 
 # gnome settings
-#=====================================================================================                                                                                                                 
-
+#====================================================================================# 
 # pop shell highlight color
 dconf write "/org/gnome/shell/extensions/pop-shell/hint-color-rgba" "'rgb(115,206,244)'"
 
@@ -208,5 +209,5 @@ dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cu
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/binding" "'<Super>t'"
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'gnome-terminal'"
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'Terminal'"
-
+#====================================================================================# 
 systemctl reboot

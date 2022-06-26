@@ -1,7 +1,5 @@
-#=====================================================================================                                                                                                                 
 # git clones
-#=====================================================================================                                                                                                                 
-
+#====================================================================================# 
 # mkdir -p $HOME/src/gitlab.gnome.org/
 # git clone http://gitlab.gnome.org/jeffwindsor/gnome-shell-extensions.git $HOME/src/gitlab.gnome.org/jeffwindsor/gnome-shell-extensions
 
@@ -12,4 +10,4 @@ git clone git@github.com:jeffwindsor/startpage.git $HOME/src/github.com/jeffwind
 git clone git@github.com:jeffwindsor/dotfiles.git $HOME/src/github.com/jeffwindsor/dotfiles
 git clone git@github.com:jeffwindsor/installs.git $HOME/src/github.com/jeffwindsor/installs
 git clone git@github.com:jeffwindsor/hledger-data.git $HOME/src/github.com/jeffwindsor/hledger-data
-
+#====================================================================================# 
