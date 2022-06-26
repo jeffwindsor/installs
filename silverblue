@@ -192,19 +192,22 @@ git clone git@github.com:AstroNvim/AstroNvim.git $HOME/.config/nvim
 sudo dnf -y install gcc "gcc-c++"
 
 # helix
-sudo dnf copr enable varlad/helix
-sudo dnf install helix
+sudo dnf copr enable varlad/helix -y
+sudo dnf -y install helix
 
 # lazy git
 sudo dnf copr enable atim/lazygit -y
 sudo dnf -y install lazygit
 
+# h ledger
+sudo dnf -y install hledger
+
 # gnome extras
 sudo dnf -y install gnome-tweaks gnome-extensions-app 
 
 # zsh 
-#mkdir -p $HOME/.cache/zsh/
-#sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting
+mkdir -p $HOME/.cache/zsh/
+sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting
 
 # fish
 sudo dnf -y install fish
