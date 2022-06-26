@@ -37,3 +37,6 @@ sudo dnf -y install fish
 # set default shell
 sudo usermod -s $(which fish) $USERNAME
 #====================================================================================# 
+# set user config
+$HOME/Source/github.com/jeffwindsor/dotfiles/fedora
+#====================================================================================# 

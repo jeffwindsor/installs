@@ -41,9 +41,15 @@ chmod +x $target
 # Silverblue User Space
 target='../silverblue-user-space'
 
-cat header > $target 
+cat header \
+  gitclones \
+  appimages \
+  flatpaks \
+  gnome \
+  > $target 
 
 cat << EOF >> $target
+
 # base toolbox
 toolbox create
 toolbox run ./silverblue-toolbox
@@ -55,11 +61,6 @@ chmod +x $target
 target='../silverblue-toolbox'
 
 cat \
-  gitclones \
-  appimages \
-  flatpaks \
-  gnome-extensions \
-  gnome \
   fedora/dnf-config \
   fedora/user-space-installs \
   fedora/dev-rust \
@@ -69,35 +70,35 @@ cat \
 chmod +x $target
 
 
-#=====================================================
-# Fedora
-target='../fedora'
-
-cat \
-  header \
-  fedora/logo \
-  sshkeys \
-  fedora/dnf-config \
-  fedora/user-space-installs \
-  gitclones \
-  gnome \
-  > $target
-
-cat << EOF >> $target
-systemctl reboot
-EOF
-
-chmod +x $target
-
-# User Space 
-target='../fedora-user-space'
-
-cat \
-  header \
-  appimages \
-  flatpaks \
-  gnome-extensions \
-  > $target 
-
-chmod +x $target
+# #=====================================================
+# # Fedora
+# target='../fedora'
+# 
+# cat \
+#   header \
+#   fedora/logo \
+#   sshkeys \
+#   fedora/dnf-config \
+#   fedora/user-space-installs \
+#   gitclones \
+#   gnome \
+#   > $target
+# 
+# cat << EOF >> $target
+# systemctl reboot
+# EOF
+# 
+# chmod +x $target
+# 
+# # User Space 
+# target='../fedora-user-space'
+# 
+# cat \
+#   header \
+#   appimages \
+#   flatpaks \
+#   gnome-extensions \
+#   > $target 
+# 
+# chmod +x $target
 

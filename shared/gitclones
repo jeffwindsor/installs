@@ -1,13 +1,16 @@
 # git clones
 #====================================================================================# 
-# mkdir -p $HOME/src/gitlab.gnome.org/
-# git clone http://gitlab.gnome.org/jeffwindsor/gnome-shell-extensions.git $HOME/src/gitlab.gnome.org/jeffwindsor/gnome-shell-extensions
+# directories
+mkdir -p $HOME/Source
+mkdir -p $HOME/Source/gitlab.gnome.org/
+mkdir -p $HOME/Source/gitlab.com/
+mkdir -p $HOME/Source/github.com/
 
-mkdir -p $HOME/src/gitlab.com/
+# repos
+# git clone http://gitlab.gnome.org/jeffwindsor/gnome-shell-extensions.git $HOME/Source/gitlab.gnome.org/jeffwindsor/gnome-shell-extensions
+git clone git@github.com:jeffwindsor/dotfiles.git $HOME/Source/github.com/jeffwindsor/dotfiles
+git clone git@github.com:jeffwindsor/hledger-data.git $HOME/Source/github.com/jeffwindsor/hledger-data
+git clone git@github.com:jeffwindsor/installs.git $HOME/Source/github.com/jeffwindsor/installs
+git clone git@github.com:jeffwindsor/startpage.git $HOME/Source/github.com/jeffwindsor/startpage
 
-mkdir -p $HOME/src/github.com/
-git clone git@github.com:jeffwindsor/startpage.git $HOME/src/github.com/jeffwindsor/startpage
-git clone git@github.com:jeffwindsor/dotfiles.git $HOME/src/github.com/jeffwindsor/dotfiles
-git clone git@github.com:jeffwindsor/installs.git $HOME/src/github.com/jeffwindsor/installs
-git clone git@github.com:jeffwindsor/hledger-data.git $HOME/src/github.com/jeffwindsor/hledger-data
 #====================================================================================# 
