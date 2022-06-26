@@ -184,7 +184,7 @@ sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfr
 sudo dnf -y upgrade
 
 # clis
-sudo dnf -y install bat exa fd-find fzf ripgrep rmlint tarship stow tldr
+sudo dnf -y install bat exa fd-find fzf ripgrep rmlint starship stow tldr
 
 # neovim
 sudo dnf -y install neovim
@@ -195,15 +195,18 @@ sudo dnf -y install gcc "gcc-c++"
 sudo dnf copr enable atim/lazygit -y
 sudo dnf -y install lazygit
 
-# install gui
+# gnome extras
 sudo dnf -y install gnome-tweaks gnome-extensions-app 
 
 # zsh 
 mkdir -p $HOME/.cache/zsh/
 sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting
 
+# fish
+sudo dnf -y install fish
+
 # set default shell
-sudo usermod -s $(which zsh) $USERNAME
+sudo usermod -s $(which fish) $USERNAME
 #===============================================================
 # rust
 #===============================================================
