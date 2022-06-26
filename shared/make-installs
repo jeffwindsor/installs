@@ -13,27 +13,7 @@ cd "$(dirname "${0}")"
 # 
  
 #=====================================================
-# FEDORA
-target='../fedora'
-
-cat \
-  header \
-  fedora-logo \
-  sshkeys \
-  fedora-dnf-config \
-  fedora-user-space-installs \
-  gitclones \
-  gnome \
-  > $target
-
-cat << EOF >> $target
-systemctl reboot
-EOF
-
-chmod +x $target
-
-#=====================================================
-# SILVERBLUE
+# Silverblue
 target='../silverblue'
 
 cat \
@@ -41,9 +21,33 @@ cat \
   silverblue-logo \
   sshkeys \
   rpm-ostree \
-  gitclones \
-  gnome \
   > $target
+
+cat << EOF >> $target
+#=====================================================
+echo
+echo "Post Setup Tasks"
+echo "1) Open Firefox and login for sync"
+echo "2) Login into Lastpass"
+echo "3) Goto Github and add public ssh key"
+echo
+read -p "Press ANY Key to reboot (once rebooted run user space script)"
+systemctl reboot
+'
+EOF
+
+chmod +x $target
+
+# Silverblue User Space
+target='../silverblue-user-space'
+
+cat \
+  gitclones \
+  appimages \
+  flatpaks \
+  gnome-extensions \
+  gnome \
+  > $target 
 
 cat << EOF >> $target
 #=====================================================
@@ -70,8 +74,27 @@ chmod +x $target
 
 
 #=====================================================
-# Linux Post Script
-target='../linux-user-space'
+# Fedora
+target='../fedora'
+
+cat \
+  header \
+  fedora-logo \
+  sshkeys \
+  fedora-dnf-config \
+  fedora-user-space-installs \
+  gitclones \
+  gnome \
+  > $target
+
+cat << EOF >> $target
+systemctl reboot
+EOF
+
+chmod +x $target
+
+# User Space 
+target='../fedora-user-space'
 
 cat \
   appimages \

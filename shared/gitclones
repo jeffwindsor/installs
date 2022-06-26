@@ -2,14 +2,17 @@
 # git clones
 #=====================================================================================                                                                                                                 
 
-mkdir -p $HOME/src/github.com/
-git clone http://github.com/jeffwindsor/startpage $HOME/src/github.com/jeffwindsor/startpage
-git clone http://github.com/jeffwindsor/dotfiles $HOME/src/github.com/jeffwindsor/dotfiles
-git clone http://github.com/jeffwindsor/installs $HOME/src/github.com/jeffwindsor/installs
-git clone http://github.com/jeffwindsor/hledger-data $HOME/src/github.com/jeffwindsor/hledger-data
-
-mkdir -p $HOME/src/gitlab.gnome.org/
-git clone http://gitlab.gnome.org/jeffwindsor/gnome-shell-extensions.git $HOME/src/gitlab.gnome.org/jeffwindsor/gnome-shell-extensions
+# mkdir -p $HOME/src/gitlab.gnome.org/
+# git clone http://gitlab.gnome.org/jeffwindsor/gnome-shell-extensions.git $HOME/src/gitlab.gnome.org/jeffwindsor/gnome-shell-extensions
 
 mkdir -p $HOME/src/gitlab.com/
+
+mkdir -p $HOME/src/github.com/
+git clone git@github.com:jeffwindsor/startpage.git $HOME/src/github.com/jeffwindsor/startpage
+git clone git@github.com:jeffwindsor/dotfiles.git $HOME/src/github.com/jeffwindsor/dotfiles
+git clone git@github.com:jeffwindsor/installs.git $HOME/src/github.com/jeffwindsor/installs
+git clone git@github.com:jeffwindsor/hledger-data.git $HOME/src/github.com/jeffwindsor/hledger-data
+
+# Neovim - AstroVim config
+git clone git@github.com:AstroNvim/AstroNvim.git $HOME/.config/nvim
 
