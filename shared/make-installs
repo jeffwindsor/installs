@@ -18,9 +18,9 @@ target='../silverblue'
 
 cat \
   header \
-  silverblue-logo \
+  fedora/silverblue-logo \
   sshkeys \
-  rpm-ostree \
+  fedora/rpm-ostree \
   > $target
 
 cat << EOF >> $target
@@ -58,10 +58,10 @@ toolbox run sh -exec '
 EOF
 
 cat \
-  fedora-dnf-config \
-  fedora-user-space-installs \
-  fedora-dev-rust \
-  fedora-dev-go \
+  fedora/dnf-config \
+  fedora/user-space-installs \
+  fedora/dev-rust \
+  fedora/dev-go \
   >> $target
 
 cat << EOF >> $target
@@ -79,10 +79,10 @@ target='../fedora'
 
 cat \
   header \
-  fedora-logo \
+  fedora/logo \
   sshkeys \
-  fedora-dnf-config \
-  fedora-user-space-installs \
+  fedora/dnf-config \
+  fedora/user-space-installs \
   gitclones \
   gnome \
   > $target
