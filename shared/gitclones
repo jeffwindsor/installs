@@ -13,6 +13,3 @@ git clone git@github.com:jeffwindsor/dotfiles.git $HOME/src/github.com/jeffwinds
 git clone git@github.com:jeffwindsor/installs.git $HOME/src/github.com/jeffwindsor/installs
 git clone git@github.com:jeffwindsor/hledger-data.git $HOME/src/github.com/jeffwindsor/hledger-data
 
-# Neovim - AstroVim config
-git clone git@github.com:AstroNvim/AstroNvim.git $HOME/.config/nvim
-

@@ -41,13 +41,7 @@ chmod +x $target
 # Silverblue User Space
 target='../silverblue-user-space'
 
-cat \
-  header \
-  gitclones \
-  appimages \
-  flatpaks \
-  gnome-extensions \
-  gnome \
+cat header \
   > $target 
 
 cat << EOF >> $target
@@ -59,18 +53,16 @@ toolbox run sh -exec '
 EOF
 
 cat \
-  header \
+  gitclones \
+  appimages \
+  flatpaks \
+  gnome-extensions \
+  gnome \
   fedora/dnf-config \
   fedora/user-space-installs \
   fedora/dev-rust \
   fedora/dev-go \
   >> $target
-
-cat << EOF >> $target
-'
-
-systemctl reboot
-EOF
 
 chmod +x $target
 

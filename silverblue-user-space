@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 cd "$(dirname "${0}")"
+#=====================================================
+# base toolbox
+#=====================================================
+toolbox create
+toolbox run sh -exec '
 #=====================================================================================                                                                                                                 
 # git clones
 #=====================================================================================                                                                                                                 
@@ -14,9 +19,6 @@ git clone git@github.com:jeffwindsor/startpage.git $HOME/src/github.com/jeffwind
 git clone git@github.com:jeffwindsor/dotfiles.git $HOME/src/github.com/jeffwindsor/dotfiles
 git clone git@github.com:jeffwindsor/installs.git $HOME/src/github.com/jeffwindsor/installs
 git clone git@github.com:jeffwindsor/hledger-data.git $HOME/src/github.com/jeffwindsor/hledger-data
-
-# Neovim - AstroVim config
-git clone git@github.com:AstroNvim/AstroNvim.git $HOME/.config/nvim
 
 
 # https://github.com/aferrero2707/gimp-appimage/releases
@@ -187,13 +189,6 @@ dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cu
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'gnome-terminal'"
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'Terminal'"
 
-#=====================================================
-# base toolbox
-#=====================================================
-toolbox create
-toolbox run sh -exec '
-#!/usr/bin/env bash
-cd "$(dirname "${0}")"
 # update dnf config
 echo "max_parallel_downloads=10" | sudo tee -a /etc/dnf/dnf.conf
 echo "defaultyes=True" | sudo tee -a /etc/dnf/dnf.conf
@@ -206,12 +201,19 @@ sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfr
 # upgrade packages
 sudo dnf -y upgrade
 
+#==========================================================================
+# user space installs
+#==========================================================================
+
 # clis
 sudo dnf -y install bat exa fd-find fzf ripgrep rmlint starship stow tldr
 
 # neovim
 sudo dnf -y install neovim
 sudo dnf -y install gcc "gcc-c++"
+
+# astrovim (neovim config)
+git clone --depth 1 git@github.com:AstroNvim/AstroNvim.git $HOME/.config/nvim
 
 # helix
 sudo dnf copr enable varlad/helix -y
@@ -236,6 +238,7 @@ sudo dnf -y install fish
 
 # set default shell
 sudo usermod -s $(which fish) $USERNAME
+
 #===============================================================
 # rust
 #===============================================================
@@ -246,6 +249,3 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 #===============================================================
 
 sudo dnf -y install golang
-'
-
-systemctl reboot

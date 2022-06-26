@@ -1,9 +1,16 @@
+#==========================================================================
+# user space installs
+#==========================================================================
+
 # clis
 sudo dnf -y install bat exa fd-find fzf ripgrep rmlint starship stow tldr
 
 # neovim
 sudo dnf -y install neovim
 sudo dnf -y install gcc "gcc-c++"
+
+# astrovim (neovim config)
+git clone --depth 1 git@github.com:AstroNvim/AstroNvim.git $HOME/.config/nvim
 
 # helix
 sudo dnf copr enable varlad/helix -y
@@ -28,3 +35,4 @@ sudo dnf -y install fish
 
 # set default shell
 sudo usermod -s $(which fish) $USERNAME
+
