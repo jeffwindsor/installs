@@ -41,17 +41,18 @@ chmod +x $target
 # Silverblue User Space
 target='../silverblue-user-space'
 
-cat header \
-  > $target 
+cat header > $target 
 
 cat << EOF >> $target
 # base toolbox
-
 toolbox create
-
-toolbox run sh -exec '
-
+toolbox run ./silverblue-toolbox
 EOF
+
+chmod +x $target
+
+# Silverblue Toolbox
+target='../silverblue-toolbox'
 
 cat \
   gitclones \
@@ -63,10 +64,7 @@ cat \
   fedora/user-space-installs \
   fedora/dev-rust \
   fedora/dev-go \
-  >> $target
-
-echo "" >> $target
-echo "'" >> $target
+  > $target
 
 chmod +x $target
 
