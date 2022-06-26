@@ -45,11 +45,12 @@ cat header \
   > $target 
 
 cat << EOF >> $target
-#=====================================================
 # base toolbox
-#=====================================================
+
 toolbox create
+
 toolbox run sh -exec '
+
 EOF
 
 cat \
@@ -64,6 +65,7 @@ cat \
   fedora/dev-go \
   >> $target
 
+echo "" >> $target
 echo "'" >> $target
 
 chmod +x $target
