@@ -8,7 +8,7 @@ sudo dnf -y install neovim
 sudo dnf -y install gcc "gcc-c++"
 
 # astrovim (neovim config)
-git clone --depth 1 git@github.com:AstroNvim/AstroNvim.git $XDG_CONFIG_HOME/nvim
+git clone --depth 1 git@github.com:AstroNvim/AstroNvim.git $HOME/.config/nvim
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
 # helix
