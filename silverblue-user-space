@@ -167,6 +167,42 @@ dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cu
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'gnome-terminal'"
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'Terminal'"
 #====================================================================================# 
+# gnome settings
+#====================================================================================# 
+
+# keyboard bindings : custom
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings" "[\
+    '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', \
+    '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', \
+    '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', \
+    '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/', \
+    '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/', \
+    '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/']"
+
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding" "'<Primary><Super>S'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command" "'systemctl suspend'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name" "'Suspend'"
+
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/binding" "'<Primary><Super>L'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command" "'gnome-session-quit --logout --no-prompt'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/name" "'Logout'"
+
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/binding" "'<Primary><Super>R'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/command" "'shutdown -r now'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/name" "'Reboot'"
+
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/binding" "'<Primary><Super>P'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/command" "'shutdown -h now'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/name" "'Power-Off'"
+
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/binding" "'<Super>t'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'gnome-terminal --profile=\"Tender\" --command=\"toolbox enter\"'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'Toolbox'"
+
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/binding" "'<Super><Shift>t'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/command" "'gnome-terminal --profile=\"Ayu Light\"'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/name" "'OSTree'"
+#====================================================================================# 
 
 # base toolbox
 toolbox create

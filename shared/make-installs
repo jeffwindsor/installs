@@ -46,6 +46,7 @@ cat header \
   appimages \
   flatpaks \
   gnome \
+  fedora/silverblue-gnome-custom \
   > $target 
 
 cat << EOF >> $target

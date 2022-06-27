@@ -1,18 +1,16 @@
 # git extensions
 #====================================================================================# 
-xdg-open https://extensions.gnome.org/extension/3193/blur-my-shell/ &
-#xdg-open https://extensions.gnome.org/extension/4481/forge/ &
-xdg-open https://extensions.gnome.org/extension/3843/just-perfection/ &
-xdg-open https://extensions.gnome.org/extension/600/launch-new-instance/ &
+# https://extensions.gnome.org/extension/3193/blur-my-shell/ &
+# https://extensions.gnome.org/extension/3843/just-perfection/ &
+# https://extensions.gnome.org/extension/600/launch-new-instance/ &
 
-#xdg-open https://extensions.gnome.org/extension/615/appindicator-support/ &
-#xdg-open https://extensions.gnome.org/extension/3396/color-picker/
-xdg-open https://extensions.gnome.org/extension/4135/espresso/ &
-xdg-open https://extensions.gnome.org/extension/3956/gnome-fuzzy-app-search/ &
-xdg-open https://extensions.gnome.org/extension/4472/spotify-tray/ &
-# xdg-open https://extensions.gnome.org/extension/570/todotxt/ &
-xdg-open https://extensions.gnome.org/extension/21/workspace-indicator/ &
+# https://extensions.gnome.org/extension/615/appindicator-support/ &
+# https://extensions.gnome.org/extension/3396/color-picker/
+# https://extensions.gnome.org/extension/4135/espresso/ &
+# https://extensions.gnome.org/extension/3956/gnome-fuzzy-app-search/ &
+# https://extensions.gnome.org/extension/4472/spotify-tray/ &
+# https://extensions.gnome.org/extension/21/workspace-indicator/ &
 
-xdg-open https://extensions.gnome.org/extension/1401/bluetooth-quick-connect/ &
-xdg-open https://extensions.gnome.org/extension/906/sound-output-device-chooser/ &
+# https://extensions.gnome.org/extension/1401/bluetooth-quick-connect/ &
+# https://extensions.gnome.org/extension/906/sound-output-device-chooser/ &
 #====================================================================================# 
