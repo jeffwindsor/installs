@@ -53,7 +53,7 @@ done
 dconf write "/org/gnome/shell/extensions/pop-shell/hint-color-rgba" "'rgb(115,206,244)'"
 
 # load gnome terminal profiles
-dconf load /org/gnome/terminal/legacy/profiles:/ < $HOME/.installs/shared/gnome-terminal-profiles.dconf
+dconf load /org/gnome/terminal/legacy/profiles:/ < $HOME/Source/github.com/jeffwindsor/installs/shared/gnome-terminal-profiles.dconf
 
 # interface preferences
 dconf write "/org/gnome/desktop/interface/clock-format" "'12h'"

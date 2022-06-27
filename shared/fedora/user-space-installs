@@ -27,16 +27,12 @@ sudo dnf -y install hledger
 sudo dnf -y install gnome-tweaks gnome-extensions-app 
 
 #====================================================================================# 
-# zsh 
-mkdir -p $HOME/.cache/zsh/
-sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting
-
 # fish
 sudo dnf -y install fish
-
-# set default shell
 sudo usermod -s $(which fish) $USERNAME
+
 #====================================================================================# 
 # set user config
 $HOME/Source/github.com/jeffwindsor/dotfiles/fedora
+
 #====================================================================================# 

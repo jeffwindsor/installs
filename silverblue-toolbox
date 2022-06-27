@@ -19,10 +19,10 @@ sudo dnf -y install bat exa fd-find fzf ripgrep rmlint starship stow tldr
 
 # neovim
 sudo dnf -y install neovim
-sudo dnf -y install gcc "gcc-c++"
+sudo dnf -y install gcc "gcc-c++" glibc-all-langpacks
 
 # astrovim (neovim config)
-git clone --depth 1 git@github.com:AstroNvim/AstroNvim.git $XDG_CONFIG_HOME/nvim
+git clone --depth 1 git@github.com:AstroNvim/AstroNvim.git $HOME/.config/nvim
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
 # helix
@@ -41,18 +41,14 @@ sudo dnf -y install hledger
 sudo dnf -y install gnome-tweaks gnome-extensions-app 
 
 #====================================================================================# 
-# zsh 
-mkdir -p $HOME/.cache/zsh/
-sudo dnf -y install zsh zsh-autosuggestions zsh-syntax-highlighting
-
 # fish
 sudo dnf -y install fish
-
-# set default shell
 sudo usermod -s $(which fish) $USERNAME
+
 #====================================================================================# 
 # set user config
 $HOME/Source/github.com/jeffwindsor/dotfiles/fedora
+
 #====================================================================================# 
 # rust
 #====================================================================================# 

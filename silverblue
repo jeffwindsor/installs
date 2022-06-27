@@ -27,7 +27,7 @@ fi
 # rmp-ostree
 #====================================================================================# 
 sudo rpm-ostree upgrade
-sudo rpm-ostree install gnome-shell-extension-pop-shell
+sudo rpm-ostree install gnome-shell-extension-pop-shell fish
 #====================================================================================# 
 #=====================================================
 echo
