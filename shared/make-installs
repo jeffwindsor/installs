@@ -11,19 +11,22 @@ cd "$(dirname "${0}")"
 #        __/\\\\\\\\\\\_\/\\\___\/\\\__/\\\\\\\\\\____\//\\\\\___\//\\\\\\\\/\\__/\\\\\\\\\__/\\\\\\\\\__/\\\\\\\\\\_ 
 #         _\///////////__\///____\///__\//////////______\/////_____\////////\//__\/////////__\/////////__\//////////__
 # 
- 
+loc='../'
+
 #=====================================================
 # Silverblue
-target='../silverblue'
+sb='silverblue'
+sbu="$sb-user-space"
+sbut="$sbu-toolbox"
 
 cat \
   header \
   fedora/silverblue-logo \
   sshkeys \
   fedora/rpm-ostree \
-  > $target
+  > $loc$sb
 
-cat << EOF >> $target
+cat << EOF >> $loc$sb
 #=====================================================
 echo
 echo "Post Setup Tasks"
@@ -36,70 +39,70 @@ systemctl reboot
 '
 EOF
 
-chmod +x $target
+chmod +x $loc$sb
 
+#=====================================================
 # Silverblue User Space
-target='../silverblue-user-space'
-
 cat header \
   gitclones \
   appimages \
   flatpaks \
   gnome \
   fedora/silverblue-gnome-custom \
-  > $target 
+  > $loc$sbu 
 
-cat << EOF >> $target
+cat << EOF >> $loc$sbu
 
 # base toolbox
 toolbox create
-toolbox run ./silverblue-toolbox
+toolbox run ./$sbut
 EOF
 
-chmod +x $target
+chmod +x $loc$sbu
 
+#=====================================================
 # Silverblue Toolbox
-target='../silverblue-toolbox'
+target='../silverblue-user-space-toolbox'
 
 cat \
   fedora/dnf-config \
   fedora/user-space-installs \
   fedora/dev-rust \
   fedora/dev-go \
-  > $target
+  > $loc$sbut
 
-chmod +x $target
+chmod +x $loc$sbut
 
 
-# #=====================================================
-# # Fedora
-# target='../fedora'
-# 
-# cat \
-#   header \
-#   fedora/logo \
-#   sshkeys \
-#   fedora/dnf-config \
-#   fedora/user-space-installs \
-#   gitclones \
-#   gnome \
-#   > $target
-# 
-# cat << EOF >> $target
-# systemctl reboot
-# EOF
-# 
-# chmod +x $target
-# 
-# # User Space 
-# target='../fedora-user-space'
-# 
-# cat \
-#   header \
-#   appimages \
-#   flatpaks \
-#   gnome-extensions \
-#   > $target 
-# 
-# chmod +x $target
+#=====================================================
+# Fedora
+f='fedora'
+fu="$f-user-space"
+
+cat \
+  header \
+  fedora/logo \
+  sshkeys \
+  fedora/dnf-config \
+  fedora/user-space-installs \
+  gitclones \
+  gnome \
+  > $loc$f
+
+cat << EOF >> $target
+systemctl reboot
+EOF
+
+chmod +x $loc$f
+
+#=====================================================
+# Fedora User Space 
+cat \
+  header \
+  appimages \
+  flatpaks \
+  gnome-extensions \
+  > $loc$fu 
+
+chmod +x $loc$fu
 
