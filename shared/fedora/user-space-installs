@@ -1,7 +1,12 @@
 # user space installs
 #====================================================================================# 
 # clis
-sudo dnf -y install bat exa fd-find fzf ripgrep rmlint starship stow tldr
+sudo dnf -y install bat exa fd-find fzf gitui ripgrep rmlint starship stow
+
+cargo install grex
+cargo install mdcat
+cargo install tealdeer
+cargo install topgrade
 
 # neovim
 sudo dnf -y install neovim
