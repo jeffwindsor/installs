@@ -44,7 +44,6 @@ cat \
   fedora/dnf-config \
   fedora/user-space-installs \
   fedora/dev-rust \
-  fedora/dev-go \
   > $loc$sbut
 
 chmod +x $loc$sbut
