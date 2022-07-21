@@ -7,8 +7,8 @@ cd "$(dirname "${0}")"
 # clis
 sudo dnf -y install bat exa fd-find fzf gitui ripgrep rmlint starship stow
 
-cargo install grex
-cargo install mdcat
+#cargo install grex
+#cargo install mdcat
 cargo install tealdeer
 cargo install topgrade
 
@@ -39,6 +39,14 @@ sudo dnf -y install gnome-tweaks gnome-extensions-app
 # fish
 sudo dnf -y install fish
 sudo usermod -s $(which fish) $USERNAME
+
+#plugins
+curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+fisher install PatrickF1/fzf.fish
+fisher install jethrokuan/z
+fisher install laughedelic/pisces
+fisher install laughedelic/fish_logo
+fisher install gazorby/fish-exa
 
 #====================================================================================# 
 # set user config
