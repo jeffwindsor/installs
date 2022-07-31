@@ -20,7 +20,8 @@ cat \
 chmod +x $loc$sb
 
 # == Silverblue User Space ====================================================
-cat header \
+cat \
+  header \
   gitclones \
   appimages \
   flatpaks \
@@ -41,6 +42,7 @@ chmod +x $loc$sbu
 target='../silverblue-user-space-toolbox'
 
 cat \
+  header \
   fedora/dnf-config \
   fedora/user-space-installs \
   fedora/dev-rust \
