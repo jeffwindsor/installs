@@ -29,18 +29,5 @@ fi
 #====================================================================================# 
 sudo rpm-ostree upgrade
 sudo rpm-ostree install gnome-shell-extension-pop-shell fish
-#====================================================================================# 
-
-# manual tasks
-#====================================================================================# 
-
-echo
-echo "Post Setup Tasks"
-echo "1) Open Firefox and login for sync"
-echo "2) Login into Lastpass"
-echo "3) Goto Github and add public ssh key"
-echo
-read -p "Press ANY Key to reboot (once rebooted run user space script)"
-
 systemctl reboot
 #====================================================================================# 

@@ -1,51 +1,7 @@
 #!/usr/bin/env bash
 
 cd "$(dirname "${0}")"
-#====================================================================================# 
-# git clones
-#====================================================================================# 
-# directories
-mkdir -p $HOME/Source
-mkdir -p $HOME/Source/gitlab.gnome.org/
-mkdir -p $HOME/Source/gitlab.com/
-mkdir -p $HOME/Source/github.com/
 
-# repos
-# git clone http://gitlab.gnome.org/jeffwindsor/gnome-shell-extensions.git $HOME/Source/gitlab.gnome.org/jeffwindsor/gnome-shell-extensions
-git clone git@github.com:jeffwindsor/dotfiles.git $HOME/Source/github.com/jeffwindsor/dotfiles
-git clone git@github.com:jeffwindsor/hledger-data.git $HOME/Source/github.com/jeffwindsor/hledger-data
-git clone git@github.com:jeffwindsor/installs.git $HOME/Source/github.com/jeffwindsor/installs
-git clone git@github.com:jeffwindsor/startpage.git $HOME/Source/github.com/jeffwindsor/startpage
-
-#====================================================================================# 
-# app images
-#====================================================================================# 
-# https://github.com/aferrero2707/gimp-appimage/releases
-# https://github.com/KRTirtho/spotube/releases
-#====================================================================================# 
-# flatpak
-#====================================================================================# 
-# ADD FLATHUB REPO
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-
-# FLATPAKS
-flatpaks=(
-    "com.github.tchx84.Flatseal"
-    "com.mattjakeman.ExtensionManager"
-    "com.spotify.Client"
-)
-for fp in ${flatpaks[@]}; do
-    flatpak install -y $fp
-done
-
-# UNDER REVIEW
-#   "com.valvesoftware.Steam"
-#   "com.jetbrains.IntelliJ-IDEA-Community"
-#   "md.obsidian.Obsidian"
-#   "org.gnome.Geary"
-#   "com.vscodium.codium"
-
-# vscode helper: https://github.com/owtaylor/toolbox-vscode
 #====================================================================================# 
 # gnome settings
 #====================================================================================# 
@@ -53,7 +9,7 @@ done
 dconf write "/org/gnome/shell/extensions/pop-shell/hint-color-rgba" "'rgb(115,206,244)'"
 
 # load gnome terminal profiles
-dconf load /org/gnome/terminal/legacy/profiles:/ < $HOME/Source/github.com/jeffwindsor/installs/shared/gnome-terminal-profiles.dconf
+dconf load /org/gnome/terminal/legacy/profiles:/ < ./gnome-terminal-profiles.dconf
 
 # interface preferences
 dconf write "/org/gnome/desktop/interface/clock-format" "'12h'"
@@ -166,9 +122,6 @@ dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cu
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/binding" "'<Super>t'"
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'gnome-terminal'"
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'Terminal'"
-#====================================================================================# 
-# gnome settings
-#====================================================================================# 
 
 # keyboard bindings : custom
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings" "[\
@@ -204,6 +157,40 @@ dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cu
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/name" "'OSTree'"
 #====================================================================================# 
 
-# base toolbox
-toolbox create
-toolbox run ./silverblue-user-space-toolbox
+# source code
+mkdir -p $HOME/Source
+mkdir -p $HOME/Source/gitlab.gnome.org/
+mkdir -p $HOME/Source/gitlab.com/
+mkdir -p $HOME/Source/github.com/
+# git clone http://gitlab.gnome.org/jeffwindsor/gnome-shell-extensions.git $HOME/Source/gitlab.gnome.org/jeffwindsor/gnome-shell-extensions
+git clone git@github.com:jeffwindsor/dotfiles.git $HOME/Source/github.com/jeffwindsor/dotfiles
+git clone git@github.com:jeffwindsor/hledger-data.git $HOME/Source/github.com/jeffwindsor/hledger-data
+git clone git@github.com:jeffwindsor/installs.git $HOME/Source/github.com/jeffwindsor/installs
+git clone git@github.com:jeffwindsor/startpage.git $HOME/Source/github.com/jeffwindsor/startpage
+git clone --depth 1 git@github.com:AstroNvim/AstroNvim.git $HOME/.config/nvim
+
+# appimages
+# https://github.com/aferrero2707/gimp-appimage/releases
+# https://github.com/KRTirtho/spotube/releases
+
+# flatpaks
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpaks=(
+    "com.github.tchx84.Flatseal"
+    "com.mattjakeman.ExtensionManager"
+    "com.spotify.Client"
+)
+for fp in ${flatpaks[@]}; do
+    flatpak install -y $fp
+done
+# flatpacks to review
+#   "com.valvesoftware.Steam"
+#   "com.jetbrains.IntelliJ-IDEA-Community"
+#   "md.obsidian.Obsidian"
+#   "org.gnome.Geary"
+#   "com.vscodium.codium"
+
+# toolboxes
+toolbox create daily-driver
+toolbox run -c daily-driver ./toolbox/daily-driver
+

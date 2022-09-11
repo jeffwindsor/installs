@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+cd "$(dirname "${0}")"
+
+# base
+source ./base
+source ./rust
+
+# neovim config
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+
+# h ledger
+sudo dnf -y install hledger
+
+# gnome extras
+sudo dnf -y install gnome-tweaks gnome-extensions-app 
+
+# set user config
+$HOME/Source/github.com/jeffwindsor/dotfiles/fedora
+
+# rust utils not in dnf (yet)
+cargo install topgrade
+cargo install bacon
+cargo install grex
+cargo install mdcat
+cargo install tealdeer
+
