@@ -8,6 +8,9 @@ flatpaks=(
     "com.github.tchx84.Flatseal"
     "com.mattjakeman.ExtensionManager"
     "com.spotify.Client"
+    "nz.mega.MEGAsync"
+    "org.chromium.Chromium"
+    "com.visualstudio.code"
 )
 for fp in ${flatpaks[@]}; do
     flatpak install -y $fp
@@ -18,7 +21,7 @@ done
 #   "com.jetbrains.IntelliJ-IDEA-Community"
 #   "md.obsidian.Obsidian"
 #   "org.gnome.Geary"
-#   "com.vscodium.codium"
+#   "com.github.GradienceTeam.Gradience"
 
 # vscode helper: https://github.com/owtaylor/toolbox-vscode
 #====================================================================================# 
