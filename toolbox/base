@@ -33,7 +33,7 @@ sudo dnf -y install lazygit
 
 # fish
 sudo dnf -y install fish
-sudo usermod -s $(which fish) $USERNAME
+sudo usermod -s $(which fish) $(whoami)
 
 # fish-plugins
 curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
