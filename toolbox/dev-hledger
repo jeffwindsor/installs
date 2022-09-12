@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+cd "$(dirname "${0}")"
+
+# base
+source ./base
+
+# https://github.com/simonmichael/hledger/blob/master/WORKFLOWS.md#developer-workflows
+SRC_HLEDGER=$SRC/github.com/simonmichael/hledger
+SRC_QUICKBENCH=$SRC/github.com/simonmichael/quickbench
+
+sudo dnf -y install stack
+stack install ghcid shelltestrunner hasktags
+
+git clone https://github.com/simonmichael/quickbench $SRC_QUICKBENCH
+cd $SRC_QUICKBENCH
+stack install
+
+git clone git@github.com:simonmichael/hledger.git $SRC_HLEDGER
+cd $SRC_HLEDGER
+stack build
