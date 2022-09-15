@@ -17,7 +17,14 @@ sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfr
 sudo dnf -y upgrade
 
 # clis
-sudo dnf -y install bat exa fd-find fzf gitui ripgrep rmlint starship stow
+sudo dnf -y install bat 
+sudo dnf -y install exa
+sudo dnf -y install fd-find
+sudo dnf -y install fzf
+sudo dnf -y install ripgrep
+#sudo dnf -y install rmlint
+sudo dnf -y install starship
+sudo dnf -y install stow
 
 # neovim
 sudo dnf -y install neovim
