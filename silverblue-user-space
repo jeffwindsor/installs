@@ -189,6 +189,7 @@ done
 #   "md.obsidian.Obsidian"
 #   "org.gnome.Geary"
 #   "com.vscodium.codium"
+#   "dev.lapce.lapce"
 
 # toolboxes
 toolbox create daily-driver
