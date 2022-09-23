@@ -41,7 +41,6 @@ sudo dnf -y install lazygit
 
 # fish
 sudo dnf -y install fish
-sudo usermod -s $(which fish) $(whoami)
 
 # fish-plugins
 curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
@@ -54,12 +53,6 @@ fisher install gazorby/fish-exa
 #====================================================================================# 
 # manual tasks
 #====================================================================================# 
-
-echo
-echo "Post Setup Tasks"
-echo "1) Open Firefox and login for sync"
-echo "2) Login into Lastpass"
-echo "3) Goto Github and add public ssh key"
-echo
-read -p "Press ANY Key to reboot (once rebooted run user space script)"
+echo "* Login into Lastpass"
+echo "* Goto Github and add public ssh key"
 
