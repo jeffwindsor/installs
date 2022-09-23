@@ -1,6 +1,44 @@
 #!/usr/bin/env bash
-
 cd "$(dirname "${0}")"
+
+#====================================================================================# 
+# source code
+#====================================================================================# 
+mkdir -p $HOME/Source
+mkdir -p $HOME/Source/gitlab.gnome.org/
+mkdir -p $HOME/Source/gitlab.com/
+mkdir -p $HOME/Source/github.com/
+# git clone http://gitlab.gnome.org/jeffwindsor/gnome-shell-extensions.git $HOME/Source/gitlab.gnome.org/jeffwindsor/gnome-shell-extensions
+git clone git@github.com:jeffwindsor/dotfiles.git $HOME/Source/github.com/jeffwindsor/dotfiles
+git clone git@github.com:jeffwindsor/hledger-data.git $HOME/Source/github.com/jeffwindsor/hledger-data
+git clone git@github.com:jeffwindsor/installs.git $HOME/Source/github.com/jeffwindsor/installs
+git clone git@github.com:jeffwindsor/startpage.git $HOME/Source/github.com/jeffwindsor/startpage
+git clone --depth 1 git@github.com:AstroNvim/AstroNvim.git $HOME/.config/nvim
+
+# appimages
+# https://github.com/aferrero2707/gimp-appimage/releases
+# https://github.com/KRTirtho/spotube/releases
+
+# flatpaks
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak update --appstream
+
+#flatpak install -y "com.github.GradienceTeam.Gradience"
+#flatpak install -y "dev.lapce.lapce"
+#flatpak install -y "md.obsidian.Obsidian"
+#flatpak install -y "org.gnome.Geary"
+flatpak install -y "com.github.tchx84.Flatseal"
+flatpak install -y "com.google.Chrome"
+flatpak install -y "com.mattjakeman.ExtensionManager"
+flatpak install -y "com.spotify.Client"
+flatpak install -y "com.valvesoftware.Steam"
+flatpak install -y "com.visualstudio.code"
+flatpak install -y "nz.mega.MEGAsync"
+
+
+# toolboxes
+toolbox create daily-driver && toolbox run -c daily-driver ./toolbox/daily-driver
+
 
 #====================================================================================# 
 # gnome settings
@@ -155,43 +193,3 @@ dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cu
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/binding" "'<Super><Shift>t'"
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/command" "'gnome-terminal --profile=\"Ayu Light\"'"
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/name" "'OSTree'"
-#====================================================================================# 
-
-# source code
-mkdir -p $HOME/Source
-mkdir -p $HOME/Source/gitlab.gnome.org/
-mkdir -p $HOME/Source/gitlab.com/
-mkdir -p $HOME/Source/github.com/
-# git clone http://gitlab.gnome.org/jeffwindsor/gnome-shell-extensions.git $HOME/Source/gitlab.gnome.org/jeffwindsor/gnome-shell-extensions
-git clone git@github.com:jeffwindsor/dotfiles.git $HOME/Source/github.com/jeffwindsor/dotfiles
-git clone git@github.com:jeffwindsor/hledger-data.git $HOME/Source/github.com/jeffwindsor/hledger-data
-git clone git@github.com:jeffwindsor/installs.git $HOME/Source/github.com/jeffwindsor/installs
-git clone git@github.com:jeffwindsor/startpage.git $HOME/Source/github.com/jeffwindsor/startpage
-git clone --depth 1 git@github.com:AstroNvim/AstroNvim.git $HOME/.config/nvim
-
-# appimages
-# https://github.com/aferrero2707/gimp-appimage/releases
-# https://github.com/KRTirtho/spotube/releases
-
-# flatpaks
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-flatpaks=(
-    "com.github.tchx84.Flatseal"
-    "com.mattjakeman.ExtensionManager"
-    "com.spotify.Client"
-)
-for fp in ${flatpaks[@]}; do
-    flatpak install -y $fp
-done
-# flatpacks to review
-#   "com.valvesoftware.Steam"
-#   "com.jetbrains.IntelliJ-IDEA-Community"
-#   "md.obsidian.Obsidian"
-#   "org.gnome.Geary"
-#   "com.vscodium.codium"
-#   "dev.lapce.lapce"
-
-# toolboxes
-toolbox create daily-driver
-toolbox run -c daily-driver ./toolbox/daily-driver
-

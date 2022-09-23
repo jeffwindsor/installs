@@ -28,6 +28,12 @@ fi
 # rmp-ostree
 #====================================================================================# 
 sudo rpm-ostree upgrade
-sudo rpm-ostree install gnome-shell-extension-pop-shell
+
+# automatic rpm ostree updates
+sudo cp ./rpm-ostreed.conf /etc
+rpm-ostree reload
+systemctl enable rpm-ostreed-automatic.timer --now
+
+# reboot for changes
 systemctl reboot
 #====================================================================================# 
