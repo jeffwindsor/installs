@@ -116,6 +116,7 @@ install_cask font-jetbrains-mono-nerd-font
 install_cask keepingyouawake
 install_cask slack
 install_cask spotify
+install_cask whichspace
 
 ################################################################
 echo "==> SDKMAN"
