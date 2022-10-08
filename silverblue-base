@@ -34,6 +34,9 @@ sudo cp ./rpm-ostreed.conf /etc
 rpm-ostree reload
 systemctl enable rpm-ostreed-automatic.timer --now
 
+# overlays
+rpm-ostree install pop-shell
+
 # reboot for changes
 systemctl reboot
 #====================================================================================# 
