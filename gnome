@@ -149,5 +149,5 @@ dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cu
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'Toolbox'"
 
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/binding" "'<Super><Shift>t'"
-dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/command" "'gnome-terminal --profile=\"Ayu Light\"'"
+dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/command" "'gnome-terminal --profile=\"Nord\"'"
 dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/name" "'OSTree'"
