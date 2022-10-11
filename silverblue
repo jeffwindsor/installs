@@ -1,17 +1,6 @@
 #!/usr/bin/env bash
 cd "$(dirname "${0}")"
-#====================================================================================# 
-# 
-#   /$$$$$$  /$$ /$$                               /$$       /$$                          
-#  /$$__  $$|__/| $$                              | $$      | $$                          
-# | $$  \__/ /$$| $$ /$$    /$$ /$$$$$$   /$$$$$$ | $$$$$$$ | $$ /$$   /$$  /$$$$$$       
-# |  $$$$$$ | $$| $$|  $$  /$$//$$__  $$ /$$__  $$| $$__  $$| $$| $$  | $$ /$$__  $$      
-#  \____  $$| $$| $$ \  $$/$$/| $$$$$$$$| $$  \__/| $$  \ $$| $$| $$  | $$| $$$$$$$$      
-#  /$$  \ $$| $$| $$  \  $$$/ | $$_____/| $$      | $$  | $$| $$| $$  | $$| $$_____/      
-# |  $$$$$$/| $$| $$   \  $/  |  $$$$$$$| $$      | $$$$$$$/| $$|  $$$$$$/|  $$$$$$$      
-#  \______/ |__/|__/    \_/    \_______/|__/      |_______/ |__/ \______/  \_______/      
-#                                                                                         
-#====================================================================================# 
+
 menu(){
   echo -ne "
           ███████╗███████╗██████╗  ██████╗ ██████╗  █████╗ 
@@ -30,6 +19,8 @@ menu(){
                                                                             
 1) Setup: Operating System
 2) Setup: Userland
+3) Re-Install User Software
+4) Re-Configure Gnome
 
 Select Step:  "
   read -r step
@@ -41,11 +32,15 @@ Select Step:  "
       ;;
     2)
       ssh_keygen
-      clone_sources
       configure_gnome
       install_user_software
-      create_toolboxes
+      create_toolbox daily-driver
       ;;
+    3) 
+      install_user_software
+      ;;
+    4)
+      configure_gnome
     *)
       echo "Not a valid option"
       exit 1
@@ -54,15 +49,17 @@ Select Step:  "
 }
 
 rpm_ostree_setup(){
+  # get the latest baby
   sudo rpm-ostree upgrade
 
-  # automatic rpm ostree updates
+  # set rpm ostree updates to automatic
   sudo cp ./rpm-ostreed.conf /etc
   rpm-ostree reload
   systemctl enable rpm-ostreed-automatic.timer --now
 }
 
 rpm_ostree_overlays(){
+  # add tiling to gnome
   rpm-ostree install pop-shell
 }
 
@@ -72,25 +69,16 @@ ssh_keygen(){
       xdg-open https://github.com/settings/keys/ &
   fi
 
-  if [[ ! -f $HOME/.ssh/gitlab.gnome.org ]]; then
-      ssh-keygen -t ed25519 -f $HOME/.ssh/gitlab.gnome.org -C "jeff.windsor+gnome@gmail.com"
-      xdg-open https://gitlab.gnome.org/-/profile/keys/ &
-  fi
+#  if [[ ! -f $HOME/.ssh/gitlab.gnome.org ]]; then
+#      ssh-keygen -t ed25519 -f $HOME/.ssh/gitlab.gnome.org -C "jeff.windsor+gnome@gmail.com"
+#      xdg-open https://gitlab.gnome.org/-/profile/keys/ &
+#  fi
+
 }
 
-clone_soruces(){
-  mkdir -p $HOME/Source
-  mkdir -p $HOME/Source/gitlab.com/
-  mkdir -p $HOME/Source/github.com/
-
-  git clone git@github.com:jeffwindsor/dotfiles.git $HOME/Source/github.com/jeffwindsor/dotfiles
-  git clone git@github.com:jeffwindsor/hledger-data.git $HOME/Source/github.com/jeffwindsor/hledger-data
-  git clone git@github.com:jeffwindsor/installs.git $HOME/Source/github.com/jeffwindsor/installs
-  git clone git@github.com:jeffwindsor/startpage.git $HOME/Source/github.com/jeffwindsor/startpage
-}
-
-create_toolboxes(){
-  toolbox create daily-driver && toolbox run -c daily-driver ./toolbox/daily-driver
+create_toolbox(){
+  toolbox create $1 && \
+    toolbox run -c $1 ./toolbox/$1
 }
 
 install_user_software(){
@@ -101,7 +89,7 @@ install_user_software(){
   #flatpak install -y "com.valvesoftware.Steam"
   #flatpak install -y "md.obsidian.Obsidian"
   #flatpak install -y "org.gnome.Geary"
-  flatpak install -y "com.github.tchx84.Flatseal"
+  #flatpak install -y "com.github.tchx84.Flatseal"
   flatpak install -y "com.google.Chrome"
   flatpak install -y "com.mattjakeman.ExtensionManager"
   flatpak install -y "com.spotify.Client"
@@ -247,3 +235,5 @@ configure_gnome(){
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/command" "'gnome-terminal --profile=\"Nord\"'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/name" "'OSTree'"
 }
+
+menu
