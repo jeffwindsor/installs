@@ -1,5 +1,30 @@
 [/]
-list=['9ac3a930-7d0b-4a14-b161-dd2ffbc59817', '8e0b3171-ad18-4e09-be1f-053f63e26fcc', 'c29698ee-391a-4337-8296-5cd49908549c', 'b23d8ef0-e964-460b-ad76-5244f6096d32', 'bd8ebb06-b063-42be-9a9a-e7ea06735f66', '46b6f3bb-7783-44ca-a032-26f1f587d894', '460ced25-58fb-4993-82af-249ed10fd358', 'fdb3e279-02c4-49e4-8094-c5c6ec033b76', '543d9a43-2827-4203-bbfb-b9e76d41b25d']
+default='fdb3e279-02c4-49e4-8094-c5c6ec033b76'
+list=['9ac3a930-7d0b-4a14-b161-dd2ffbc59817', '8e0b3171-ad18-4e09-be1f-053f63e26fcc', 'c29698ee-391a-4337-8296-5cd49908549c', 'b23d8ef0-e964-460b-ad76-5244f6096d32', 'bd8ebb06-b063-42be-9a9a-e7ea06735f66', '46b6f3bb-7783-44ca-a032-26f1f587d894', '460ced25-58fb-4993-82af-249ed10fd358', 'fdb3e279-02c4-49e4-8094-c5c6ec033b76', '543d9a43-2827-4203-bbfb-b9e76d41b25d', '23ce554a-cf6c-4edb-b1e4-206aedf4beda']
+
+[:1ea3bcad-f7ac-4fed-950d-5777b8539a79]
+visible-name='Kanagawa'
+
+[:23ce554a-cf6c-4edb-b1e4-206aedf4beda]
+allow-bold=true
+background-color='#1F1F1F1F2828'
+bold-color='#DCDCD7D7BABA'
+bold-color-same-as-fg=true
+bold-is-bright=true
+cursor-background-color='#DCDCD7D7BABA'
+cursor-colors-set=true
+cursor-foreground-color='#1F1F1F1F2828'
+custom-command=''
+font='JetBrainsMono Nerd Font Mono 13'
+foreground-color='#DCDCD7D7BABA'
+login-shell=false
+palette=['#090906061818', '#C3C340404343', '#767694946A6A', '#C0C0A3A36E6E', '#7E7E9C9CD8D8', '#95957F7FB8B8', '#6A6A95958989', '#DCDCD7D7BABA', '#727271716969', '#E8E824242424', '#9898BBBB6C6C', '#E6E6C3C38484', '#7F7FB4B4CACA', '#93938A8AA9A9', '#7A7AA8A89F9F', '#C8C8C0C09393']
+use-custom-command=false
+use-system-font=false
+use-theme-background=false
+use-theme-colors=false
+use-theme-transparency=false
+visible-name='kanagawa'
 
 [:460ced25-58fb-4993-82af-249ed10fd358]
 allow-bold=true
@@ -9,8 +34,10 @@ bold-color-same-as-fg=true
 cursor-background-color='#b3b3b8b8c3c3'
 cursor-colors-set=true
 cursor-foreground-color='#12121b1b2121'
+custom-command=''
 foreground-color='#b3b3b8b8c3c3'
 palette=['#12121C1C2121', '#E4E447475454', '#8989BDBD8282', '#F7F7BDBD5151', '#54548686C0C0', '#B7B77E7EB8B8', '#5050A5A5A4A4', '#FFFFFFFFFFFF', '#525260606B6B', '#E4E447475454', '#8989BDBD8282', '#F7F7BDBD5151', '#54548686C0C0', '#B7B77E7EB8B8', '#5050A5A5A4A4', '#FFFFFFFFFFFF']
+use-custom-command=false
 use-theme-background=false
 use-theme-colors=false
 use-theme-transparency=false
@@ -24,8 +51,12 @@ bold-color-same-as-fg=true
 cursor-background-color='#D8D8DEDEE9E9'
 cursor-colors-set=true
 cursor-foreground-color='#2E2E34344040'
+custom-command=''
+font='Monospace 13'
 foreground-color='#D8D8DEDEE9E9'
 palette=['#3B3B42425252', '#BFBF61616A6A', '#A3A3BEBE8C8C', '#EBEBCBCB8B8B', '#8181A1A1C1C1', '#B4B48E8EADAD', '#8888C0C0D0D0', '#E5E5E9E9F0F0', '#4C4C56566A6A', '#BFBF61616A6A', '#A3A3BEBE8C8C', '#EBEBCBCB8B8B', '#8181A1A1C1C1', '#B4B48E8EADAD', '#8F8FBCBCBBBB', '#ECECEFEFF4F4']
+use-custom-command=false
+use-system-font=false
 use-theme-background=false
 use-theme-colors=false
 use-theme-transparency=false
@@ -69,8 +100,13 @@ bold-color-same-as-fg=true
 cursor-background-color='#E6E6B4B45050'
 cursor-colors-set=true
 cursor-foreground-color='#0A0A0E0E1414'
+custom-command=''
+font='JetBrainsMono Nerd Font Mono 12'
 foreground-color='#B3B3B1B1ADAD'
+login-shell=false
 palette=['#0A0A0E0E1414', '#FFFF33333333', '#C2C2D9D94C4C', '#FFFF8F8F4040', '#5959C2C2FFFF', '#FFFFEEEE9999', '#9595E6E6CBCB', '#B3B3B1B1ADAD', '#4D4D55556666', '#FFFF33333333', '#C2C2D9D94C4C', '#FFFF8F8F4040', '#5959C2C2FFFF', '#FFFFEEEE9999', '#9595E6E6CBCB', '#B3B3B1B1ADAD']
+title='Terminal'
+use-custom-command=false
 use-system-font=false
 use-theme-background=false
 use-theme-colors=false
@@ -133,8 +169,10 @@ bold-color-same-as-fg=true
 cursor-background-color='#EEEEEEEEEEEE'
 cursor-colors-set=true
 cursor-foreground-color='#282828282828'
+font='JetBrainsMono Nerd Font Mono 13'
 foreground-color='#EEEEEEEEEEEE'
 palette=['#1d1d1d1d1d1d', '#c5c515152f2f', '#c9c9d0d05c5c', '#ffffc2c24b4b', '#b3b3dedeefef', '#d3d3b9b98787', '#7373cecef4f4', '#eeeeeeeeeeee', '#323232323232', '#f4f437375353', '#d9d9e0e06666', '#fafacccc7272', '#c0c0eaeafbfb', '#efefd0d09393', '#a1a1d6d6ecec', '#ffffffffffff']
+use-system-font=false
 use-theme-background=false
 use-theme-colors=false
 use-theme-transparency=false
