@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # rustup
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
@@ -12,5 +13,4 @@ cargo install topgrade
 cargo install bacon
 cargo install grex
 cargo install mdcat
-cargo install tealdeer
 

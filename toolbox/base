@@ -26,6 +26,7 @@ sudo dnf -y install ripgrep
 #sudo dnf -y install rmlint
 sudo dnf -y install starship
 sudo dnf -y install stow
+sudo dnf -y install tealdeer
 
 # neovim
 sudo dnf -y install neovim
