@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-sudo dnf copr enable vstanek/gnome-info-collect
-sudo dnf install gnome-info-collect
-

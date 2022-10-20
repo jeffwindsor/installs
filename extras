@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+menu(){
+  echo -ne "
+
+███████╗██╗  ██╗████████╗██████╗  █████╗ ███████╗
+██╔════╝╚██╗██╔╝╚══██╔══╝██╔══██╗██╔══██╗██╔════╝
+█████╗   ╚███╔╝    ██║   ██████╔╝███████║███████╗
+██╔══╝   ██╔██╗    ██║   ██╔══██╗██╔══██║╚════██║
+███████╗██╔╝ ██╗   ██║   ██║  ██║██║  ██║███████║
+╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
+"
+  while true
+  do
+    echo " 1) Exit"
+    echo " 2) Add My Git Repos"
+    echo " 3) Fedora:Gnome: Collect Info App"
+    echo ""
+    echo " Select Step:  "
+    read -r step
+    case $step in
+      1) exit 0;;
+      2) gitclones;;
+      3) gnome_info_collect;;
+      *) echo "Not a valid option"
+         exit 1
+         ;;
+    esac
+  done
+}
+
+gnome_info_collect(){
+  sudo dnf copr enable vstanek/gnome-info-collect
+  sudo dnf install gnome-info-collect
+}
+
+git_clones(){
+  mkdir -p $HOME/Source
+  mkdir -p $HOME/Source/gitlab.com/
+  mkdir -p $HOME/Source/github.com/
+
+  git clone git@github.com:jeffwindsor/dotfiles.git $HOME/Source/github.com/jeffwindsor/dotfiles
+  git clone git@github.com:jeffwindsor/hledger-data.git $HOME/Source/github.com/jeffwindsor/hledger-data
+  git clone git@github.com:jeffwindsor/installs.git $HOME/Source/github.com/jeffwindsor/installs
+  git clone git@github.com:jeffwindsor/startpage.git $HOME/Source/github.com/jeffwindsor/startpage
+}
+
+menu
