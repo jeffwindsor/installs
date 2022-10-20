@@ -17,6 +17,3 @@ sudo dnf -y install gnome-tweaks
 sudo dnf -y install gnome-extensions-app 
 sudo dnf -y install gnome-shell-extension-pop-shell
 
-# set user config
-$HOME/Source/github.com/jeffwindsor/dotfiles/fedora
-

@@ -18,34 +18,40 @@ menu(){
 ╚══════╝╚═╝╚══════╝ ╚═══╝  ╚══════╝╚═╝  ╚═╝╚═════╝ ╚══════╝ ╚═════╝ ╚══════╝
                                                                             
 1) Setup: Operating System
-2) Setup: Userland
-3) Re-Install User Software
-4) Re-Configure Gnome
+2) Setup: Userland (run all below options)
+3)   Add SSH Key
+4)   Configure Gnome
+5)   Install Software
+6)   Link User Home Configs
+7)   Create Daily Drive Toolbox
 
 Select Step:  "
   read -r step
-  case $step
-    1)
-      rpm_ostree_setup
-      rpm_ostree_overlays
-      systemctl reboot
-      ;;
-    2)
-      ssh_keygen
-      configure_gnome
-      install_user_software
-      create_toolbox daily-driver
-      ;;
-    3) 
-      install_user_software
-      ;;
-    4)
-      configure_gnome
+  case $step in
+    1) rpm_ostree_setup
+       rpm_ostree_overlays
+       systemctl reboot
+       ;;
+    2) ssh_keygen
+       configure_gnome
+       install_user_software
+       link_user_config
+       create_toolbox daily-driver
+       ;;
+    3) ssh_keygen;;
+    4) configure_gnome;;
+    5) install_user_software;;
+    6) link_user_config;;
+    7) create_toolbox daily-driver;;
     *)
       echo "Not a valid option"
       exit 1
       ;;
   esac
+}
+
+link_user_config(){
+  $HOME/Source/github.com/jeffwindsor/dotfiles/dots-silverblue
 }
 
 rpm_ostree_setup(){
@@ -77,7 +83,7 @@ ssh_keygen(){
 }
 
 create_toolbox(){
-  toolbox create $1 && \
+  toolbox create && \
     toolbox run -c $1 ./toolbox/$1
 }
 
