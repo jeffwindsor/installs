@@ -24,7 +24,7 @@ sudo dnf -y install fortune-mod
 sudo dnf -y install fzf
 sudo dnf -y install ripgrep
 #sudo dnf -y install rmlint
-sudo dnf -y install starship
+#sudo dnf -y install starship
 sudo dnf -y install stow
 sudo dnf -y install tealdeer
 
