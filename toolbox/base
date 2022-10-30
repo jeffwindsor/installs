@@ -46,9 +46,9 @@ sudo dnf -y install fish
 # fish-plugins
 curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
 fisher install PatrickF1/fzf.fish
-fisher install jethrokuan/z
-fisher install laughedelic/pisces
-fisher install laughedelic/fish_logo
+#fisher install jethrokuan/z
+#fisher install laughedelic/pisces
+#fisher install laughedelic/fish_logo
 fisher install gazorby/fish-exa
 
 #====================================================================================# 
