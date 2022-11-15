@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+cd "$(dirname "${0}")"
+
+# base
+source ./base
+source ./rust
+
+# neovim config
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+
+# h ledger
+sudo zypper -y install hledger
+

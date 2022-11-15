@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+cd "$(dirname "${0}")"
+
+menu(){
+  while :
+  do
+    clear
+    echo -ne "
+    
+███╗   ███╗██╗ ██████╗██████╗  ██████╗     ██████╗ ███████╗        
+████╗ ████║██║██╔════╝██╔══██╗██╔═══██╗   ██╔═══██╗██╔════╝        
+██╔████╔██║██║██║     ██████╔╝██║   ██║   ██║   ██║███████╗        
+██║╚██╔╝██║██║██║     ██╔══██╗██║   ██║   ██║   ██║╚════██║        
+██║ ╚═╝ ██║██║╚██████╗██║  ██║╚██████╔╝   ╚██████╔╝███████║        
+╚═╝     ╚═╝╚═╝ ╚═════╝╚═╝  ╚═╝ ╚═════╝     ╚═════╝ ╚══════╝        
+
+s) First time setup (Reboot)
+u) Update (Reboot)
+d) Create Daily Driver Container
+
+Select Step:  "
+    read -r step
+    case $step in
+      u) user_space_update
+         os_update
+         systemctl reboot
+         ;;
+      d) create_toolbox daily-driver;;
+      s) 
+         create_distrobox daily-driver
+         os_update
+         os_overlays
+         systemctl reboot
+         ;;
+      *)
+        echo "Not a valid option"
+        exit 1
+        ;;
+    esac
+  done
+}
+
+user_space_update(){
+  flatpak update -y
+}
+
+os_update(){
+  sudo transactional-update dup
+}
+
+os_overlays(){
+  sudo transactional-update pkg install gnome-shell-extensions-pop-shell alacritty fish
+}
+
+create_distrobox(){
+  toolbox enter $1
+  ./toolbox/$1
+}
+
+menu

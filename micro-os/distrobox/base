@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+cd "$(dirname "${0}")"
+# upgrade packages
+sudo zypper -y upgrade
+
+# clis
+sudo zypper -y install bat 
+sudo zypper -y install exa
+sudo zypper -y install fd-find
+sudo zypper -y install fortune-mod
+sudo zypper -y install fzf
+sudo zypper -y install ripgrep
+#sudo zypper -y install rmlint
+#sudo zypper -y install starship
+sudo zypper -y install stow
+sudo zypper -y install tealdeer
+
+# neovim
+sudo zypper -y install neovim
+#sudo zypper -y install gcc "gcc-c++" glibc-all-langpacks
+
+# fish-plugins
+curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+fisher install PatrickF1/fzf.fish
+fisher install gazorby/fish-exa
+
+#====================================================================================# 
+# manual tasks
+#====================================================================================# 
+echo "* Login into Lastpass"
+echo "* Goto Github and add public ssh key"
+
