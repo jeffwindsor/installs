@@ -7,33 +7,24 @@ menu(){
     clear
     echo -ne "
 
-███████╗██╗██╗    ██╗   ██╗███████╗██████╗ ██████╗ ██╗     ██╗   ██╗███████╗
-██╔════╝██║██║    ██║   ██║██╔════╝██╔══██╗██╔══██╗██║     ██║   ██║██╔════╝
-███████╗██║██║    ██║   ██║█████╗  ██████╔╝██████╔╝██║     ██║   ██║█████╗  
-╚════██║██║██║    ╚██╗ ██╔╝██╔══╝  ██╔══██╗██╔══██╗██║     ██║   ██║██╔══╝  
-███████║██║███████╗╚████╔╝ ███████╗██║  ██║██████╔╝███████╗╚██████╔╝███████╗
-╚══════╝╚═╝╚══════╝ ╚═══╝  ╚══════╝╚═╝  ╚═╝╚═════╝ ╚══════╝ ╚═════╝ ╚══════╝
+███████╗███████╗██████╗  ██████╗ ██████╗  █████╗ 
+██╔════╝██╔════╝██╔══██╗██╔═══██╗██╔══██╗██╔══██╗
+█████╗  █████╗  ██║  ██║██║   ██║██████╔╝███████║
+██╔══╝  ██╔══╝  ██║  ██║██║   ██║██╔══██╗██╔══██║
+██║     ███████╗██████╔╝╚██████╔╝██║  ██║██║  ██║
+╚═╝     ╚══════╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
 
-o) OS Setup  (Reboots)
-u) OS Update (Reboots)
-s) Userland Setup
-l) Userland Update
+o) Setup
+u) Update
 
 Select Step:  "
     read -r step
     case $step in
-      l) 
+      u) 
         dnf_update
         ;;
       u)
         rpm_ostree_update
-        systemctl reboot
-        ;;
-      o) 
-        toolbox create
-        rpm_ostree_update
-        rpm_ostree_setup
-        rpm_ostree_overlays
         systemctl reboot
         ;;
       s)
@@ -47,21 +38,6 @@ Select Step:  "
         ;;
     esac
   done
-}
-
-rpm_ostree_update(){
-  sudo rpm-ostree upgrade
-}
-
-rpm_ostree_setup(){
-  # set rpm ostree updates to automatic
-  sudo cp ./rpm-ostreed.conf /etc
-  rpm-ostree reload
-  systemctl enable rpm-ostreed-automatic.timer --now
-}
-
-rpm_ostree_overlays(){
-  rpm-ostree install pop-shell alacritty
 }
 
 dnf_setup(){
@@ -81,6 +57,7 @@ dnf_update(){
 
 dnf_installs(){
   # clis
+  sudo dnf -y install alacritty 
   sudo dnf -y install bat 
   sudo dnf -y install exa
   sudo dnf -y install fd-find
@@ -92,6 +69,9 @@ dnf_installs(){
   #sudo dnf -y install starship
   sudo dnf -y install stow
   sudo dnf -y install tealdeer
+
+  # tiling
+  sudo dnf -y install pop-shell
 
   # neovim
   sudo dnf -y install neovim
