@@ -14,7 +14,6 @@ echo " c) Configure Gnome"
 echo " g) Add My Git Repos"
 echo " s) SSH Keygen"
 echo " i) Install Flatpaks"
-echo " f) Fisher and Packages"
 echo " r) Rust"
 
 echo ""
@@ -25,7 +24,6 @@ case $step in
   g) git_clones;;
   s) ssh_keygen;;
   i) install_flatpaks;;
-  f) install_fisher;;
   r) install_rust;;
   *) echo "Not a valid option"
      exit 1
@@ -55,14 +53,6 @@ ssh_keygen(){
 #      xdg-open https://gitlab.gnome.org/-/profile/keys/ &
 #  fi
 
-}
-install_fisher(){
-  curl -sL https://git.io/fisher | source
-  fisher install jorgebucaran/fisher
-  
-  fisher install PatrickF1/fzf.fish
-  fisher install gazorby/fish-exa
-  fisher install jorgebucaran/nvm.fish
 }
 
 install_rust(){
