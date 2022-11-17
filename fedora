@@ -23,10 +23,6 @@ Select Step:  "
       u) 
         dnf_update
         ;;
-      u)
-        rpm_ostree_update
-        systemctl reboot
-        ;;
       s)
         dnf_setup
         dnf_update
