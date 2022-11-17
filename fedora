@@ -80,17 +80,6 @@ dnf_installs(){
   # fish
   sudo dnf -y install fish
 
-  # fish-plugins
-  curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
-  fisher install PatrickF1/fzf.fish
-  fisher install gazorby/fish-exa
-
-  # rustup
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-  cargo install cargo-update
-  sudo dnf -y install cmake && cargo install starship
-  cargo install topgrade
-
   #====================================================================================# 
   # manual tasks
   #====================================================================================# 

@@ -14,6 +14,8 @@ echo " c) Configure Gnome"
 echo " g) Add My Git Repos"
 echo " s) SSH Keygen"
 echo " i) Install Flatpaks"
+echo " f) Fisher and Packages"
+echo " r) Rust"
 
 echo ""
 echo " Select Step:  "
@@ -23,6 +25,8 @@ case $step in
   g) git_clones;;
   s) ssh_keygen;;
   g) install_flatpaks;;
+  f) install_fisher;;
+  r) install_rust;;
   *) echo "Not a valid option"
      exit 1
      ;;
@@ -52,53 +56,39 @@ ssh_keygen(){
 #  fi
 
 }
+install_fisher(){
+  curl -sL https://git.io/fisher | source
+  fisher install jorgebucaran/fisher
+  
+  fisher install PatrickF1/fzf.fish
+  fisher install gazorby/fish-exa
+  fisher install jorgebucaran/nvm.fish
+}
+
+install_rust(){
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+  cargo install cargo-update
+  sudo dnf -y install cmake && cargo install starship
+  cargo install topgrade
+}
 
 install_flatpaks(){
-  #flatpak install -y "com.github.GradienceTeam.Gradience"
-  #flatpak install -y "com.valvesoftware.Steam"
-  #flatpak install -y "md.obsidian.Obsidian"
-  #flatpak install -y "org.gnome.Geary"
+  # add the flathub repo if it does nto exist (looking at you fedora)
+  flatpak remote-add --if-not-exists flathubs https://flathub.org/repo/flathub.flatpakrepo
+
+  flatpak install -y "com.valvesoftware.Steam"
   flatpak install -y "com.github.tchx84.Flatseal"
   flatpak install -y "com.google.Chrome"
   flatpak install -y "com.mattjakeman.ExtensionManager"
   flatpak install -y "com.spotify.Client"
   flatpak install -y "com.visualstudio.code"
-#  com.discordapp.Discord                              org.freedesktop.Platform/x86_64/22.08
-# com.github.tchx84.Flatseal                          org.gnome.Platform/x86_64/43
-# com.google.Chrome                                   org.freedesktop.Platform/x86_64/22.08
-# com.mattjakeman.ExtensionManager                    org.gnome.Platform/x86_64/43
-# com.spotify.Client                                  org.freedesktop.Platform/x86_64/22.08
-# com.visualstudio.code                               org.freedesktop.Sdk/x86_64/22.08
-# de.haeckerfelix.Shortwave                           org.gnome.Platform/x86_64/43
-# dev.geopjr.Collision                                org.gnome.Platform/x86_64/43
-# fr.romainvigier.MetadataCleaner                     org.gnome.Platform/x86_64/43
-# io.github.endless_sky.endless_sky                   org.freedesktop.Platform/x86_64/22.08
-# net.sourceforge.Klavaro                             org.freedesktop.Platform/x86_64/21.08
-# nz.mega.MEGAsync                                    org.kde.Platform/x86_64/5.15-21.08
-# org.gnome.Boxes                                     org.gnome.Platform/x86_64/43
-# org.gnome.Calculator                                org.gnome.Platform/x86_64/43
-# org.gnome.Evince                                    org.fedoraproject.Platform/x86_64/f37
-# org.gnucash.GnuCash                                 org.gnome.Platform/x86_64/42 flatpak install -y "nz.mega.MEGAsync"
+  flatpak install -y "com.discordapp.Discord"
+  flatpak install -y "io.github.endless_sky.endless_sky" 
+  flatpak install -y "net.sourceforge.Klavaro" 
+  flatpak install -y "nz.mega.MEGAsync"
 }
 
 configure_gnome(){
-  # extensions
-  echo 'used to display old school icons on the menu bar (ie MEGASync)'
-  echo 'https://extensions.gnome.org/extension/615/appindicator-support/'
-  echo 'small tweaks (hide the applications and accessabilty icons'
-  echo 'https://extensions.gnome.org/extension/3843/just-perfection/'
-  echo 'for managing podman containers in menu bar'
-  echo 'https://extensions.gnome.org/extension/1500/containers/'
-  echo 'https://extensions.gnome.org/extension/4135/espresso/'
-  echo 'https://extensions.gnome.org/extension/3193/blur-my-shell/'
-  echo 'https://extensions.gnome.org/extension/750/openweather/'
-  echo 'https://extensions.gnome.org/extension/906/sound-output-device-chooser/'
-  echo 'https://extensions.gnome.org/extension/21/workspace-indicator/'
-  echo 'https://extensions.gnome.org/extension/4812/wallpaper-switcher/'
-
-  # load gnome terminal profiles
-  # dconf load /org/gnome/terminal/legacy/profiles:/ < ./configs/gnome-terminal-profiles.dconf
-
   # pop shell highlight color
   dconf write "/org/gnome/shell/extensions/pop-shell/hint-color-rgba" "'rgb(115,206,244)'"
 
@@ -120,40 +110,6 @@ configure_gnome(){
   dconf write "/org/gnome/desktop/calendar/show-weekdate" "true"
   dconf write "/org/gnome/mutter/workspaces-only-on-primary" "true"
 
-  # keyboard bindings : unset
-  # dconf write "/org/gnome/desktop/wm/keybindings/begin-move" "@as []"
-  # dconf write "/org/gnome/desktop/wm/keybindings/begin-resize" "@as []"
-  # dconf write "/org/gnome/desktop/wm/keybindings/close" "@as []"
-  # dconf write "/org/gnome/desktop/wm/keybindings/cycle-group" "@as []"
-  # dconf write "/org/gnome/desktop/wm/keybindings/cycle-group-backward" "@as []"
-  # dconf write "/org/gnome/desktop/wm/keybindings/cycle-windows" "@as []"
-  # dconf write "/org/gnome/desktop/wm/keybindings/cycle-windows-backward" "@as []"
-  # dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-last" "@as []"
-  # dconf write "/org/gnome/desktop/wm/keybindings/switch-input-source" "@as []"
-  # dconf write "/org/gnome/desktop/wm/keybindings/switch-input-source-backward" "@as []"
-  # dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-last" "@as []"
-  # dconf write "/org/gnome/shell/keybindings/focus-active-notification" "@as []"
-  # dconf write "/org/gnome/mutter/keybindings/toggle-tiled-left" "@as []"
-  # dconf write "/org/gnome/mutter/keybindings/toggle-tiled-right" "@as []"
-  # dconf write "/org/gnome/settings-daemon/plugins/media-keys/area-screenshot-clip" "@as []"
-  # dconf write "/org/gnome/settings-daemon/plugins/media-keys/logout" "@as []"
-  # dconf write "/org/gnome/settings-daemon/plugins/media-keys/magnifier" "@as []"
-  # dconf write "/org/gnome/settings-daemon/plugins/media-keys/screencast" "@as []"
-  # dconf write "/org/gnome/settings-daemon/plugins/media-keys/screenreader" "@as []"
-  # dconf write "/org/gnome/settings-daemon/plugins/media-keys/screenshot-clip" "@as []"
-  # dconf write "/org/gnome/settings-daemon/plugins/media-keys/window-screenshot-clip" "@as []"
-  # dconf write "/org/gnome/shell/extensions/pop-shell/activate-launcher" "@as []"
-  # dconf write "/org/gnome/shell/extensions/pop-shell/pop-monitor-down" "@as []"
-  # dconf write "/org/gnome/shell/extensions/pop-shell/pop-monitor-left" "@as []"
-  # dconf write "/org/gnome/shell/extensions/pop-shell/pop-monitor-right" "@as []"
-  # dconf write "/org/gnome/shell/extensions/pop-shell/pop-monitor-up" "@as []"
-  # dconf write "/org/gnome/shell/extensions/pop-shell/pop-workspace-down" "@as []"
-  # dconf write "/org/gnome/shell/extensions/pop-shell/pop-workspace-up" "@as []"
-  # dconf write "/org/gnome/shell/extensions/pop-shell/toggle-floating" "@as []"
-  # dconf write "/org/gnome/shell/extensions/pop-shell/toggle-stacking" "@as []"
-  # dconf write "/org/gnome/shell/extensions/pop-shell/toggle-stacking-global" "@as []"
-  # dconf write "/org/gnome/shell/extensions/pop-shell/toggle-tiling" "@as []"
-  
   # keyboard bindings : set
   dconf write "/org/gnome/desktop/wm/keybindings/close" "['<Super>q']"
   dconf write "/org/gnome/desktop/wm/keybindings/minimize" "['<Super>w']"
@@ -214,17 +170,81 @@ configure_gnome(){
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/command" "'shutdown -h now'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/name" "'Power-Off'"
 
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/binding" "'<Super>t'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'env WINIT_UNIX_BACKEND=x11 alacritty -e bash -c \"SHELL=/bin/fish toolbox enter\"'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'Toolbox'"
-
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/binding" "'<Super><Shift>t'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/command" "'env WINIT_UNIX_BACKEND=x11 alacritty --config-file /var/home/mid/.config/alacritty/alacritty-ostree.yml'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/name" "'OSTree'"
-
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/binding" "'<Super><Shift>b'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/command" "'flatpak run com.google.Chrome'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/name" "'Chrome'"
+
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/binding" "'<Super>t'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'env WINIT_UNIX_BACKEND=x11 alacritty -e bash -c \"SHELL=/bin/fish\'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'Toolbox'"
+
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/binding" "'<Super><Shift>t'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/command" "'env WINIT_UNIX_BACKEND=x11 alacritty'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/name" "'OSTree'"
+
 }
 
 menu
+
+# extensions
+  # echo 'used to display old school icons on the menu bar (ie MEGASync)'
+  # echo 'https://extensions.gnome.org/extension/615/appindicator-support/'
+  # echo 'small tweaks (hide the applications and accessabilty icons'
+  # echo 'https://extensions.gnome.org/extension/3843/just-perfection/'
+  # echo 'for managing podman containers in menu bar'
+  # echo 'https://extensions.gnome.org/extension/1500/containers/'
+  # echo 'https://extensions.gnome.org/extension/4135/espresso/'
+  # echo 'https://extensions.gnome.org/extension/3193/blur-my-shell/'
+  # echo 'https://extensions.gnome.org/extension/750/openweather/'
+  # echo 'https://extensions.gnome.org/extension/906/sound-output-device-chooser/'
+  # echo 'https://extensions.gnome.org/extension/21/workspace-indicator/'
+  # echo 'https://extensions.gnome.org/extension/4812/wallpaper-switcher/'
+
+# SILVERBLUE
+  # dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/binding" "'<Super>t'"
+  # dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'env WINIT_UNIX_BACKEND=x11 alacritty -e bash -c \"SHELL=/bin/fish toolbox enter\"'"
+  # dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'Toolbox'"
+
+  # dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/binding" "'<Super><Shift>t'"
+  # dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/command" "'env WINIT_UNIX_BACKEND=x11 alacritty --config-file /var/home/mid/.config/alacritty/alacritty-ostree.yml'"
+  # dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/name" "'OSTree'"
+
+# keyboard bindings : unset
+  # dconf write "/org/gnome/desktop/wm/keybindings/begin-move" "@as []"
+  # dconf write "/org/gnome/desktop/wm/keybindings/begin-resize" "@as []"
+  # dconf write "/org/gnome/desktop/wm/keybindings/close" "@as []"
+  # dconf write "/org/gnome/desktop/wm/keybindings/cycle-group" "@as []"
+  # dconf write "/org/gnome/desktop/wm/keybindings/cycle-group-backward" "@as []"
+  # dconf write "/org/gnome/desktop/wm/keybindings/cycle-windows" "@as []"
+  # dconf write "/org/gnome/desktop/wm/keybindings/cycle-windows-backward" "@as []"
+  # dconf write "/org/gnome/desktop/wm/keybindings/move-to-workspace-last" "@as []"
+  # dconf write "/org/gnome/desktop/wm/keybindings/switch-input-source" "@as []"
+  # dconf write "/org/gnome/desktop/wm/keybindings/switch-input-source-backward" "@as []"
+  # dconf write "/org/gnome/desktop/wm/keybindings/switch-to-workspace-last" "@as []"
+  # dconf write "/org/gnome/shell/keybindings/focus-active-notification" "@as []"
+  # dconf write "/org/gnome/mutter/keybindings/toggle-tiled-left" "@as []"
+  # dconf write "/org/gnome/mutter/keybindings/toggle-tiled-right" "@as []"
+  # dconf write "/org/gnome/settings-daemon/plugins/media-keys/area-screenshot-clip" "@as []"
+  # dconf write "/org/gnome/settings-daemon/plugins/media-keys/logout" "@as []"
+  # dconf write "/org/gnome/settings-daemon/plugins/media-keys/magnifier" "@as []"
+  # dconf write "/org/gnome/settings-daemon/plugins/media-keys/screencast" "@as []"
+  # dconf write "/org/gnome/settings-daemon/plugins/media-keys/screenreader" "@as []"
+  # dconf write "/org/gnome/settings-daemon/plugins/media-keys/screenshot-clip" "@as []"
+  # dconf write "/org/gnome/settings-daemon/plugins/media-keys/window-screenshot-clip" "@as []"
+  # dconf write "/org/gnome/shell/extensions/pop-shell/activate-launcher" "@as []"
+  # dconf write "/org/gnome/shell/extensions/pop-shell/pop-monitor-down" "@as []"
+  # dconf write "/org/gnome/shell/extensions/pop-shell/pop-monitor-left" "@as []"
+  # dconf write "/org/gnome/shell/extensions/pop-shell/pop-monitor-right" "@as []"
+  # dconf write "/org/gnome/shell/extensions/pop-shell/pop-monitor-up" "@as []"
+  # dconf write "/org/gnome/shell/extensions/pop-shell/pop-workspace-down" "@as []"
+  # dconf write "/org/gnome/shell/extensions/pop-shell/pop-workspace-up" "@as []"
+  # dconf write "/org/gnome/shell/extensions/pop-shell/toggle-floating" "@as []"
+  # dconf write "/org/gnome/shell/extensions/pop-shell/toggle-stacking" "@as []"
+  # dconf write "/org/gnome/shell/extensions/pop-shell/toggle-stacking-global" "@as []"
+  # dconf write "/org/gnome/shell/extensions/pop-shell/toggle-tiling" "@as []"
+  
+# load gnome terminal profiles
+  # dconf load /org/gnome/terminal/legacy/profiles:/ < ./configs/gnome-terminal-profiles.dconf
+
+
+
