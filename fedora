@@ -72,6 +72,7 @@ dnf_installs(){
   # neovim
   sudo dnf -y install neovim
   sudo dnf -y install gcc "gcc-c++" glibc-all-langpacks
+  sudo dnf -y install openssl openssl-devel
 
   # fish
   sudo dnf -y install fish
