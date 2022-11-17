@@ -71,6 +71,8 @@ dnf_installs(){
 
   # neovim
   sudo dnf -y install neovim
+
+  # dev build dependencies ofr rust
   sudo dnf -y install gcc "gcc-c++" glibc-all-langpacks
   sudo dnf -y install openssl openssl-devel
 
