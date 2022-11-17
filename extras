@@ -170,17 +170,17 @@ configure_gnome(){
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/command" "'shutdown -h now'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/name" "'Power-Off'"
 
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/binding" "'<Super><Shift>b'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/command" "'flatpak run com.google.Chrome'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/name" "'Chrome'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/binding" "'<Super><Shift>b'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'flatpak run com.google.Chrome'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'Chrome'"
 
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/binding" "'<Super>t'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'env WINIT_UNIX_BACKEND=x11 alacritty -e bash -c \"SHELL=/bin/fish\'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'Toolbox'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/binding" "'<Super>t'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/command" "'env WINIT_UNIX_BACKEND=x11 alacritty -e bash -c \"SHELL=/bin/fish\"'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/name" "'Toolbox'"
 
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/binding" "'<Super><Shift>t'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/command" "'env WINIT_UNIX_BACKEND=x11 alacritty'"
-  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/name" "'OSTree'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/binding" "'<Super><Shift>t'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/command" "'env WINIT_UNIX_BACKEND=x11 alacritty'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/name" "'OSTree'"
 
 }
 
