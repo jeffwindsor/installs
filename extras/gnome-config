@@ -1,84 +1,5 @@
 #!/usr/bin/env bash
 
-menu(){
-  echo -ne "
-
-███████╗██╗  ██╗████████╗██████╗  █████╗ ███████╗
-██╔════╝╚██╗██╔╝╚══██╔══╝██╔══██╗██╔══██╗██╔════╝
-█████╗   ╚███╔╝    ██║   ██████╔╝███████║███████╗
-██╔══╝   ██╔██╗    ██║   ██╔══██╗██╔══██║╚════██║
-███████╗██╔╝ ██╗   ██║   ██║  ██║██║  ██║███████║
-╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
-"
-echo " c) Configure Gnome"
-echo " g) Add My Git Repos"
-echo " s) SSH Keygen"
-echo " i) Install Flatpaks"
-echo " r) Rust"
-
-echo ""
-echo " Select Step:  "
-read -r step
-case $step in
-  c) configure_gnome;;
-  g) git_clones;;
-  s) ssh_keygen;;
-  i) install_flatpaks;;
-  r) install_rust;;
-  *) echo "Not a valid option"
-     exit 1
-     ;;
-esac
-}
-
-git_clones(){
-  mkdir -p $HOME/Source
-  mkdir -p $HOME/Source/gitlab.com/
-  mkdir -p $HOME/Source/github.com/
-
-  git clone git@github.com:jeffwindsor/dotfiles.git $HOME/Source/github.com/jeffwindsor/dotfiles
-  git clone git@github.com:jeffwindsor/hledger-data.git $HOME/Source/github.com/jeffwindsor/hledger-data
-  git clone git@github.com:jeffwindsor/installs.git $HOME/Source/github.com/jeffwindsor/installs
-  git clone git@github.com:jeffwindsor/startpage.git $HOME/Source/github.com/jeffwindsor/startpage
-}
-
-ssh_keygen(){
-  if [[ ! -f $HOME/.ssh/github.com ]]; then
-      ssh-keygen -t ed25519 -f $HOME/.ssh/github.com -C "jeff.windsor@gmail.com"
-      xdg-open https://github.com/settings/keys/ &
-  fi
-
-#  if [[ ! -f $HOME/.ssh/gitlab.gnome.org ]]; then
-#      ssh-keygen -t ed25519 -f $HOME/.ssh/gitlab.gnome.org -C "jeff.windsor+gnome@gmail.com"
-#      xdg-open https://gitlab.gnome.org/-/profile/keys/ &
-#  fi
-
-}
-
-install_rust(){
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-  cargo install cargo-update
-  sudo dnf -y install cmake && cargo install starship
-  cargo install topgrade
-}
-
-install_flatpaks(){
-  # add the flathub repo if it does nto exist (looking at you fedora)
-  flatpak remote-add --if-not-exists flathubs https://flathub.org/repo/flathub.flatpakrepo
-
-  flatpak install -y "com.valvesoftware.Steam"
-  flatpak install -y "com.github.tchx84.Flatseal"
-  flatpak install -y "com.google.Chrome"
-  flatpak install -y "com.mattjakeman.ExtensionManager"
-  flatpak install -y "com.spotify.Client"
-  flatpak install -y "com.visualstudio.code"
-  flatpak install -y "com.discordapp.Discord"
-  flatpak install -y "io.github.endless_sky.endless_sky" 
-  flatpak install -y "net.sourceforge.Klavaro" 
-  flatpak install -y "nz.mega.MEGAsync"
-}
-
-configure_gnome(){
   # pop shell highlight color
   dconf write "/org/gnome/shell/extensions/pop-shell/hint-color-rgba" "'rgb(115,206,244)'"
 
@@ -171,10 +92,6 @@ configure_gnome(){
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/binding" "'<Super><Shift>t'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/command" "'env WINIT_UNIX_BACKEND=x11 alacritty'"
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/name" "'OSTree'"
-
-}
-
-menu
 
 # extensions
   # echo 'used to display old school icons on the menu bar (ie MEGASync)'
