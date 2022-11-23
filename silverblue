@@ -14,29 +14,24 @@ menu(){
 ███████║██║███████╗╚████╔╝ ███████╗██║  ██║██████╔╝███████╗╚██████╔╝███████╗
 ╚══════╝╚═╝╚══════╝ ╚═══╝  ╚══════╝╚═╝  ╚═╝╚═════╝ ╚══════╝ ╚═════╝ ╚══════╝
 
-o) OS Setup  (Reboots)
-u) OS Update (Reboots)
-s) Userland Setup
-l) Userland Update
+1) OS Upgrade (Reboots)
+2) OS Setup (Reboots)
+3) Userland Setup (Toolbox)
 
 Select Step:  "
     read -r step
     case $step in
-      l) 
-        dnf_update
-        ;;
-      u)
-        rpm_ostree_update
-        systemctl reboot
-        ;;
-      o) 
-        toolbox create
+      1) 
         rpm_ostree_update
         rpm_ostree_setup
+        systemctl reboot
+        ;;
+      2)
+        toolbox create
         rpm_ostree_overlays
         systemctl reboot
         ;;
-      s)
+      3)
         dnf_setup
         dnf_update
         dnf_installs
@@ -100,16 +95,50 @@ dnf_installs(){
   # fish
   sudo dnf -y install fish
 
-  # fish-plugins
-  curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
-  fisher install PatrickF1/fzf.fish
-  fisher install gazorby/fish-exa
-
   # rustup
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
   cargo install cargo-update
   sudo dnf -y install cmake && cargo install starship
   cargo install topgrade
+
+  # keyboard bindings : custom
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings" "[\
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/']"
+
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding" "'<Primary><Super>S'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command" "'systemctl suspend'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name" "'Suspend'"
+
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/binding" "'<Primary><Super>L'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command" "'gnome-session-quit --logout --no-prompt'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/name" "'Logout'"
+
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/binding" "'<Primary><Super>R'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/command" "'shutdown -r now'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/name" "'Reboot'"
+
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/binding" "'<Primary><Super>P'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/command" "'shutdown -h now'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/name" "'Power-Off'"
+
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/binding" "'<Super><Shift>b'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'flatpak run com.google.Chrome'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'Chrome'"
+
+   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/binding" "'<Super>t'"
+   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/command" "'env WINIT_UNIX_BACKEND=x11 alacritty -e bash -c \"SHELL=/bin/fish toolbox enter\"'"
+   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/name" "'Toolbox'"
+
+   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/binding" "'<Super><Shift>t'"
+   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/command" "'env WINIT_UNIX_BACKEND=x11 alacritty'"
+   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/name" "'OSTree'"
+
 
   #====================================================================================# 
   # manual tasks

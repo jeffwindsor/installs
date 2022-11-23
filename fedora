@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
 cd "$(dirname "${0}")"
 
-menu(){
-  while :
-  do
-    clear
-    echo -ne "
+clear
+echo -ne "
 
 ███████╗███████╗██████╗  ██████╗ ██████╗  █████╗ 
 ██╔════╝██╔════╝██╔══██╗██╔═══██╗██╔══██╗██╔══██╗
@@ -14,76 +11,85 @@ menu(){
 ██║     ███████╗██████╔╝╚██████╔╝██║  ██║██║  ██║
 ╚═╝     ╚══════╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
 
-o) Setup
-u) Update
+"
+# update dnf config
+echo "max_parallel_downloads=10" | sudo tee -a /etc/dnf/dnf.conf
+echo "defaultyes=True" | sudo tee -a /etc/dnf/dnf.conf
+echo "fastestmirror=True" | sudo tee -a /etc/dnf/dnf.conf
 
-Select Step:  "
-    read -r step
-    case $step in
-      u) 
-        dnf_update
-        ;;
-      s)
-        dnf_setup
-        dnf_update
-        dnf_installs
-        ;;
-      *)
-        echo "Not a valid option"
-        exit 1
-        ;;
-    esac
-  done
-}
+# add rpm fusion repositories
+sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+#
+# clis
+sudo dnf -y install alacritty 
+sudo dnf -y install bat 
+sudo dnf -y install exa
+sudo dnf -y install fd-find
+sudo dnf -y install fortune-mod
+sudo dnf -y install fzf
+sudo dnf -y install hledger
+sudo dnf -y install ripgrep
+#sudo dnf -y install rmlint
+#sudo dnf -y install starship
+sudo dnf -y install stow
+sudo dnf -y install tealdeer
 
-dnf_setup(){
-  # update dnf config
-  echo "max_parallel_downloads=10" | sudo tee -a /etc/dnf/dnf.conf
-  echo "defaultyes=True" | sudo tee -a /etc/dnf/dnf.conf
-  echo "fastestmirror=True" | sudo tee -a /etc/dnf/dnf.conf
+# tiling
+sudo dnf -y install pop-shell
 
-  # add rpm fusion repositories
-  sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-  sudo dnf -y install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-}
+# neovim
+sudo dnf -y install neovim
 
-dnf_update(){
-  sudo dnf -y upgrade
-}
+# dev build dependencies ofr rust
+sudo dnf -y install gcc "gcc-c++" glibc-all-langpacks
+sudo dnf -y install openssl openssl-devel
 
-dnf_installs(){
-  # clis
-  sudo dnf -y install alacritty 
-  sudo dnf -y install bat 
-  sudo dnf -y install exa
-  sudo dnf -y install fd-find
-  sudo dnf -y install fortune-mod
-  sudo dnf -y install fzf
-  sudo dnf -y install hledger
-  sudo dnf -y install ripgrep
-  #sudo dnf -y install rmlint
-  #sudo dnf -y install starship
-  sudo dnf -y install stow
-  sudo dnf -y install tealdeer
+# fish
+sudo dnf -y install fish
 
-  # tiling
-  sudo dnf -y install pop-shell
+  # keyboard bindings : custom
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings" "[\
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/']"
 
-  # neovim
-  sudo dnf -y install neovim
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding" "'<Primary><Super>S'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command" "'systemctl suspend'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name" "'Suspend'"
 
-  # dev build dependencies ofr rust
-  sudo dnf -y install gcc "gcc-c++" glibc-all-langpacks
-  sudo dnf -y install openssl openssl-devel
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/binding" "'<Primary><Super>L'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/command" "'gnome-session-quit --logout --no-prompt'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/name" "'Logout'"
 
-  # fish
-  sudo dnf -y install fish
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/binding" "'<Primary><Super>R'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/command" "'shutdown -r now'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/name" "'Reboot'"
 
-  #====================================================================================# 
-  # manual tasks
-  #====================================================================================# 
-  echo "* Login into Lastpass"
-  echo "* Goto Github and add public ssh key"
-}
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/binding" "'<Primary><Super>P'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/command" "'shutdown -h now'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/name" "'Power-Off'"
 
-menu
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/binding" "'<Super><Shift>b'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/command" "'flatpak run com.google.Chrome'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/name" "'Chrome'"
+
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/binding" "'<Super>t'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/command" "'env WINIT_UNIX_BACKEND=x11 alacritty -e fish'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/name" "'Toolbox'"
+
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/binding" "'<Super><Shift>t'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/command" "'env WINIT_UNIX_BACKEND=x11 alacritty'"
+  dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/name" "'OSTree'"
+
+#====================================================================================# 
+# manual tasks
+#====================================================================================# 
+echo "* Login into Lastpass"
+echo "* Goto Github and add public ssh key"
+
+sudo dnf -y upgrade
