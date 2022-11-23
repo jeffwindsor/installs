@@ -29,6 +29,7 @@ Select Step:  "
       2)
         toolbox create
         rpm_ostree_overlays
+        source ./extras/flatpaks
         systemctl reboot
         ;;
       3)
@@ -94,13 +95,14 @@ dnf_installs(){
 
   # fish
   sudo dnf -y install fish
+  (./extras/fisher)
 
-  # rustup
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-  cargo install cargo-update
-  sudo dnf -y install cmake && cargo install starship
-  cargo install topgrade
+  # rust
+  sudo dnf -y install openssl openssl-devel 
+  source ./extras/rust
 
+  source ./extras/keygen
+  source ./extras/gnome-config
   # keyboard bindings : custom
   dconf write "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings" "[\
       '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', \
