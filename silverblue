@@ -2,10 +2,7 @@
 cd "$(dirname "${0}")"
 
 menu(){
-  while :
-  do
-    clear
-    echo -ne "
+echo -ne "
 
 ███████╗██╗██╗    ██╗   ██╗███████╗██████╗ ██████╗ ██╗     ██╗   ██╗███████╗
 ██╔════╝██║██║    ██║   ██║██╔════╝██╔══██╗██╔══██╗██║     ██║   ██║██╔════╝
@@ -19,30 +16,29 @@ menu(){
 3) Userland Setup (Toolbox)
 
 Select Step:  "
-    read -r step
-    case $step in
-      1) 
-        rpm_ostree_update
-        rpm_ostree_setup
-        systemctl reboot
-        ;;
-      2)
-        toolbox create
-        rpm_ostree_overlays
-        source ./extras/flatpaks
-        systemctl reboot
-        ;;
-      3)
-        dnf_setup
-        dnf_update
-        dnf_installs
-        ;;
-      *)
-        echo "Not a valid option"
-        exit 1
-        ;;
-    esac
-  done
+  read -r step
+  case $step in
+    1) 
+      rpm_ostree_update
+      rpm_ostree_setup
+      systemctl reboot
+      ;;
+    2)
+      toolbox create
+      rpm_ostree_overlays
+      source ./extras/flatpaks
+      systemctl reboot
+      ;;
+    3)
+      dnf_setup
+      dnf_update
+      dnf_installs
+      ;;
+    *)
+      echo "Not a valid option"
+      exit 1
+      ;;
+  esac
 }
 
 rpm_ostree_update(){
