@@ -4,7 +4,5 @@
   mkdir -p $HOME/Source/gitlab.com/
   mkdir -p $HOME/Source/github.com/
 
-  git clone git@github.com:jeffwindsor/dotfiles.git $HOME/Source/github.com/jeffwindsor/dotfiles
-  git clone git@github.com:jeffwindsor/hledger-data.git $HOME/Source/github.com/jeffwindsor/hledger-data
   git clone git@github.com:jeffwindsor/installs.git $HOME/Source/github.com/jeffwindsor/installs
   git clone git@github.com:jeffwindsor/startpage.git $HOME/Source/github.com/jeffwindsor/startpage

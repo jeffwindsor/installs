@@ -11,25 +11,20 @@ echo -ne "
 ███████║██║███████╗╚████╔╝ ███████╗██║  ██║██████╔╝███████╗╚██████╔╝███████╗
 ╚══════╝╚═╝╚══════╝ ╚═══╝  ╚══════╝╚═╝  ╚═╝╚═════╝ ╚══════╝ ╚═════╝ ╚══════╝
 
-1) OS Upgrade (Reboots)
-2) OS Setup (Reboots)
-3) Userland Setup (Toolbox)
+o) Os-Tree Setup (Reboots)
+u) Userland Setup
 
 Select Step:  "
   read -r step
   case $step in
-    1) 
+    o) 
       rpm_ostree_update
-      rpm_ostree_setup
-      systemctl reboot
-      ;;
-    2)
-      toolbox create
       rpm_ostree_overlays
-      source ./extras/flatpaks
       systemctl reboot
       ;;
-    3)
+    u)
+      source ./extras/flatpaks
+      toolbox create
       dnf_setup
       dnf_update
       dnf_installs
@@ -43,13 +38,6 @@ Select Step:  "
 
 rpm_ostree_update(){
   sudo rpm-ostree upgrade
-}
-
-rpm_ostree_setup(){
-  # set rpm ostree updates to automatic
-  sudo cp ./rpm-ostreed.conf /etc
-  rpm-ostree reload
-  systemctl enable rpm-ostreed-automatic.timer --now
 }
 
 rpm_ostree_overlays(){
@@ -81,9 +69,14 @@ dnf_installs(){
   sudo dnf -y install hledger
   sudo dnf -y install ripgrep
   #sudo dnf -y install rmlint
-  #sudo dnf -y install starship
-  sudo dnf -y install stow
   sudo dnf -y install tealdeer
+
+  # dotfilesF
+  sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply https://github.com/jeffwindsor/dotfiles-chezmoi
+
+  #helix editor
+  sudo dnf -y copr enable varlad/helix
+  sudo dnf -y install helix
 
   # neovim
   sudo dnf -y install neovim
